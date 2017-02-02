@@ -17,14 +17,15 @@ module test_unit_test;
   //===================================
   bit       bit_i;
   bit [7:0] byte_i;
-  wire       bit_o;
+  wire       bit0_o, bit1_o;
   wire [7:0] byte_o;
 
   `CLK_RESET_FIXTURE(5, 11)
 
   test my_test(clk,
                rst_n,
-               bit_o,
+               bit0_o,
+               bit1_o,
                byte_o,
                bit_i,
                byte_i);
@@ -44,7 +45,7 @@ module test_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
-
+    reset();
   endtask
 
 
@@ -80,9 +81,18 @@ module test_unit_test;
   //  Repeated: ONCE, TIMES(n), `CONSECUTIVELY()
 
   // Temporal expectation
-  `SVTEST(immediate_expectation)
-    `EXPECT(my_test,bit_o)
+  `SVTEST(immediate_failed_expect_x)
+    `EXPECT(my_test,bit0_o)
+  `SVTEST_END
+
+  `SVTEST(immediate_failed_expect_w_expr)
+    `EXPECT(my_test,bit0_o)
       `EQ(0)
+  `SVTEST_END
+
+  `SVTEST(immediate_passed_expect_w_expr)
+    `EXPECT(my_test,bit1_o)
+      `EQ(1)
   `SVTEST_END
 
 // `SVTEST(at_expectation)
