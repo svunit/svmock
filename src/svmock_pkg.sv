@@ -1,4 +1,6 @@
 `define EXPECT(MODULE,EXPR) \
+  nextSamplePoint(); \
+  `INIT \
   svmock_pkg::_focus = MODULE.EXPR``_catcher; \
   svmock_pkg::_focus._expect();
 
@@ -7,7 +9,8 @@
 
 `define ONCE
 
-`define AT(n)
+`define AT(N) \
+  svmock_pkg::_focus._at(N);
 
 `define EVALUATE \
   nextSamplePoint(); \
@@ -15,11 +18,18 @@
     svmock_pkg::_catcher[i]._evaluate(); \
   end
 
+`define INIT \
+  foreach (svmock_pkg::_catcher[i]) begin \
+    svmock_pkg::_catcher[i]._init(); \
+  end \
+
 `include "svunit_defines.svh"
 
 package svmock_pkg;
   parameter WIDTH = 256;
+
   typedef logic [WIDTH-1:0] vector_t;
+
   typedef struct {
     vector_t exp;
     int at;
@@ -28,7 +38,7 @@ package svmock_pkg;
 
   class catcher;
     vector_t _history [$];
-    vector_t _expects [$];
+    expectation_t _expectation [$];
 
     function new();
     endfunction
@@ -38,23 +48,33 @@ package svmock_pkg;
     endfunction
 
     function void _expect();
-      _expects.push_back('hx);
+      expectation_t _e;
+      _e = '{ 'hx, 0 };
+      _expectation.push_back(_e);
     endfunction
 
     function void _eq(vector_t _val);
-      _expects[_expects.size()-1] = _val;
+      _expectation[_expectation.size()-1].exp = _val;
+    endfunction
+
+    function void _at(vector_t _n);
+      _expectation[_expectation.size()-1].at = _n;
     endfunction
 
     task _evaluate();
-      foreach (_expects[i]) begin
-        `FAIL_UNLESS(_expects[i] === _history[i]);
+      foreach (_expectation[i]) begin
+        if (_history.size()-1 < _expectation[i].at) begin
+          `FAIL_IF(1)
+        end
+        else begin
+          `FAIL_UNLESS(_expectation[i].exp === _history[_expectation[i].at]);
+        end
       end
-      _init();
     endtask
 
     function void _init();
       _history.delete();
-      _expects.delete();
+      _expectation.delete();
     endfunction
   endclass
 

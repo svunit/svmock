@@ -15,20 +15,21 @@ module test_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  bit       bit_i;
-  bit [7:0] byte_i;
+  logic       bit0_i, bit1_i;
+  logic [7:0] byte_i;
   wire       bit0_o, bit1_o;
   wire [7:0] byte_o;
 
   `CLK_RESET_FIXTURE(5, 11)
 
-  test my_test(clk,
-               rst_n,
-               bit0_o,
-               bit1_o,
-               byte_o,
-               bit_i,
-               byte_i);
+  test my_test(.clk(clk),
+               .rst_n(rst_n),
+               .bit0_i(bit0_i),
+               .bit1_i(bit1_i),
+               .bit0_o(bit0_o),
+               .bit1_o(bit1_o),
+               .byte_o(byte_o),
+               .byte_i(byte_i));
 
 
   //===================================
@@ -45,6 +46,9 @@ module test_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
+    bit0_i = 1;
+    bit1_i = 1;
+    byte_i = 0;
     reset();
   endtask
 
@@ -56,7 +60,6 @@ module test_unit_test;
   task teardown();
     svunit_ut.teardown();
     /* Place Teardown Code Here */
-
     `EVALUATE
   endtask
 
@@ -83,16 +86,31 @@ module test_unit_test;
   // Temporal expectation
   `SVTEST(immediate_failed_expect_x)
     `EXPECT(my_test,bit0_o)
+    step();
   `SVTEST_END
 
   `SVTEST(immediate_failed_expect_w_expr)
     `EXPECT(my_test,bit0_o)
       `EQ(0)
+    step();
   `SVTEST_END
 
   `SVTEST(immediate_passed_expect_w_expr)
     `EXPECT(my_test,bit1_o)
       `EQ(1)
+    step();
+  `SVTEST_END
+
+  `SVTEST(at_failed_expect)
+    `EXPECT(my_test,bit1_o)
+      `EQ(0)
+      `AT(2)
+
+    step(1);
+    nextSamplePoint();
+    bit1_i = 0;
+
+    step(2);
   `SVTEST_END
 
 // `SVTEST(at_expectation)
