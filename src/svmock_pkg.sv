@@ -18,14 +18,22 @@
 `include "svunit_defines.svh"
 
 package svmock_pkg;
-  class catcher #(int WIDTH=256);
-    logic [WIDTH-1:0] _history [$];
-    logic [WIDTH-1:0] _expects [$];
+  parameter WIDTH = 256;
+  typedef logic [WIDTH-1:0] vector_t;
+  typedef struct {
+    vector_t exp;
+    int at;
+  } expectation_t;
+
+
+  class catcher;
+    vector_t _history [$];
+    vector_t _expects [$];
 
     function new();
     endfunction
 
-    function sample(logic [WIDTH-1:0] _s);
+    function void sample(vector_t _s);
       _history.push_back(_s);
     endfunction
 
@@ -33,7 +41,7 @@ package svmock_pkg;
       _expects.push_back('hx);
     endfunction
 
-    function void _eq(logic [WIDTH-1:0] _val);
+    function void _eq(vector_t _val);
       _expects[_expects.size()-1] = _val;
     endfunction
 
