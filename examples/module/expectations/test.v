@@ -8,4 +8,11 @@ module test(
   output reg [7:0] byte_o
 );
 
+import svmock_pkg::*;
+
+catcher bit_o_catcher = new();
+initial begin
+  svmock_pkg::_catcher.push_back(bit_o_catcher);
+end
+
 endmodule

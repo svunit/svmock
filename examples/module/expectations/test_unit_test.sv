@@ -1,9 +1,11 @@
+`include "svmock_pkg.sv"
 `include "svunit_defines.svh"
 `include "test.v"
 `include "clk_and_reset.svh"
 
 module test_unit_test;
   import svunit_pkg::svunit_testcase;
+  import svmock_pkg::*;
 
   string name = "test_ut";
   svunit_testcase svunit_ut;
@@ -54,6 +56,7 @@ module test_unit_test;
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
+    `EVALUATE
   endtask
 
 
@@ -72,16 +75,23 @@ module test_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
-  // Temporal expectation
-  `SVTEST(simple_expectation)
-    `EXPECT(my_test, bit_o)
-      `EQ(0);             // LT(), EQ(), GT(), BETWEEN(a,b), WITHIN([a..b])
-      `ONCE();            // TIMES(n)
-                          //    `CONSECUTIVELY()
-      `AT(8);             // AT(a), AFTER(a), BEFORE(b), WITHIN(a,b)
+  //  Value: LT(), NEQ(), EQ(), GT(), BETWEEN(a,b), WITHIN([a..b])
+  //  When: AT(a), AFTER(a), BEFORE(b), WITHIN(a,b), BECAUSE_OF(expr)
+  //  Repeated: ONCE, TIMES(n), `CONSECUTIVELY()
 
-    step(9);
+  // Temporal expectation
+  `SVTEST(immediate_expectation)
+    `EXPECT(my_test,bit_o)
+      `EQ(0)
   `SVTEST_END
+
+// `SVTEST(at_expectation)
+//   `EXPECT(my_test, bit_o)
+//     `EQ(0)
+//     `AT(8)
+//
+//   step(9);
+// `SVTEST_END
 
   `SVUNIT_TESTS_END
 
