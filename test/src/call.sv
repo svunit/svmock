@@ -1,0 +1,3 @@
+class call;
+
+endclass
