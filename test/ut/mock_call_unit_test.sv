@@ -1,4 +1,6 @@
 `include "svunit_defines.svh"
+
+`include "svmock_pkg.sv"
 `include "call.sv"
 `include "mock_call.sv"
 
