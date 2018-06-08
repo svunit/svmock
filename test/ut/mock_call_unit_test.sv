@@ -1,6 +1,8 @@
 `include "svunit_defines.svh"
 
 `include "svmock_pkg.sv"
+import svmock_pkg::*;
+
 `include "call.sv"
 `include "mock_call.sv"
 
@@ -35,6 +37,7 @@ module mock_call_unit_test;
     svunit_ut.setup();
     /* Place Setup Code Here */
 
+    ut.clear();
   endtask
 
 
@@ -64,6 +67,43 @@ module mock_call_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
+  // unit tests for expect_call. here's a template from
+  // googlemock as a guide...
+  //
+  // EXPECT_CALL(mock_object, Method(argument-matchers))
+  //     .With(multi-argument-matchers)
+  //     .Times(cardinality)
+  //     .InSequence(sequences)
+  //     .After(expectations)
+  //     .WillOnce(action)
+  //     .WillRepeatedly(action)
+  //     .RetiresOnSaturation();
+
+  `SVTEST(TimesWithExact)
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).Exactly(2);
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_UNLESS(ut.check());
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(TimesWithAtLeast)
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).AtLeast(2);
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_UNLESS(ut.check());
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
 
 
   `SVUNIT_TESTS_END
