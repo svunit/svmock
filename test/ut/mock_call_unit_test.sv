@@ -86,7 +86,6 @@ module mock_call_unit_test;
 
   `SVTEST(TimesWithExactly)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).Exactly(2);
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).Times.Exactly(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
@@ -100,7 +99,6 @@ module mock_call_unit_test;
 
   `SVTEST(TimesWithAtLeast)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).AtLeast(2);
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).Times.AtLeast(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
