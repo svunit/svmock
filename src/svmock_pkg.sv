@@ -32,17 +32,24 @@ class MOCK extends ORIGINAL; \
   endfunction
 
 `define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0) \
-  __mocker1 __``NAME = new("NAME", __mockers); \
+  __mocker1 #(TYPE0) __``NAME = new("NAME", __mockers); \
   function NAME(TYPE0 ARG0); \
     __``NAME.Called(ARG0); \
     super.NAME(ARG0); \
   endfunction
 
 `define SVMOCK_VOIDFUNCTION2(NAME,TYPE0,ARG0,TYPE1,ARG1) \
-  __mocker2 __``NAME = new("NAME", __mockers); \
+  __mocker2 #(TYPE0, TYPE1) __``NAME = new("NAME", __mockers); \
   function NAME(TYPE0 ARG0, TYPE1 ARG1); \
     __``NAME.Called(ARG0, ARG1); \
     super.NAME(ARG0, ARG1); \
+  endfunction
+
+`define SVMOCK_VOIDFUNCTION3(NAME,TYPE0,ARG0,TYPE1,ARG1,TYPE2,ARG2) \
+  __mocker3 #(TYPE0, TYPE1, TYPE2) __``NAME = new("NAME", __mockers); \
+  function NAME(TYPE0 ARG0, TYPE1 ARG1, TYPE2 ARG2); \
+    __``NAME.Called(ARG0, ARG1, ARG2); \
+    super.NAME(ARG0, ARG1, ARG2); \
   endfunction
 
 

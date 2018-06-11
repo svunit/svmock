@@ -1,3 +1,6 @@
+class objtype;
+endclass
+
 class call;
   function void functionNoArgReturnVoid();
   endfunction
@@ -6,6 +9,9 @@ class call;
   endfunction
 
   function void functionIntStringArgsReturnVoid(int x, string y);
+  endfunction
+
+  function functionObjBitLogicArgsReturnVoid(objtype x, bit y, logic [31:0] z);
   endfunction
 
   function int functionNoArgReturnInt();

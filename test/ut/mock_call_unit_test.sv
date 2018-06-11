@@ -142,8 +142,19 @@ module mock_call_unit_test;
   //             With
   //---------------------------------
 
+  `SVTEST(WithOneoArg)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).With(3);
+
+    ut.functionIntArgReturnVoid(3);
+    `FAIL_UNLESS(ut.check());
+
+    ut.functionIntArgReturnVoid(2);
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
   `SVTEST(WithTwoArgs)
     `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).With(3, "heck");
+
     ut.functionIntStringArgsReturnVoid(3, "heck");
     `FAIL_UNLESS(ut.check());
 
@@ -151,6 +162,18 @@ module mock_call_unit_test;
     `FAIL_IF(ut.check());
 
     ut.functionIntStringArgsReturnVoid(2, "heck");
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithThreeArgs)
+    objtype dt = new();
+ 
+    `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).With(dt, 0, 27);
+ 
+    ut.functionObjBitLogicArgsReturnVoid(dt, 0, 27);
+    `FAIL_UNLESS(ut.check());
+ 
+    ut.functionObjBitLogicArgsReturnVoid(null, 0, 27);
     `FAIL_IF(ut.check());
   `SVTEST_END
 
