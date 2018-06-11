@@ -67,25 +67,11 @@ class MOCK extends ORIGINAL; \
   OBJ.__``METHOD
 
 package svmock_pkg;
-  typedef class __mocker;
-
-  `include "__mocker1.sv"
-  `include "__mocker2.sv"
-  `include "__mocker3.sv"
-  `include "__mocker4.sv"
-  `include "__mocker5.sv"
-  `include "__mocker6.sv"
-  `include "__mocker7.sv"
-  `include "__mocker8.sv"
-  `include "__mocker9.sv"
-
   class __mocker;
     int timesCnt = 0;
     int signed timesExactlyExp = -1;
     int signed timesAtLeastExp = -1;
     int signed timesAtMostExp = -1;
-
-    bit checkWith = 0;
 
     function new(string name, ref __mocker __mockers[$]);
       __mockers.push_back(this);
@@ -133,8 +119,6 @@ package svmock_pkg;
       timesExactlyExp = -1;
       timesAtLeastExp = -1;
       timesAtMostExp = -1;
-
-      checkWith = 0;
     endfunction
   endclass
 
@@ -150,6 +134,103 @@ package svmock_pkg;
 
     function void Called();
       timesCnt += 1;
+    endfunction
+  endclass
+
+
+  class __mocker1 #(type TYPE0 = int) extends __mocker;
+
+    function new(string name, ref __mocker __mockers[$]);
+      super.new(name, __mockers);
+    endfunction
+
+    //--------
+    // Called
+    //--------
+
+    TYPE0 withAct_0;
+    function void Called(TYPE0 ARG0);
+      timesCnt += 1;
+
+      withAct_0 = ARG0;
+    endfunction
+
+
+    //------
+    // With
+    //------
+
+    bit checkWith = 0;
+    TYPE0 withExp_0 = -1;
+    function void With(TYPE0 ARG0);
+      checkWith = 1;
+
+      withExp_0 = ARG0;
+    endfunction
+
+    function bit check();
+      check = super.check();
+
+      check &= (checkWith) ? (withExp_0 == withAct_0)  : 1;
+
+      return check;
+    endfunction
+
+    function clear();
+      super.clear();
+
+      checkWith = 0;
+    endfunction
+  endclass
+
+  class __mocker2 #(type TYPE0 = int,
+                    type TYPE1 = int) extends __mocker;
+
+    function new(string name, ref __mocker __mockers[$]);
+      super.new(name, __mockers);
+    endfunction
+
+    //--------
+    // Called
+    //--------
+
+    TYPE0 withAct_0;
+    TYPE1 withAct_1;
+    function void Called(TYPE0 ARG0, TYPE1 ARG1);
+      timesCnt += 1;
+
+      withAct_0 = ARG0;
+      withAct_1 = ARG1;
+    endfunction
+
+
+    //------
+    // With
+    //------
+
+    bit checkWith = 0;
+    TYPE0 withExp_0 = -1;
+    TYPE1 withExp_1 = "";
+    function void With(TYPE0 ARG0, TYPE1 ARG1);
+      checkWith = 1;
+
+      withExp_0 = ARG0;
+      withExp_1 = ARG1;
+    endfunction
+
+    function bit check();
+      check = super.check();
+
+      check &= (checkWith) ? (withExp_0 == withAct_0)  : 1;
+      check &= (checkWith) ? (withExp_1 == withAct_1)  : 1;
+
+      return check;
+    endfunction
+
+    function clear();
+      super.clear();
+
+      checkWith = 0;
     endfunction
   endclass
 endpackage
