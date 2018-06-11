@@ -72,15 +72,21 @@ module mock_call_unit_test;
   //
   // EXPECT_CALL(mock_object, Method(argument-matchers))
   //     .With(multi-argument-matchers)
-  //     .Times(cardinality)
+  //     .Times(cardinality) // AtLeast, AtMost, Between, Exactly
   //     .InSequence(sequences)
   //     .After(expectations)
   //     .WillOnce(action)
   //     .WillRepeatedly(action)
   //     .RetiresOnSaturation();
 
-  `SVTEST(TimesWithExact)
+
+  //---------------------------------
+  //             Times
+  //---------------------------------
+
+  `SVTEST(TimesWithExactly)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).Exactly(2);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).Times.Exactly(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
@@ -94,6 +100,7 @@ module mock_call_unit_test;
 
   `SVTEST(TimesWithAtLeast)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).AtLeast(2);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).Times.AtLeast(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
@@ -105,6 +112,49 @@ module mock_call_unit_test;
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
+  `SVTEST(TimesWithAtMost)
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).AtMost(2);
+
+    repeat (2) begin
+      ut.functionNoArgReturnVoid();
+      `FAIL_UNLESS(ut.check());
+    end
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(TimesWithBetween)
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).Between(2, 4);
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+
+    repeat (3) begin
+      ut.functionNoArgReturnVoid();
+      `FAIL_UNLESS(ut.check());
+    end
+
+    ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+
+  //---------------------------------
+  //             With
+  //---------------------------------
+
+  `SVTEST(WithTwoArgs)
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).With(3, "heck");
+    ut.functionIntStringArgsReturnVoid(3, "heck");
+    `FAIL_UNLESS(ut.check());
+
+    ut.functionIntStringArgsReturnVoid(3, "whack");
+    `FAIL_IF(ut.check());
+
+    ut.functionIntStringArgsReturnVoid(2, "heck");
+    `FAIL_IF(ut.check());
+  `SVTEST_END
 
   `SVUNIT_TESTS_END
 

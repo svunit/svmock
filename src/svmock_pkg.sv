@@ -32,8 +32,17 @@ class MOCK extends ORIGINAL; \
   endfunction
 
 `define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0) \
+  __mocker __``NAME = new("NAME", __mockers); \
   function NAME(TYPE0 ARG0); \
+    __``NAME.Called(ARG0); \
     super.NAME(ARG0); \
+  endfunction
+
+`define SVMOCK_VOIDFUNCTION2(NAME,TYPE0,ARG0,TYPE1,ARG1) \
+  __mocker __``NAME = new("NAME", __mockers); \
+  function NAME(TYPE0 ARG0, TYPE1 ARG1); \
+    __``NAME.Called(ARG0, ARG1); \
+    super.NAME(ARG0, ARG1); \
   endfunction
 
 
@@ -60,35 +69,83 @@ class MOCK extends ORIGINAL; \
 package svmock_pkg;
   class __mocker;
     int timesCnt = 0;
-    int signed timesExactly = -1;
-    int signed timesAtLeast = -1;
+    int signed timesExactlyExp = -1;
+    int signed timesAtLeastExp = -1;
+    int signed timesAtMostExp = -1;
+
+    __mocker Times;
 
     function new(string name, ref __mocker __mockers[$]);
       __mockers.push_back(this);
+      Times = this;
     endfunction
 
-    function void Called();
+
+    //-------
+    // Times
+    //-------
+
+    int withAct_i = -1;
+    string withAct_s = "";
+    function void Called(int i = 0, string s = "");
       timesCnt += 1;
+
+      withAct_i = i;
+      withAct_s = s;
     endfunction
 
     function void Exactly(int t);
-      timesExactly = t;
+      timesExactlyExp = t;
     endfunction
 
     function void AtLeast(int t);
-      timesAtLeast = t;
+      timesAtLeastExp = t;
+    endfunction
+
+    function void AtMost(int t);
+      timesAtMostExp = t;
+    endfunction
+
+    function void Between(int min, int max);
+      timesAtLeastExp = min;
+      timesAtMostExp = max;
+    endfunction
+
+
+    //------
+    // With
+    //------
+    bit checkWith = 0;
+    int withExp_i = -1;
+    string withExp_s = "";
+    function void With(int i, string s);
+      checkWith = 1;
+      withExp_i = i;
+      withExp_s = s;
     endfunction
 
     function bit check();
       check = 1;
-      if (timesExactly >= 0) return (timesCnt == timesExactly);
-      else if (timesAtLeast >= 0) return (timesCnt >= timesAtLeast);
+
+      check &= (timesExactlyExp >= 0) ? (timesCnt == timesExactlyExp) : 1;
+      check &= (timesAtLeastExp >= 0) ? (timesCnt >= timesAtLeastExp) : 1;
+      check &= (timesAtMostExp  >= 0) ? (timesCnt <= timesAtMostExp)  : 1;
+
+      check &= (checkWith) ? (withExp_i == withAct_i)  : 1;
+      check &= (checkWith) ? (withExp_s == withAct_s)  : 1;
+
+      return check;
     endfunction
 
     function clear();
       timesCnt = 0;
-      timesExactly = -1;
-      timesAtLeast = -1;
+      timesExactlyExp = -1;
+      timesAtLeastExp = -1;
+      timesAtMostExp = -1;
+
+      checkWith = 0;
+      withExp_i = -1;
+      withExp_s = "";
     endfunction
   endclass
 endpackage
