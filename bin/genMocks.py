@@ -1,4 +1,7 @@
-def __mocker(numargs):
+def mockers(numargs):
+  if (numargs == 0):
+    return
+
   fout = open('../src/__mocker' + str(numargs) + '.sv', 'w+')
   fout.write ('class __mocker%0d #(\n' % numargs)
   for j in range(0,numargs):
@@ -41,6 +44,53 @@ def __mocker(numargs):
   fout.write ('endfunction\n')
   fout.write ('endclass\n')
 
+def function_macros(numargs, fout, type="NORMAL"):
+  if (type == "NORMAL"):
+    fout.write ('`define SVMOCK_FUNCTION%0d(NAME, RETURN' % numargs)
+  else:
+    fout.write ('`define SVMOCK_VOIDFUNCTION%0d(NAME' % numargs)
+  for j in range(0,numargs):
+    fout.write (',TYPE%0d,ARG%0d' % (j,j))
+  fout.write (') \\\n')
+  fout.write ('__mocker%0d #(' % numargs)
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('TYPE%0d' % j)
+    else:
+      fout.write ('TYPE%0d, ' % j)
+  fout.write (') __``NAME = new("NAME", __mockers); \\\n')
+  if (type == "NORMAL"):
+    fout.write ('function RETURN NAME(')
+  else:
+    fout.write ('function NAME(')
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('TYPE%0d ARG%0d' % (j,j))
+    else:
+      fout.write ('TYPE%0d ARG%0d, ' % (j,j))
+  fout.write ('); \\\n')
+  fout.write ('  __``NAME.Called(')
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('ARG%0d' % j)
+    else:
+      fout.write ('ARG%0d,' % j)
+  fout.write ('); \\\n')
+  if (type == "NORMAL"):
+    fout.write ('  return super.NAME(')
+  else:
+    fout.write ('  super.NAME(')
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('ARG%0d' % j)
+    else:
+      fout.write ('ARG%0d,' % j)
+  fout.write ('); \\\n')
+  fout.write ('endfunction\n\n')
+
 if __name__ == "__main__":
-  for i in range(1,10):
-    __mocker(i)
+  f_macros = open('../src/svmock_defines.svh', 'w+')
+  for i in range(0,10):
+    mockers(i)
+    function_macros(i, f_macros, "VOID")
+    function_macros(i, f_macros)
