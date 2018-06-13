@@ -142,7 +142,7 @@ module mock_call_unit_test;
   //             With
   //---------------------------------
 
-  `SVTEST(WithOneoArg)
+  `SVTEST(WithOneArg)
     `EXPECT_CALL(ut, functionIntArgReturnVoid).With(3);
 
     ut.functionIntArgReturnVoid(3);
@@ -174,6 +174,18 @@ module mock_call_unit_test;
     `FAIL_UNLESS(ut.check());
  
     ut.functionObjBitLogicArgsReturnVoid(null, 0, 27);
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithOneArrayArg)
+    int peter [string] = '{ "Peter":20 };
+    `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(peter);
+ 
+    ut.functionAssocArgReturnVoid(peter);
+    `FAIL_UNLESS(ut.check());
+
+    peter["Peter"] = 21; 
+    ut.functionAssocArgReturnVoid(peter);
     `FAIL_IF(ut.check());
   `SVTEST_END
 

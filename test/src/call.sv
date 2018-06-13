@@ -11,8 +11,17 @@ class call;
   function void functionIntStringArgsReturnVoid(int x, string y);
   endfunction
 
-  function functionObjBitLogicArgsReturnVoid(objtype x, bit y, logic [31:0] z);
+  function void functionObjBitLogicArgsReturnVoid(objtype x, bit y, logic [31:0] z);
   endfunction
+
+
+
+
+  function void functionAssocArgReturnVoid(int x [string]);
+  endfunction
+
+
+
 
   function int functionNoArgReturnInt();
     return 1;

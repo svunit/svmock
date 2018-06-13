@@ -6,10 +6,10 @@ def mockers(numargs):
   fout.write ('class __mocker%0d #(\n' % numargs)
   for j in range(0,numargs):
     if (j == numargs-1):
-      fout.write ('  type TYPE%d = int)\n' % j)
+      fout.write ('  type TYPE%d = int)' % j)
     else:
       fout.write ('  type TYPE%d = int,\n' % j)
-  fout.write ('extends __mocker;\n')
+  fout.write (' extends __mocker;\n')
   fout.write ('\nfunction new(string name, ref __mocker __mockers[$]);\n')
   fout.write ('  super.new(name, __mockers);\n')
   fout.write ('endfunction\n\n')
@@ -21,9 +21,9 @@ def mockers(numargs):
       fout.write ('  TYPE%0d ARG%0d);\n' % (j,j))
     else:
       fout.write ('  TYPE%0d ARG%0d,\n' % (j,j))
-  fout.write ('timesCnt += 1;\n')
+  fout.write ('  timesCnt += 1;\n')
   for j in range(0,numargs):
-    fout.write('withAct_%0d = ARG%0d;\n' % (j,j))
+    fout.write('  withAct_%0d = ARG%0d;\n' % (j,j))
   fout.write ('endfunction\n')
 
   fout.write ('\nfunction void With(\n')
@@ -32,15 +32,15 @@ def mockers(numargs):
       fout.write ('  TYPE%0d ARG%0d);\n' % (j,j))
     else:
       fout.write ('  TYPE%0d ARG%0d,\n' % (j,j))
-  fout.write ('checkWith = 1;\n')
+  fout.write ('  checkWith = 1;\n')
   for j in range(0,numargs):
-    fout.write ('withExp_%0d = ARG%0d;\n' % (j,j))
+    fout.write ('  withExp_%0d = ARG%0d;\n' % (j,j))
   fout.write ('endfunction\n')
   fout.write ('\nfunction bit check();\n')
-  fout.write ('check = super.check();\n')
+  fout.write ('  check = super.check();\n')
   for j in range(0,numargs):
-    fout.write ('check &= (checkWith) ? (withExp_%0d == withAct_%0d)  : 1;\n' % (j,j))
-  fout.write ('return check;\n')
+    fout.write ('  check &= (checkWith) ? (withExp_%0d == withAct_%0d)  : 1;\n' % (j,j))
+  fout.write ('  return check;\n')
   fout.write ('endfunction\n')
   fout.write ('endclass\n')
 
@@ -50,7 +50,7 @@ def function_macros(numargs, fout, type="NORMAL"):
   else:
     fout.write ('`define SVMOCK_VOIDFUNCTION%0d(NAME' % numargs)
   for j in range(0,numargs):
-    fout.write (',TYPE%0d,ARG%0d' % (j,j))
+    fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
   fout.write ('__mocker%0d #(' % numargs)
   for j in range(0,numargs):
@@ -65,9 +65,9 @@ def function_macros(numargs, fout, type="NORMAL"):
     fout.write ('function NAME(')
   for j in range(0,numargs):
     if (j == numargs-1):
-      fout.write ('TYPE%0d ARG%0d' % (j,j))
+      fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
     else:
-      fout.write ('TYPE%0d ARG%0d, ' % (j,j))
+      fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
   fout.write ('); \\\n')
   fout.write ('  __``NAME.Called(')
   for j in range(0,numargs):
