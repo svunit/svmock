@@ -12,12 +12,12 @@ function RETURN NAME(); \
   return super.NAME(); \
 endfunction
 
-`define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0,MOD0) \
-__mocker1 #(TYPE0) __``NAME = new("NAME", __mockers); \
-function NAME(TYPE0 ARG0 MOD0); \
-  __``NAME.Called(ARG0); \
-  super.NAME(ARG0); \
-endfunction
+//   `define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0,MOD0) \
+//   __mocker1 #(TYPE0) __``NAME = new("NAME", __mockers); \
+//   function NAME(TYPE0 ARG0 MOD0); \
+//     __``NAME.Called(ARG0); \
+//     super.NAME(ARG0); \
+//   endfunction
 
 `define SVMOCK_VOIDFUNCTION1a(NAME,TYPE0,ARG0,MOD0) \
 __mocker1a #(TYPE0) __``NAME = new("NAME", __mockers); \
