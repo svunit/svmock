@@ -35,8 +35,8 @@ class MOCK extends ORIGINAL; \
 package svmock_pkg;
   typedef class __mocker;
 
+  `include "__mocker0.sv"
   `include "__mocker1.sv"
-  `include "__mocker1a.sv"
   `include "__mocker2.sv"
   `include "__mocker3.sv"
   `include "__mocker4.sv"
