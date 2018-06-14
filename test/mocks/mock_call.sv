@@ -8,6 +8,8 @@
 
   // void functions with arrays
   `SVMOCK_VOIDFUNCTION1(functionAssocArgReturnVoid, int, x, [string])
+  `SVMOCK_VOIDFUNCTION1(functionQueueArgReturnVoid, int, x, [$])
+  `SVMOCK_VOIDFUNCTION2(functionAssocQueueArgReturnVoid, int, x, [string], int, y, [$])
 
   `SVMOCK_FUNCTION0(functionNoArgReturnInt, int)
   `SVMOCK_FUNCTION1(functionIntArgReturnInt, int, int, y, )

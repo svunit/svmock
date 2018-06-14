@@ -2,6 +2,9 @@ class objtype;
 endclass
 
 class call;
+  //----------------
+  // Void functions
+  //----------------
   function void functionNoArgReturnVoid();
   endfunction
 
@@ -15,14 +18,24 @@ class call;
   endfunction
 
 
-
+  //-----------------------------------------
+  // Void functions with aggregate arg types
+  //-----------------------------------------
 
   function void functionAssocArgReturnVoid(int x [string]);
   endfunction
 
+  function void functionQueueArgReturnVoid(int x [$]);
+  endfunction
+
+  function void functionAssocQueueArgReturnVoid(int x [string], int y [$]);
+  endfunction
 
 
 
+  //--------------------------------------
+  // functions with non-void return types
+  //--------------------------------------
   function int functionNoArgReturnInt();
     return 1;
   endfunction

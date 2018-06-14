@@ -15,6 +15,9 @@ module with_unit_test;
   //===================================
   mock_call ut;
 
+  int peter [string] = '{ "Peter":20 };
+  int hank [$] = { 14, 15, 16 };
+
 
   //===================================
   // Build
@@ -32,6 +35,8 @@ module with_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
+    peter = '{ "Peter":20 };
+    hank = { 14, 15, 16 };
 
     ut.clear();
   endtask
@@ -117,19 +122,58 @@ module with_unit_test;
 
 
   //---------------------------------
-  //         With Array
+  //      With Aggregate Types
   //---------------------------------
 
-  `SVTEST(WithOneAssocArg)
-    int peter [string] = '{ "Peter":20 };
+  `SVTEST(WithAssocArg)
     `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(peter);
- 
+
     ut.functionAssocArgReturnVoid(peter);
     `FAIL_UNLESS(ut.check());
 
     peter["Peter"] = 21; 
     ut.functionAssocArgReturnVoid(peter);
     `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithQueueArg)
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).With(hank);
+ 
+    ut.functionQueueArgReturnVoid(hank);
+    `FAIL_UNLESS(ut.check());
+
+    hank[0] = 21; 
+    ut.functionQueueArgReturnVoid(hank);
+    `FAIL_IF(ut.check());
+
+    hank[0] = 14; 
+    hank.push_back(99);
+    ut.functionQueueArgReturnVoid(hank);
+    `FAIL_IF(ut.check());
+
+    void'(hank.pop_back());
+    ut.functionQueueArgReturnVoid(hank);
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithAssocQueueArg)
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).With(peter, hank);
+ 
+    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    `FAIL_UNLESS(ut.check());
+
+    hank[0] = 21; 
+    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    `FAIL_IF(ut.check());
+
+    hank[0] = 14; 
+    peter["Peter"] = 21; 
+    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    `FAIL_IF(ut.check());
+
+    peter["Peter"] = 20; 
+    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
   `SVUNIT_TESTS_END
