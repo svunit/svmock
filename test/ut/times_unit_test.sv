@@ -1,15 +1,11 @@
 `include "svunit_defines.svh"
 
-`include "svmock_pkg.sv"
-import svmock_pkg::*;
+import ut_pkg::*;
 
-`include "call.sv"
-`include "mock_call.sv"
-
-module mock_call_unit_test;
+module times_unit_test;
   import svunit_pkg::svunit_testcase;
 
-  string name = "mock_call_ut";
+  string name = "times_ut";
   svunit_testcase svunit_ut;
 
 
@@ -84,7 +80,7 @@ module mock_call_unit_test;
   //             Times
   //---------------------------------
 
-  `SVTEST(TimesWithExactly)
+  `SVTEST(TimesExactly)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).Exactly(2);
 
     ut.functionNoArgReturnVoid();
@@ -97,7 +93,7 @@ module mock_call_unit_test;
     `FAIL_IF(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesWithAtLeast)
+  `SVTEST(TimesAtLeast)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).AtLeast(2);
 
     ut.functionNoArgReturnVoid();
@@ -110,7 +106,7 @@ module mock_call_unit_test;
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesWithAtMost)
+  `SVTEST(TimesAtMost)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).AtMost(2);
 
     repeat (2) begin
@@ -122,7 +118,7 @@ module mock_call_unit_test;
     `FAIL_IF(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesWithBetween)
+  `SVTEST(TimesBetween)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).Between(2, 4);
 
     ut.functionNoArgReturnVoid();
@@ -134,58 +130,6 @@ module mock_call_unit_test;
     end
 
     ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
-  `SVTEST_END
-
-
-  //---------------------------------
-  //             With
-  //---------------------------------
-
-  `SVTEST(WithOneArg)
-    `EXPECT_CALL(ut, functionIntArgReturnVoid).With(3);
-
-    ut.functionIntArgReturnVoid(3);
-    `FAIL_UNLESS(ut.check());
-
-    ut.functionIntArgReturnVoid(2);
-    `FAIL_IF(ut.check());
-  `SVTEST_END
-
-  `SVTEST(WithTwoArgs)
-    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).With(3, "heck");
-
-    ut.functionIntStringArgsReturnVoid(3, "heck");
-    `FAIL_UNLESS(ut.check());
-
-    ut.functionIntStringArgsReturnVoid(3, "whack");
-    `FAIL_IF(ut.check());
-
-    ut.functionIntStringArgsReturnVoid(2, "heck");
-    `FAIL_IF(ut.check());
-  `SVTEST_END
-
-  `SVTEST(WithThreeArgs)
-    objtype dt = new();
- 
-    `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).With(dt, 0, 27);
- 
-    ut.functionObjBitLogicArgsReturnVoid(dt, 0, 27);
-    `FAIL_UNLESS(ut.check());
- 
-    ut.functionObjBitLogicArgsReturnVoid(null, 0, 27);
-    `FAIL_IF(ut.check());
-  `SVTEST_END
-
-  `SVTEST(WithOneArrayArg)
-    int peter [string] = '{ "Peter":20 };
-    `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(peter);
- 
-    ut.functionAssocArgReturnVoid(peter);
-    `FAIL_UNLESS(ut.check());
-
-    peter["Peter"] = 21; 
-    ut.functionAssocArgReturnVoid(peter);
     `FAIL_IF(ut.check());
   `SVTEST_END
 
