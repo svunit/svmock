@@ -15,8 +15,8 @@ module with_unit_test;
   //===================================
   mock_call ut;
 
-  int peter [string] = '{ "Peter":20 };
-  int hank [$] = { 14, 15, 16 };
+  int assocPeter [string] = '{ "Peter":20 };
+  int queueHank [$] = { 14, 15, 16 };
 
 
   //===================================
@@ -35,11 +35,15 @@ module with_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
-    peter = '{ "Peter":20 };
-    hank = { 14, 15, 16 };
+    set_defaults();
 
     ut.clear();
   endtask
+
+  function void set_defaults();
+    assocPeter = '{ "Peter":20 };
+    queueHank = { 14, 15, 16 };
+  endfunction
 
 
   //===================================
@@ -126,53 +130,53 @@ module with_unit_test;
   //---------------------------------
 
   `SVTEST(WithAssocArg)
-    `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(peter);
+    `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(assocPeter);
 
-    ut.functionAssocArgReturnVoid(peter);
+    ut.functionAssocArgReturnVoid(assocPeter);
     `FAIL_UNLESS(ut.check());
 
-    peter["Peter"] = 21; 
-    ut.functionAssocArgReturnVoid(peter);
+    assocPeter["Peter"] = 21; 
+    ut.functionAssocArgReturnVoid(assocPeter);
     `FAIL_IF(ut.check());
   `SVTEST_END
 
   `SVTEST(WithQueueArg)
-    `EXPECT_CALL(ut, functionQueueArgReturnVoid).With(hank);
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).With(queueHank);
  
-    ut.functionQueueArgReturnVoid(hank);
+    ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_UNLESS(ut.check());
 
-    hank[0] = 21; 
-    ut.functionQueueArgReturnVoid(hank);
+    queueHank[0] = 21; 
+    ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_IF(ut.check());
 
-    hank[0] = 14; 
-    hank.push_back(99);
-    ut.functionQueueArgReturnVoid(hank);
+    set_defaults();
+    queueHank.push_back(99);
+    ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_IF(ut.check());
 
-    void'(hank.pop_back());
-    ut.functionQueueArgReturnVoid(hank);
+    void'(queueHank.pop_back());
+    ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
   `SVTEST(WithAssocQueueArg)
-    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).With(peter, hank);
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).With(assocPeter, queueHank);
  
-    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
 
-    hank[0] = 21; 
-    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    queueHank[0] = 21; 
+    ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_IF(ut.check());
 
-    hank[0] = 14; 
-    peter["Peter"] = 21; 
-    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    set_defaults();
+    assocPeter["Peter"] = 21; 
+    ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_IF(ut.check());
 
-    peter["Peter"] = 20; 
-    ut.functionAssocQueueArgReturnVoid(peter, hank);
+    set_defaults();
+    ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 

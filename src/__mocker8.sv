@@ -1,4 +1,4 @@
-`define SVMOCK_MOCKER_CLASS8(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
+`define SVMOCK_MOCKER_CLASS8(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7)\
 class __``NAME``__mocker  extends __mocker; \
 function new(string name, ref __mocker __mockers[$]); \
   super.new(name, __mockers); \
@@ -11,17 +11,7 @@ TYPE4 withAct_4 MOD4, withExp_4 MOD4; \
 TYPE5 withAct_5 MOD5, withExp_5 MOD5; \
 TYPE6 withAct_6 MOD6, withExp_6 MOD6; \
 TYPE7 withAct_7 MOD7, withExp_7 MOD7; \
-function void Called( \
-  TYPE0 ARG0 MOD0, \
-  TYPE1 ARG1 MOD1, \
-  TYPE2 ARG2 MOD2, \
-  TYPE3 ARG3 MOD3, \
-  TYPE4 ARG4 MOD4, \
-  TYPE5 ARG5 MOD5, \
-  TYPE6 ARG6 MOD6, \
-  TYPE7 ARG7 MOD7 \
-); \
-  timesCnt += 1; \
+function void Called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7);  timesCnt += 1; \
   withAct_0 = ARG0; \
   withAct_1 = ARG1; \
   withAct_2 = ARG2; \
@@ -31,17 +21,7 @@ function void Called( \
   withAct_6 = ARG6; \
   withAct_7 = ARG7; \
 endfunction \
-function void With( \
-  TYPE0 ARG0 MOD0, \
-  TYPE1 ARG1 MOD1, \
-  TYPE2 ARG2 MOD2, \
-  TYPE3 ARG3 MOD3, \
-  TYPE4 ARG4 MOD4, \
-  TYPE5 ARG5 MOD5, \
-  TYPE6 ARG6 MOD6, \
-  TYPE7 ARG7 MOD7 \
-); \
-  checkWith = 1; \
+function void With(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7);  checkWith = 1; \
   withExp_0 = ARG0; \
   withExp_1 = ARG1; \
   withExp_2 = ARG2; \
