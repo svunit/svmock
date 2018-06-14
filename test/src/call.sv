@@ -31,8 +31,12 @@ class call;
   function void functionAssocQueueArgReturnVoid(int x [string], int y [$]);
   endfunction
 
-  // fixed size array
-  // dynamic array
+  function void functionFixedArrayArgReturnVoid(string x [10], int y);
+  endfunction
+
+  function void functionDynamicArrayArgReturnVoid(string x, objtype y [], int z);
+  endfunction
+
   // struct
   // union
   // multi-dimensional array

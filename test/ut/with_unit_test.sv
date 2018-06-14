@@ -17,6 +17,8 @@ module with_unit_test;
 
   int assocPeter [string] = '{ "Peter":20 };
   int queueHank [$] = { 14, 15, 16 };
+  string fixedGlenn [10] = '{10{"clank"}};
+  objtype dynamicFred [];
 
 
   //===================================
@@ -43,6 +45,9 @@ module with_unit_test;
   function void set_defaults();
     assocPeter = '{ "Peter":20 };
     queueHank = { 14, 15, 16 };
+    fixedGlenn = '{10{"clank"}};
+    dynamicFred = new[10];
+    foreach (dynamicFred[i]) dynamicFred[i] = new();
   endfunction
 
 
@@ -178,6 +183,28 @@ module with_unit_test;
     set_defaults();
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithFixedArrayArg)
+    `EXPECT_CALL(ut, functionFixedArrayArgReturnVoid).With(fixedGlenn, 8);
+ 
+    ut.functionFixedArrayArgReturnVoid(fixedGlenn, 8);
+    `FAIL_UNLESS(ut.check());
+
+    fixedGlenn[0] = "feathers"; 
+    ut.functionFixedArrayArgReturnVoid(fixedGlenn, 8);
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(WithDynamicArrayArg)
+    `EXPECT_CALL(ut, functionDynamicArrayArgReturnVoid).With("what", dynamicFred, 44);
+ 
+    ut.functionDynamicArrayArgReturnVoid("what", dynamicFred, 44);
+    `FAIL_UNLESS(ut.check());
+
+    dynamicFred[8] = new();
+    ut.functionDynamicArrayArgReturnVoid("what", dynamicFred, 44);
+    `FAIL_IF(ut.check());
   `SVTEST_END
 
   `SVUNIT_TESTS_END
