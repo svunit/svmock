@@ -32,6 +32,13 @@ class MOCK extends ORIGINAL; \
 `define EXPECT_CALL(OBJ,METHOD) \
   OBJ.__``METHOD
 
+
+//-------------
+// ON CALL
+//-------------
+`define ON_CALL(OBJ,METHOD) \
+  OBJ.__``METHOD
+
 package svmock_pkg;
   typedef class __mocker;
 
@@ -53,6 +60,8 @@ package svmock_pkg;
     int signed timesAtMostExp = -1;
 
     bit checkWith = 0;
+    bit overrideReturn = 0;
+    int returnValue;
 
     function new(string name, ref __mocker __mockers[$]);
       __mockers.push_back(this);
@@ -81,6 +90,16 @@ package svmock_pkg;
     endfunction
 
 
+    //--------
+    // Return
+    //--------
+
+    virtual function void Return(int i);
+      overrideReturn = 1;
+      returnValue = i;
+    endfunction
+
+
     //----------
     // checking
     //----------
@@ -95,28 +114,19 @@ package svmock_pkg;
       return check;
     endfunction
 
+    //-------------
+    // clear state
+    //-------------
+
     virtual function clear();
       timesCnt = 0;
       timesExactlyExp = -1;
       timesAtLeastExp = -1;
       timesAtMostExp = -1;
+      overrideReturn = 0;
 
       checkWith = 0;
     endfunction
   endclass
 
-  class __mocker0 extends __mocker;
-
-    function new(string name, ref __mocker __mockers[$]);
-      super.new(name, __mockers);
-    endfunction
-
-    //--------
-    // Called
-    //--------
-
-    function void Called();
-      timesCnt += 1;
-    endfunction
-  endclass
 endpackage

@@ -11,7 +11,8 @@ endfunction
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 function RETURN NAME(); \
   __``NAME.Called(); \
-  return super.NAME(); \
+  if (__``NAME.overrideReturn) return __``NAME.returnValue; \
+  else return super.NAME(); \
 endfunction
 
 `define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0,MOD0) \
