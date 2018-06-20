@@ -73,7 +73,7 @@ module returns_unit_test;
   //         With Discrete
   //---------------------------------
 
-  `SVTEST(WithOneArg)
+  `SVTEST(returnsInt)
     `FAIL_UNLESS(ut.functionNoArgReturnInt() == 1);
 
     `ON_CALL(ut, functionNoArgReturnInt).returns(5);

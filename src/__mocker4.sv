@@ -1,4 +1,4 @@
-`define SVMOCK_MOCKER_CLASS4(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3)\
+`define SVMOCK_MOCKER_CLASS4(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3)\
 class __``NAME``__mocker  extends __mocker; \
 function new(string name, ref __mocker __mockers[$]); \
   super.new(name, __mockers); \
@@ -7,13 +7,20 @@ TYPE0 withAct_0 MOD0, withExp_0 MOD0; \
 TYPE1 withAct_1 MOD1, withExp_1 MOD1; \
 TYPE2 withAct_2 MOD2, withExp_2 MOD2; \
 TYPE3 withAct_3 MOD3, withExp_3 MOD3; \
-function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3);  timesCnt += 1; \
+function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3); \
+  timesCnt += 1; \
   withAct_0 = ARG0; \
   withAct_1 = ARG1; \
   withAct_2 = ARG2; \
   withAct_3 = ARG3; \
 endfunction \
-function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3);  checkWith = 1; \
+RETURNS returnsVal; \
+function RETURNS returns(RETURNS r); \
+  overrideReturn = 1; \
+  returnsVal = r; \
+endfunction \
+function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3); \
+  checkWith = 1; \
   withExp_0 = ARG0; \
   withExp_1 = ARG1; \
   withExp_2 = ARG2; \

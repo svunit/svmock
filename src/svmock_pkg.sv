@@ -61,7 +61,6 @@ package svmock_pkg;
 
     bit checkWith = 0;
     bit overrideReturn = 0;
-    int returnValue;
 
     function new(string name, ref __mocker __mockers[$]);
       __mockers.push_back(this);
@@ -87,16 +86,6 @@ package svmock_pkg;
     function void between(int min, int max);
       timesAtLeastExp = min;
       timesAtMostExp = max;
-    endfunction
-
-
-    //---------
-    // returns
-    //---------
-
-    virtual function void returns(int i);
-      overrideReturn = 1;
-      returnValue = i;
     endfunction
 
 
