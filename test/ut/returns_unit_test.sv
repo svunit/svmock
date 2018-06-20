@@ -76,7 +76,7 @@ module returns_unit_test;
   `SVTEST(WithOneArg)
     `FAIL_UNLESS(ut.functionNoArgReturnInt() == 1);
 
-    `ON_CALL(ut, functionNoArgReturnInt).Return(5);
+    `ON_CALL(ut, functionNoArgReturnInt).returns(5);
     `FAIL_UNLESS(ut.functionNoArgReturnInt() == 5);
   `SVTEST_END
 

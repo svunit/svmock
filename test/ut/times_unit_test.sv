@@ -81,7 +81,7 @@ module times_unit_test;
   //---------------------------------
 
   `SVTEST(TimesExactly)
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).Exactly(2);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).exactly(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
@@ -94,7 +94,7 @@ module times_unit_test;
   `SVTEST_END
 
   `SVTEST(TimesAtLeast)
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).AtLeast(2);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).at_least(2);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());
@@ -107,7 +107,7 @@ module times_unit_test;
   `SVTEST_END
 
   `SVTEST(TimesAtMost)
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).AtMost(2);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).at_most(2);
 
     repeat (2) begin
       ut.functionNoArgReturnVoid();
@@ -119,7 +119,7 @@ module times_unit_test;
   `SVTEST_END
 
   `SVTEST(TimesBetween)
-    `EXPECT_CALL(ut, functionNoArgReturnVoid).Between(2, 4);
+    `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
 
     ut.functionNoArgReturnVoid();
     `FAIL_IF(ut.check());

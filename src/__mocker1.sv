@@ -4,10 +4,10 @@ function new(string name, ref __mocker __mockers[$]); \
   super.new(name, __mockers); \
 endfunction \
 TYPE0 withAct_0 MOD0, withExp_0 MOD0; \
-function void Called(TYPE0 ARG0 MOD0);  timesCnt += 1; \
+function void called(TYPE0 ARG0 MOD0);  timesCnt += 1; \
   withAct_0 = ARG0; \
 endfunction \
-function void With(TYPE0 ARG0 MOD0);  checkWith = 1; \
+function void with_args(TYPE0 ARG0 MOD0);  checkWith = 1; \
   withExp_0 = ARG0; \
 endfunction \
 function bit check(); \

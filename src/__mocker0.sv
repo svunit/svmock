@@ -3,9 +3,9 @@ class __``NAME``__mocker  extends __mocker; \
 function new(string name, ref __mocker __mockers[$]); \
   super.new(name, __mockers); \
 endfunction \
-function void Called();  timesCnt += 1; \
+function void called();  timesCnt += 1; \
 endfunction \
-function void With();  checkWith = 1; \
+function void with_args();  checkWith = 1; \
 endfunction \
 function bit check(); \
   check = super.check(); \

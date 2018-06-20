@@ -17,7 +17,8 @@ module bedrock_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  bedrock my_bedrock;
+  bedrock uut;
+  mock_flintstones mock_f = new();
 
 
   //===================================
@@ -26,7 +27,8 @@ module bedrock_unit_test;
   function void build();
     svunit_ut = new(name);
 
-    my_bedrock = new(/* New arguments if needed */);
+    uut = new();
+    uut.f = mock_f;
   endfunction
 
 
@@ -37,6 +39,7 @@ module bedrock_unit_test;
     svunit_ut.setup();
     /* Place Setup Code Here */
 
+    mock_f.clear();
   endtask
 
 
@@ -48,6 +51,7 @@ module bedrock_unit_test;
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
+    `FAIL_UNLESS(mock_f.check());
   endtask
 
 
@@ -64,8 +68,27 @@ module bedrock_unit_test;
   //     <test code>
   //   `SVTEST_END
   //===================================
+  string betty [int] = '{ 0:"modern", 1:"stone age", 2:"family" }; 
   `SVUNIT_TESTS_BEGIN
 
+  `SVTEST(dino_called_once)
+    `EXPECT_CALL(mock_f, dino).exactly(1);
+
+    uut.yabba_dabba_do(betty);
+  `SVTEST_END
+
+  `SVTEST(pebbles_called_with_betty)
+    `EXPECT_CALL(mock_f, pebbles).with_args(betty.num(), betty);
+
+    uut.yabba_dabba_do(betty);
+  `SVTEST_END
+
+  `SVTEST(bam_bam_called_with_pebbles)
+    `ON_CALL(mock_f, pebbles).returns(99);
+    `EXPECT_CALL(mock_f, bam_bam).with_args(99);
+
+    uut.yabba_dabba_do(betty);
+  `SVTEST_END
 
 
   `SVUNIT_TESTS_END

@@ -72,29 +72,29 @@ package svmock_pkg;
     // Times
     //-------
 
-    function void Exactly(int t);
+    function void exactly(int t);
       timesExactlyExp = t;
     endfunction
 
-    function void AtLeast(int t);
+    function void at_least(int t);
       timesAtLeastExp = t;
     endfunction
 
-    function void AtMost(int t);
+    function void at_most(int t);
       timesAtMostExp = t;
     endfunction
 
-    function void Between(int min, int max);
+    function void between(int min, int max);
       timesAtLeastExp = min;
       timesAtMostExp = max;
     endfunction
 
 
-    //--------
-    // Return
-    //--------
+    //---------
+    // returns
+    //---------
 
-    virtual function void Return(int i);
+    virtual function void returns(int i);
       overrideReturn = 1;
       returnValue = i;
     endfunction

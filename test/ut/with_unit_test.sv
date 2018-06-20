@@ -2,7 +2,7 @@
 
 import ut_pkg::*;
 
-module with_unit_test;
+module has_unit_test;
   import svunit_pkg::svunit_testcase;
 
   string name = "with_ut";
@@ -95,7 +95,7 @@ module with_unit_test;
   //---------------------------------
 
   `SVTEST(WithOneArg)
-    `EXPECT_CALL(ut, functionIntArgReturnVoid).With(3);
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
 
     ut.functionIntArgReturnVoid(3);
     `FAIL_UNLESS(ut.check());
@@ -105,7 +105,7 @@ module with_unit_test;
   `SVTEST_END
 
   `SVTEST(WithTwoArgs)
-    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).With(3, "heck");
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(3, "heck");
 
     ut.functionIntStringArgsReturnVoid(3, "heck");
     `FAIL_UNLESS(ut.check());
@@ -120,7 +120,7 @@ module with_unit_test;
   `SVTEST(WithThreeArgs)
     objtype dt = new();
  
-    `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).With(dt, 0, 27);
+    `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).with_args(dt, 0, 27);
  
     ut.functionObjBitLogicArgsReturnVoid(dt, 0, 27);
     `FAIL_UNLESS(ut.check());
@@ -135,7 +135,7 @@ module with_unit_test;
   //---------------------------------
 
   `SVTEST(WithAssocArg)
-    `EXPECT_CALL(ut, functionAssocArgReturnVoid).With(assocPeter);
+    `EXPECT_CALL(ut, functionAssocArgReturnVoid).with_args(assocPeter);
 
     ut.functionAssocArgReturnVoid(assocPeter);
     `FAIL_UNLESS(ut.check());
@@ -146,7 +146,7 @@ module with_unit_test;
   `SVTEST_END
 
   `SVTEST(WithQueueArg)
-    `EXPECT_CALL(ut, functionQueueArgReturnVoid).With(queueHank);
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).with_args(queueHank);
  
     ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_UNLESS(ut.check());
@@ -166,7 +166,7 @@ module with_unit_test;
   `SVTEST_END
 
   `SVTEST(WithAssocQueueArg)
-    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).With(assocPeter, queueHank);
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).with_args(assocPeter, queueHank);
  
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
@@ -186,7 +186,7 @@ module with_unit_test;
   `SVTEST_END
 
   `SVTEST(WithFixedArrayArg)
-    `EXPECT_CALL(ut, functionFixedArrayArgReturnVoid).With(fixedGlenn, 8);
+    `EXPECT_CALL(ut, functionFixedArrayArgReturnVoid).with_args(fixedGlenn, 8);
  
     ut.functionFixedArrayArgReturnVoid(fixedGlenn, 8);
     `FAIL_UNLESS(ut.check());
@@ -197,7 +197,7 @@ module with_unit_test;
   `SVTEST_END
 
   `SVTEST(WithDynamicArrayArg)
-    `EXPECT_CALL(ut, functionDynamicArrayArgReturnVoid).With("what", dynamicFred, 44);
+    `EXPECT_CALL(ut, functionDynamicArrayArgReturnVoid).with_args("what", dynamicFred, 44);
  
     ut.functionDynamicArrayArgReturnVoid("what", dynamicFred, 44);
     `FAIL_UNLESS(ut.check());
