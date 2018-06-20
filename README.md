@@ -47,8 +47,7 @@ For functions that are non-void, the `SVMOCK_FUNCTION<N>` macros are used. The f
 
 The arg inputs require a <type>, <name> and <aggregate data type>. The aggregate data type input is required regardless of whether or not the arguement is actually an aggregate data type because Systemverilog macros are lame so for scalar data types that input would have nothing specified. For example, the `flintstones::pebbles` has 2 input arguements: `fred` and `wilma`. `fred` is a scalar data type so its arg input to the `SVMOCK_FUNCTOIN2` macro is `int, fred, ` (note the `,` after `fred` which signifies and argument with nothing specified) where type=int, name=fred, aggregate type=<blank>. `wilma`, on the other hand, is an aggregate data type (associative array of strings indexed by [int]) so all 3 macro inputs are used as `string, wilma, [int]`.
 
-| Function Arguments  |         Macro Inputs            |
-|                     | Type   | Name  | Aggregate type |
+|  Function Arguments | Type   | Name  | Aggregate type |
 |---------------------|--------|-------|----------------|
 | int fred            | int    | fred  |                |
 | string wilma [int]  | string | wilma | [int]          |
