@@ -6,7 +6,7 @@ endfunction \
 function void called(); \
   timesCnt += 1; \
 endfunction \
-RETURNS returnsVal; \
+RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \
 function RETURNS returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \

@@ -8,7 +8,7 @@ function void called(TYPE0 ARG0 MOD0); \
   timesCnt += 1; \
   withAct_0 = ARG0; \
 endfunction \
-RETURNS returnsVal; \
+RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \
 function RETURNS returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \

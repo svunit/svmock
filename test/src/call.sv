@@ -52,6 +52,10 @@ class call;
     return 1;
   endfunction
 
+  function string functionNoArgReturnString();
+    return "nothing";
+  endfunction
+
   function int functionIntArgReturnInt(int y);
     return y;
   endfunction

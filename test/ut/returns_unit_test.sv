@@ -80,6 +80,15 @@ module returns_unit_test;
     `FAIL_UNLESS(ut.functionNoArgReturnInt() == 5);
   `SVTEST_END
 
+  `SVTEST(returnsString)
+    string o = "nothing";
+    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
+
+    `ON_CALL(ut, functionNoArgReturnString).returns("something");
+    o = "something";
+    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule

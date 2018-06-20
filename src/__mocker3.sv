@@ -12,7 +12,7 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2); \
   withAct_1 = ARG1; \
   withAct_2 = ARG2; \
 endfunction \
-RETURNS returnsVal; \
+RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \
 function RETURNS returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \

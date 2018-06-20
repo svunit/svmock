@@ -18,7 +18,7 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 
   withAct_4 = ARG4; \
   withAct_5 = ARG5; \
 endfunction \
-RETURNS returnsVal; \
+RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \
 function RETURNS returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \

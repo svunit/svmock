@@ -14,5 +14,6 @@
   `SVMOCK_VOIDFUNCTION3(functionDynamicArrayArgReturnVoid, string, x, , objtype, y, [], int, z, )
 
   `SVMOCK_FUNCTION0(functionNoArgReturnInt, int)
+  `SVMOCK_FUNCTION0(functionNoArgReturnString, string)
   `SVMOCK_FUNCTION1(functionIntArgReturnInt, int, int, y, )
 `SVMOCK_END
