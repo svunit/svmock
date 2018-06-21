@@ -112,7 +112,7 @@ def function_macros(numargs, fout, type="NORMAL"):
   fout.write ('endfunction\n\n')
 
 if __name__ == "__main__":
-  f_macros = open('../src/svmock_defines.svh', 'w+')
+  f_macros = open('../src/svmock_mocker_defines.svh', 'w+')
   for i in range(0,10):
     mockers(i)
     function_macros(i, f_macros, "VOID")

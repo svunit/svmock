@@ -1,9 +1,9 @@
 `include "svunit_defines.svh"
+`include "svmock_defines.svh"
 
 import bedrock_pkg::*;
 
 import svmock_pkg::*;
-`include "svmock_defines.svh"
 `include "flintstones_mock.sv"
 
 module bedrock_unit_test;
@@ -68,6 +68,7 @@ module bedrock_unit_test;
   //     <test code>
   //   `SVTEST_END
   //===================================
+
   string betty [int] = '{ 0:"modern", 1:"stone age", 2:"family" }; 
   `SVUNIT_TESTS_BEGIN
 

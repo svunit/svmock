@@ -1,4 +1,5 @@
 `include "svunit_defines.svh"
+`include "svmock_defines.svh"
 
 import ut_pkg::*;
 
