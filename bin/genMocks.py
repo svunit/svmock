@@ -16,7 +16,7 @@ def functionDecl(name,numargs,type='void'):
 
 
 def mockers(numargs):
-  fout = open('../src/__mocker' + str(numargs) + '.sv', 'w+')
+  fout = open('../src/__mocker' + str(numargs) + '.svh', 'w+')
 
   # macro header
   fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s)\\\n' % (numargs, allArgString(numargs, ',', ',')))
