@@ -1,0 +1,1 @@
+runSVUnit -s <simulator>
