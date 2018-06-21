@@ -1,8 +1,8 @@
 # Creating an SVMock
 
-This goes through the working example in `examples/class/basic`. Best to refer to files in that directly as you read through this. This assumes that you have an understanding of SVUnit. If you don't, you probably want to start at [SVUnit project page](http://www.agilesoc.com/svunit) first, then come back to this.
+This goes through the working example in `examples/class/basic`. Best to refer to files in that directly as you read through this. This assumes that you have an understanding of SVUnit. If you don't, you probably want to start at the [SVUnit project page](http://www.agilesoc.com/svunit) first, then come back to this.
 
-In this example, we're unit testing a class called `bedrock`. There's one function in `bedrock` that needs to be unit tested called yabba_dabba_do. Specifically, we're interested in how `bedrock::yabba_dabba_do()` relies on functionality from an instance of `flintstones`. Instead of using the real version of `flintstones`, we'll use SVMock to create a `flinstones_mock` so we can directly isolate and test the interaction within an instance of `bedrock`.
+In this example, we're unit testing a class called `bedrock`. There's one function in `bedrock` that needs to be unit tested called `yabba_dabba_do`. Specifically, we're interested in how `bedrock::yabba_dabba_do()` relies on functionality from an instance of `flintstones`. Instead of using the real version of `flintstones`, we'll use SVMock to create a `flinstones_mock` so we can directly isolate and test the interactions within `bedrock`.
 
 ## Defining a Class
 
@@ -38,7 +38,9 @@ To create a mock of `flintstones`, we'll use macros defined in svmock_defines.sv
 `SVMOCK_END
 ```
 
-The `SVMOCK(mock_class, parent_class)/SVMOCK_END` macros roughly translate to class/endclass. Each function in `flintstones` is mocked with an `SVMOCK_*` function macro. Void functions use the `SVMOCK_VOIDFUNCTION<N>` macros where <N> is the number of input arguments. The function `flintstones::dino`, for example, has no input arguments so it is mocked with `SVMOCK_VOIDFUNCTOIN0` whereas `flintstones::bam_bam` has 1 argument so it requires the `SVMOCK_VOIDFUNCTION1` macro. The first argument to the void function macros is the name of the function. Subsequent arguments are related to each input argument.
+The `SVMOCK(mock_class, parent_class)/SVMOCK_END` macros roughly translate to class/endclass.
+
+Each function in `flintstones` is mocked with an `SVMOCK_*` function macro. Void functions use the `SVMOCK_VOIDFUNCTION<N>` macros where 'N' is the number of input arguments. The function `flintstones::dino`, for example, has no input arguments so it is mocked with `SVMOCK_VOIDFUNCTOIN0` whereas `flintstones::bam_bam` has 1 argument so it requires the `SVMOCK_VOIDFUNCTION1` macro. The first argument to the void function macros is the name of the function. Subsequent arguments are related to each input argument.
 
 For functions that are non-void, the `SVMOCK_FUNCTION<N>` macros are used. The first argument is still the name of the function. The second argument is the return type of the function. Subsequent arguments are related to each input argument.
 
@@ -47,7 +49,7 @@ For functions that are non-void, the `SVMOCK_FUNCTION<N>` macros are used. The f
 `SVMOCK_FUNCTION<N>(NAME,RETURN_TYPE,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 ```
 
-The arg inputs require a <type>, <name> and <aggregate data type>. The aggregate data type input is required regardless of whether or not the arguement is actually an aggregate data type because Systemverilog macros are lame so for scalar data types that input would have nothing specified. For example, the `flintstones::pebbles` has 2 input arguements: `fred` and `wilma`. `fred` is a scalar data type so its arg input to the `SVMOCK_FUNCTOIN2` macro is `int, fred, ` (note the `,` after `fred` which signifies and argument with nothing specified) where type=int, name=fred, aggregate type=<blank>. `wilma`, on the other hand, is an aggregate data type (associative array of strings indexed by [int]) so all 3 macro inputs are used as `string, wilma, [int]`.
+Each function argument require a 'type', 'name' and 'aggregate data type'. The aggregate data type input is required regardless of whether or not the argument is actually an aggregate data type (because Systemverilog macros are lame and the syntax for parameterizing classes sucks a bit for aggregate data types) so for scalar data types that input would have nothing specified. For example, the `flintstones::pebbles` has 2 input arguments: `fred` and `wilma`. `fred` is a scalar data type so its arg input to the `SVMOCK_FUNCTOIN2` macro is `int, fred, ` (note the `,` after `fred` which signifies an argument with nothing specified) where type=int, name=fred, aggregate type=\<blank\>. `wilma`, on the other hand, is an aggregate data type (associative array of strings indexed by [int]) so all 3 macro inputs are used as `string, wilma, [int]`.
 
 |  Function Arguments | Type   | Name  | Aggregate type |
 |---------------------|--------|-------|----------------|
@@ -107,7 +109,7 @@ It's also required that the reseting and checking of the mock be invoked inside 
 
 # Using The Mock
 
-Currently, users can set expectations for how many times a function has been called as well as the arguments it is invoked with.
+Currently, users can set expectations for how many times a function has been called as well as the arguments it is invoked with. You can also override function return values.
 
 ## Expect Functions Are Invoked
 
@@ -141,7 +143,7 @@ We can also use a `flintstones_mock` EXPECT_CALL to check functions are called w
   `SVTEST_END
 ```
 
-Inputs to `with_args` are identical to the inputs the function being checked. In this case, we're checking inputs to `pebbles` which are `(int , string [int])` so `with_args` has the same `(int , string [int])` inputs. Currently, all inputs must be specified.
+Inputs to `with_args` are identical to the inputs of the function being checked. In this case, we're checking inputs to `pebbles` which are `(int , string [int])` so `with_args` has the same `(int , string [int])` inputs. Currently, all inputs must be specified.
 
 ## Overriding Return Values
 
