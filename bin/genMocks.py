@@ -39,7 +39,7 @@ def mockers(numargs):
   fout.write ('endfunction \\\n')
 
   # returns
-  fout.write ('RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \\\n')
+  fout.write ('RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \\\n')
   fout.write ('function RETURNS returns(RETURNS r); \\\n' +
               '  overrideReturn = 1; \\\n' +
               '  returnsVal = r; \\\n' +
@@ -61,11 +61,13 @@ def mockers(numargs):
   fout.write ('endfunction \\\n')
   fout.write ('endclass\n')
 
-def function_macros(numargs, fout, type="NORMAL"):
+def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
     fout.write ('`define SVMOCK_FUNCTION%0d(NAME,RETURN' % numargs)
-  else:
+  elif (type == "VOID"):
     fout.write ('`define SVMOCK_VOIDFUNCTION%0d(NAME' % numargs)
+  else:
+    fout.write ('`define SVMOCK_TASK%0d(NAME' % numargs)
   for j in range(0,numargs):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
@@ -81,8 +83,10 @@ def function_macros(numargs, fout, type="NORMAL"):
   fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
   if (type == "NORMAL"):
     fout.write ('virtual function RETURN NAME(')
-  else:
+  elif (type == "VOID"):
     fout.write ('virtual function void NAME(')
+  else:
+    fout.write ('virtual task NAME(')
   for j in range(0,numargs):
     if (j == numargs-1):
       fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
@@ -109,11 +113,15 @@ def function_macros(numargs, fout, type="NORMAL"):
     else:
       fout.write ('ARG%0d,' % j)
   fout.write ('); \\\n')
-  fout.write ('endfunction\n\n')
+  if (type == "TASK"):
+    fout.write ('endtask\n\n')
+  else:
+    fout.write ('endfunction\n\n')
 
 if __name__ == "__main__":
   f_macros = open('../src/svmock_mocker_defines.svh', 'w+')
   for i in range(0,10):
     mockers(i)
-    function_macros(i, f_macros, "VOID")
-    function_macros(i, f_macros)
+    method_macros(i, f_macros, "TASK")
+    method_macros(i, f_macros, "VOID")
+    method_macros(i, f_macros)

@@ -81,7 +81,11 @@ module times_unit_test;
   //             Times
   //---------------------------------
 
-  `SVTEST(TimesExactly)
+  //-----------
+  // Functions
+  //-----------
+
+  `SVTEST(functionTimesExactly)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).exactly(2);
 
     ut.functionNoArgReturnVoid();
@@ -94,7 +98,7 @@ module times_unit_test;
     `FAIL_IF(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesAtLeast)
+  `SVTEST(functionTimesAtLeast)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_least(2);
 
     ut.functionNoArgReturnVoid();
@@ -107,7 +111,7 @@ module times_unit_test;
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesAtMost)
+  `SVTEST(functionTimesAtMost)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_most(2);
 
     repeat (2) begin
@@ -119,7 +123,7 @@ module times_unit_test;
     `FAIL_IF(ut.check());
   `SVTEST_END
 
-  `SVTEST(TimesBetween)
+  `SVTEST(functionTimesBetween)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
 
     ut.functionNoArgReturnVoid();
@@ -131,6 +135,64 @@ module times_unit_test;
     end
 
     ut.functionNoArgReturnVoid();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+
+  //-------
+  // Tasks
+  //-------
+
+  `SVTEST(taskTimesExactly)
+    `EXPECT_CALL(ut, taskNoArg).exactly(2);
+ 
+    ut.taskNoArg();
+    `FAIL_IF(ut.check());
+ 
+    ut.taskNoArg();
+    `FAIL_UNLESS(ut.check());
+ 
+    ut.taskNoArg();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+ 
+  `SVTEST(taskTimesAtLeast)
+    `EXPECT_CALL(ut, taskNoArg).at_least(2);
+ 
+    ut.taskNoArg();
+    `FAIL_IF(ut.check());
+ 
+    ut.taskNoArg();
+    `FAIL_UNLESS(ut.check());
+ 
+    ut.taskNoArg();
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+ 
+  `SVTEST(taskTimesAtMost)
+    `EXPECT_CALL(ut, taskNoArg).at_most(2);
+ 
+    repeat (2) begin
+      ut.taskNoArg();
+      `FAIL_UNLESS(ut.check());
+    end
+ 
+    ut.taskNoArg();
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+ 
+  `SVTEST(taskTimesBetween)
+    `EXPECT_CALL(ut, taskNoArg).between(2, 4);
+ 
+    ut.taskNoArg();
+    `FAIL_IF(ut.check());
+ 
+    repeat (3) begin
+      ut.taskNoArg();
+      `FAIL_UNLESS(ut.check());
+    end
+ 
+    ut.taskNoArg();
     `FAIL_IF(ut.check());
   `SVTEST_END
 

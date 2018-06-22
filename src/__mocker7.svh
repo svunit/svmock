@@ -20,7 +20,7 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 
   withAct_5 = ARG5; \
   withAct_6 = ARG6; \
 endfunction \
-RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS */ \
+RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
 function RETURNS returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \

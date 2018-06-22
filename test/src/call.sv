@@ -59,4 +59,11 @@ class call;
   function int functionIntArgReturnInt(int y);
     return y;
   endfunction
+
+
+  //-------
+  // tasks
+  //-------
+  virtual task taskNoArg();
+  endtask
 endclass

@@ -42,10 +42,13 @@ The `SVMOCK(mock_class, parent_class)/SVMOCK_END` macros roughly translate to cl
 
 Each function in `flintstones` is mocked with an `SVMOCK_*` function macro. Void functions use the `SVMOCK_VOIDFUNCTION<N>` macros where 'N' is the number of input arguments. The function `flintstones::dino`, for example, has no input arguments so it is mocked with `SVMOCK_VOIDFUNCTOIN0` whereas `flintstones::bam_bam` has 1 argument so it requires the `SVMOCK_VOIDFUNCTION1` macro. The first argument to the void function macros is the name of the function. Subsequent arguments are related to each input argument.
 
-For functions that are non-void, the `SVMOCK_FUNCTION<N>` macros are used. The first argument is still the name of the function. The second argument is the return type of the function. Subsequent arguments are related to each input argument.
+For functions that are non-void, the `SVMOCK_FUNCTION\<N\>` macros are used. The first argument is still the name of the function. The second argument is the return type of the function. Subsequent arguments are related to each input argument.
+
+Tasks are mocked using the `SVMOCK_TASK\<N\> macors. The task macro syntax is the same as the void function macros.
 
 ```
 `SVMOCK_VOIDFUNCTION<N>(NAME,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
+`SVMOCK_TASK<N>(NAME,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 `SVMOCK_FUNCTION<N>(NAME,RETURN_TYPE,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 ```
 

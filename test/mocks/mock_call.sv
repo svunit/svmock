@@ -16,4 +16,7 @@
   `SVMOCK_FUNCTION0(functionNoArgReturnInt, int)
   `SVMOCK_FUNCTION0(functionNoArgReturnString, string)
   `SVMOCK_FUNCTION1(functionIntArgReturnInt, int, int, y, )
+
+  // tasks
+  `SVMOCK_TASK0(taskNoArg)
 `SVMOCK_END
