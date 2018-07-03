@@ -57,7 +57,7 @@ package svmock_pkg;
     // clear state
     //-------------
 
-    virtual function clear();
+    virtual function void clear();
       timesCnt = 0;
       timesExactlyExp = -1;
       timesAtLeastExp = -1;

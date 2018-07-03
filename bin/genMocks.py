@@ -40,7 +40,7 @@ def mockers(numargs):
 
   # returns
   fout.write ('RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \\\n')
-  fout.write ('function RETURNS returns(RETURNS r); \\\n' +
+  fout.write ('function void returns(RETURNS r); \\\n' +
               '  overrideReturn = 1; \\\n' +
               '  returnsVal = r; \\\n' +
               'endfunction \\\n')

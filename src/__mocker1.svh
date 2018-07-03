@@ -9,7 +9,7 @@ function void called(TYPE0 ARG0 MOD0); \
   withAct_0 = ARG0; \
 endfunction \
 RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
-function RETURNS returns(RETURNS r); \
+function void returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \
 endfunction \

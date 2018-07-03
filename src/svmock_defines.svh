@@ -11,7 +11,7 @@ class MOCK extends ORIGINAL; \
       check &= __mockers[i].check(); \
     end \
   endfunction \
-  function bit clear(); \
+  function void clear(); \
     foreach (__mockers[i]) begin \
       __mockers[i].clear(); \
     end \
