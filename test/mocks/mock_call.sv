@@ -21,9 +21,9 @@
   `SVMOCK_TASK0(taskNoArg)
 
   // hooks
-  function void will_by_default(); endfunction
-
+  `SVMOCK_HOOK_FUNCTION0(call_this_instead, string)
   function string call_this_instead();
-    return "other";
+    return "call_this_instead";
   endfunction
+
 `SVMOCK_END

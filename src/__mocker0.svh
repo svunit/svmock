@@ -18,8 +18,4 @@ function bit check(); \
   check = super.check(); \
   return check; \
 endfunction \
-__mocker_hooks hooks [string];
-function void will_by_default(string instead); \
-  default = hooks[instead]; \
-endfunction \
 endclass

@@ -17,6 +17,17 @@ package svmock_pkg;
     endfunction
 
 
+    //-----------------
+    // will_by_default
+    //-----------------
+
+    __mocker instead;
+    function void will_by_default(string i);
+      //instead = __mockers[i];
+    endfunction
+function invoke(); endfunction
+
+
     //-------
     // Times
     //-------
@@ -58,6 +69,7 @@ package svmock_pkg;
     //-------------
 
     virtual function void clear();
+      instead = null;
       timesCnt = 0;
       timesExactlyExp = -1;
       timesAtLeastExp = -1;

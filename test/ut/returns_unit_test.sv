@@ -95,7 +95,7 @@ module returns_unit_test;
   `SVTEST(willByDefault)
     `ON_CALL(ut, functionNoArgReturnString).will_by_default("call_this_instead");
 
-    o = "something_else";
+    o = "call_this_intead";
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 

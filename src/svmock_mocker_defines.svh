@@ -19,11 +19,17 @@ endfunction
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function RETURN NAME(); \
   __``NAME.called(); \
-  if (__``NAME.overrideReturn) \
+  if (__``NAME.instead != null) \
+    return __``NAME.instead.invoke(); \
+  else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
     return super.NAME(); \
 endfunction
+
+`define SVMOCK_HOOK_FUNCTION0(NAME,RETURN) \
+`SVMOCK_MOCKER_CLASS0(NAME,RETURN) \
+__``NAME``__mocker __``NAME = new("NAME", __mockers);
 
 `define SVMOCK_TASK1(NAME,TYPE0,ARG0,MOD0) \
 `SVMOCK_MOCKER_CLASS1(NAME,int,TYPE0,ARG0,MOD0) \
