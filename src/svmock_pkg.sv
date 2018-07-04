@@ -4,6 +4,8 @@ package svmock_pkg;
   typedef class __mocker;
 
   class __mocker;
+    string name;
+
     int timesCnt = 0;
     int signed timesExactlyExp = -1;
     int signed timesAtLeastExp = -1;
@@ -13,19 +15,9 @@ package svmock_pkg;
     bit overrideReturn = 0;
 
     function new(string name, ref __mocker __mockers[$]);
+      this.name = name;
       __mockers.push_back(this);
     endfunction
-
-
-    //-----------------
-    // will_by_default
-    //-----------------
-
-    __mocker instead;
-    function void will_by_default(string i);
-      //instead = __mockers[i];
-    endfunction
-function invoke(); endfunction
 
 
     //-------
@@ -69,7 +61,6 @@ function invoke(); endfunction
     //-------------
 
     virtual function void clear();
-      instead = null;
       timesCnt = 0;
       timesExactlyExp = -1;
       timesAtLeastExp = -1;

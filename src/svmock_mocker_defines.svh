@@ -15,6 +15,7 @@ virtual function void NAME(); \
 endfunction
 
 `define SVMOCK_FUNCTION0(NAME,RETURN) \
+`define invoke_function__``NAME`` virtual function RETURN invoke() \
 `SVMOCK_MOCKER_CLASS0(NAME,RETURN) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function RETURN NAME(); \
@@ -27,9 +28,13 @@ virtual function RETURN NAME(); \
     return super.NAME(); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION0(NAME,RETURN) \
-`SVMOCK_MOCKER_CLASS0(NAME,RETURN) \
-__``NAME``__mocker __``NAME = new("NAME", __mockers);
+`define SVMOCK_HOOK_FUNCTION0(ORIGINAL,INSTEAD) \
+class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
+  `invoke_function__``ORIGINAL; \
+    return parent.INSTEAD(); \
+  endfunction \
+endclass \
+__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, __``ORIGINAL);
 
 `define SVMOCK_TASK1(NAME,TYPE0,ARG0,MOD0) \
 `SVMOCK_MOCKER_CLASS1(NAME,int,TYPE0,ARG0,MOD0) \
