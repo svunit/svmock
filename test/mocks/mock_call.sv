@@ -19,4 +19,11 @@
 
   // tasks
   `SVMOCK_TASK0(taskNoArg)
+
+  // hooks
+  function void will_by_default(); endfunction
+
+  function string call_this_instead();
+    return "other";
+  endfunction
 `SVMOCK_END

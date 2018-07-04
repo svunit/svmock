@@ -60,6 +60,8 @@ module returns_unit_test;
   //     <test code>
   //   `SVTEST_END
   //===================================
+
+  string o;
   `SVUNIT_TESTS_BEGIN
 
   // unit tests for on_call. here's a template from
@@ -82,11 +84,18 @@ module returns_unit_test;
   `SVTEST_END
 
   `SVTEST(returnsString)
-    string o = "nothing";
+    o = "nothing";
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
 
     `ON_CALL(ut, functionNoArgReturnString).returns("something");
     o = "something";
+    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
+  `SVTEST_END
+
+  `SVTEST(willByDefault)
+    `ON_CALL(ut, functionNoArgReturnString).will_by_default("call_this_instead");
+
+    o = "something_else";
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 
