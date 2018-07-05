@@ -1,7 +1,10 @@
-`define SVMOCK_MOCKER_CLASS3(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2)\
+`define SVMOCK_MOCKER_CLASS3(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
 class __``NAME``__mocker  extends __mocker; \
-function new(string name, ref __mocker __mockers[$]); \
+function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \
   super.new(name, __mockers); \
+  if (parent != null) parent.possibilities[name] = this; \
+endfunction \
+virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2); \
 endfunction \
 TYPE0 withAct_0 MOD0, withExp_0 MOD0; \
 TYPE1 withAct_1 MOD1, withExp_1 MOD1; \
@@ -11,6 +14,11 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2); \
   withAct_0 = ARG0; \
   withAct_1 = ARG1; \
   withAct_2 = ARG2; \
+endfunction \
+__``NAME``__mocker possibilities [string]; \
+__``NAME``__mocker instead; \
+function void will_by_default(string i); \
+  instead = possibilities[i]; \
 endfunction \
 RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
 function void returns(RETURNS r); \
@@ -29,5 +37,9 @@ function bit check(); \
   check &= (checkWith) ? (withExp_1 == withAct_1)  : 1; \
   check &= (checkWith) ? (withExp_2 == withAct_2)  : 1; \
   return check; \
+endfunction \
+function void clear(); \
+  super.clear(); \
+  instead = null; \
 endfunction \
 endclass

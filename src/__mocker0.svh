@@ -5,7 +5,6 @@ function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker pa
   if (parent != null) parent.possibilities[name] = this; \
 endfunction \
 virtual function RETURNS NAME(); \
-$display("STEP 1"); \
 endfunction \
 function void called(); \
   timesCnt += 1; \

@@ -19,12 +19,17 @@ def mockers(numargs):
   fout = open('../src/__mocker' + str(numargs) + '.svh', 'w+')
 
   # macro header
-  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s)\\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
 
   # class & new
   fout.write ('class __``NAME``__mocker  extends __mocker; \\\n' +
-              'function new(string name, ref __mocker __mockers[$]); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \\\n' +
               '  super.new(name, __mockers); \\\n' +
+              '  if (parent != null) parent.possibilities[name] = this; \\\n' +
+              'endfunction \\\n')
+
+  # NAME
+  fout.write ('virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +
               'endfunction \\\n')
 
   # with comparison properties
@@ -37,6 +42,13 @@ def mockers(numargs):
   for j in range(0,numargs):
     fout.write('  withAct_%0d = ARG%0d; \\\n' % (j,j))
   fout.write ('endfunction \\\n')
+
+  # will_by_default
+  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker instead; \\\n' +
+              'function void will_by_default(string i); \\\n' +
+              '  instead = possibilities[i]; \\\n' +
+              'endfunction \\\n')
 
   # returns
   fout.write ('RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \\\n')
@@ -59,6 +71,13 @@ def mockers(numargs):
     fout.write ('  check &= (checkWith) ? (withExp_%0d == withAct_%0d)  : 1; \\\n' % (j,j))
   fout.write ('  return check; \\\n')
   fout.write ('endfunction \\\n')
+
+  # clear
+  fout.write ('function void clear(); \\\n' +
+              '  super.clear(); \\\n' +
+              '  instead = null; \\\n' +
+              'endfunction \\\n')
+
   fout.write ('endclass\n')
 
 def method_macros(numargs, fout, type="NORMAL"):
