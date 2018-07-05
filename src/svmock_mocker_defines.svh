@@ -15,14 +15,14 @@ virtual function void NAME(); \
 endfunction
 
 `define SVMOCK_FUNCTION0(NAME,RETURN) \
-`define invoke_function__``NAME`` virtual function RETURN invoke() \
+`define invoke_function__``NAME`` virtual function RETURN NAME() \
 `SVMOCK_MOCKER_CLASS0(NAME,RETURN) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function RETURN NAME(); \
   __``NAME.called(); \
-  if (__``NAME.instead != null) \
-    return __``NAME.instead.invoke(); \
-  else if (__``NAME.overrideReturn) \
+  /* if (__``NAME.instead != null) \
+    return __``NAME.instead.NAME(); \
+  else */ if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
     return super.NAME(); \
@@ -30,11 +30,15 @@ endfunction
 
 `define SVMOCK_HOOK_FUNCTION0(ORIGINAL,INSTEAD) \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
+  function new(string name, ref __mocker __mockers[$]); \
+    super.new(name, __mockers); \
+  endfunction \
   `invoke_function__``ORIGINAL; \
-    return parent.INSTEAD(); \
+$display("SOMETHING_ELSE"); \
+    return "something_else"; \
   endfunction \
 endclass \
-__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, __``ORIGINAL);
+__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers);
 
 `define SVMOCK_TASK1(NAME,TYPE0,ARG0,MOD0) \
 `SVMOCK_MOCKER_CLASS1(NAME,int,TYPE0,ARG0,MOD0) \
