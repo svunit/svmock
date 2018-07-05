@@ -4,13 +4,18 @@ function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker pa
   super.new(name, __mockers); \
   if (parent != null) parent.possibilities[name] = this; \
 endfunction \
+virtual function RETURNS NAME(); \
+$display("STEP 1"); \
+endfunction \
 function void called(); \
   timesCnt += 1; \
 endfunction \
 __``NAME``__mocker possibilities [string]; \
 __``NAME``__mocker instead; \
 function void will_by_default(string i); \
+$display("TRYING A POSSIBILITY..."); \
   instead = possibilities[i]; \
+if (instead == null) $display("...BUT IT DIDNT WORK OUT"); \
 endfunction \
 RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
 function void returns(RETURNS r); \

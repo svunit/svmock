@@ -20,9 +20,9 @@ endfunction
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function RETURN NAME(); \
   __``NAME.called(); \
-  /* if (__``NAME.instead != null) \
+  if (__``NAME.instead != null) \
     return __``NAME.instead.NAME(); \
-  else */ if (__``NAME.overrideReturn) \
+  else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
     return super.NAME(); \
