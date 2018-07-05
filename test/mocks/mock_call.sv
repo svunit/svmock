@@ -22,8 +22,7 @@
 
   // hooks
   `SVMOCK_HOOK_FUNCTION0(functionNoArgReturnString, call_this_instead)
-  function string call_this_instead();
-    return "call_this_instead";
-  endfunction
+    return "functionNoArgReturnString::call_this_instead";
+  `SVMOCK_ENDFUNCTION
 
 `SVMOCK_END

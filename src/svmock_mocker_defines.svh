@@ -29,16 +29,17 @@ virtual function RETURN NAME(); \
 endfunction
 
 `define SVMOCK_HOOK_FUNCTION0(ORIGINAL,INSTEAD) \
+typedef class __``INSTEAD``__mocker; \
+__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$]); \
-    super.new(name, __mockers); \
+  function new(string name, ref __mocker __mockers[$], input __``ORIGINAL``__mocker parent = null); \
+    super.new(name, __mockers, parent); \
   endfunction \
-  `invoke_function__``ORIGINAL; \
-$display("SOMETHING_ELSE"); \
-    return "something_else"; \
+  `invoke_function__``ORIGINAL;
+
+`define SVMOCK_ENDFUNCTION \
   endfunction \
-endclass \
-__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers);
+endclass
 
 `define SVMOCK_TASK1(NAME,TYPE0,ARG0,MOD0) \
 `SVMOCK_MOCKER_CLASS1(NAME,int,TYPE0,ARG0,MOD0) \
