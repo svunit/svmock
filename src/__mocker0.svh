@@ -13,9 +13,7 @@ endfunction \
 __``NAME``__mocker possibilities [string]; \
 __``NAME``__mocker instead; \
 function void will_by_default(string i); \
-$display("TRYING A POSSIBILITY..."); \
   instead = possibilities[i]; \
-if (instead == null) $display("...BUT IT DIDNT WORK OUT"); \
 endfunction \
 RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
 function void returns(RETURNS r); \
