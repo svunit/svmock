@@ -92,6 +92,15 @@ def method_macros(numargs, fout, type="NORMAL"):
   fout.write (') \\\n')
 
   if (type == "NORMAL"):
+    fout.write ('`define invoke%0d_function__``NAME`` virtual function RETURN NAME(' % numargs)
+    for j in range(0,numargs):
+      if (j == numargs-1):
+        fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
+      else:
+        fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
+    fout.write (') \\\n')
+
+  if (type == "NORMAL"):
     fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
   else:
     fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,int' % numargs)
@@ -120,7 +129,15 @@ def method_macros(numargs, fout, type="NORMAL"):
       fout.write ('ARG%0d,' % j)
   fout.write ('); \\\n')
   if (type == "NORMAL"):
-    fout.write ('  if (__``NAME.overrideReturn) \\\n' +
+    fout.write ('  if (__``NAME.instead != null) \\\n' +
+                '    return __``NAME.instead.NAME(')
+    for j in range(0,numargs):
+      if (j == numargs-1):
+        fout.write ('ARG%0d' % j)
+      else:
+        fout.write ('ARG%0d,' % j)
+    fout.write ('); \\\n' +
+                '  else if (__``NAME.overrideReturn) \\\n' +
                 '    return __``NAME.returnsVal; \\\n' +
                 '  else \\\n' +
                 '    return super.NAME(')
@@ -137,6 +154,19 @@ def method_macros(numargs, fout, type="NORMAL"):
   else:
     fout.write ('endfunction\n\n')
 
+  if (type == "NORMAL"):
+    fout.write ('`define SVMOCK_HOOK_FUNCTION%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+                'typedef class __``INSTEAD``__mocker; \\\n' +
+                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, __``ORIGINAL); \\\n' +
+                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+                '  function new(string name, ref __mocker __mockers[$], input __``ORIGINAL``__mocker parent = null); \\\n' +
+                '    super.new(name, __mockers, parent); \\\n' +
+                '  endfunction \\\n' +
+                '  `invoke%0d_function__``ORIGINAL;\n\n' % numargs +
+                '`define SVMOCK_ENDFUNCTION \\\n' +
+                '  endfunction \\\n' +
+                'endclass\n\n')
+
 if __name__ == "__main__":
   f_macros = open('../src/svmock_mocker_defines.svh', 'w+')
   for i in range(0,10):
@@ -144,3 +174,6 @@ if __name__ == "__main__":
     method_macros(i, f_macros, "TASK")
     method_macros(i, f_macros, "VOID")
     method_macros(i, f_macros)
+
+
+
