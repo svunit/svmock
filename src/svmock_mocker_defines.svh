@@ -8,6 +8,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION0(NAME) \
 `define invoke0_function__``NAME`` virtual function void NAME() \
+`define args0_function__``NAME`` \
 `SVMOCK_MOCKER_CLASS0(NAME,void) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(); \
@@ -20,6 +21,7 @@ endfunction
 
 `define SVMOCK_FUNCTION0(NAME,RETURN) \
 `define invoke0_function__``NAME`` virtual function RETURN NAME() \
+`define args0_function__``NAME`` \
 `SVMOCK_FUNCTION_MOCKER_CLASS0(NAME,RETURN) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(); \
@@ -39,9 +41,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke0_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke0_function__``ORIGINAL; \
+    return parent.INSTEAD(`args0_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -55,6 +56,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION1(NAME,TYPE0,ARG0,MOD0) \
 `define invoke1_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0) \
+`define args1_function__``NAME``ARG0 \
 `SVMOCK_MOCKER_CLASS1(NAME,void,TYPE0,ARG0,MOD0) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0); \
@@ -67,6 +69,7 @@ endfunction
 
 `define SVMOCK_FUNCTION1(NAME,RETURN,TYPE0,ARG0,MOD0) \
 `define invoke1_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0) \
+`define args1_function__``NAME``ARG0 \
 `SVMOCK_FUNCTION_MOCKER_CLASS1(NAME,RETURN,TYPE0,ARG0,MOD0) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0); \
@@ -86,9 +89,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke1_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke1_function__``ORIGINAL; \
+    return parent.INSTEAD(`args1_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -102,6 +104,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION2(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
 `define invoke2_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1) \
+`define args2_function__``NAME``ARG0, ARG1 \
 `SVMOCK_MOCKER_CLASS2(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
@@ -114,6 +117,7 @@ endfunction
 
 `define SVMOCK_FUNCTION2(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
 `define invoke2_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1) \
+`define args2_function__``NAME``ARG0, ARG1 \
 `SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
@@ -133,9 +137,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke2_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke2_function__``ORIGINAL; \
+    return parent.INSTEAD(`args2_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -149,6 +152,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION3(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
 `define invoke3_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2) \
+`define args3_function__``NAME``ARG0, ARG1, ARG2 \
 `SVMOCK_MOCKER_CLASS3(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
@@ -161,6 +165,7 @@ endfunction
 
 `define SVMOCK_FUNCTION3(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
 `define invoke3_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2) \
+`define args3_function__``NAME``ARG0, ARG1, ARG2 \
 `SVMOCK_FUNCTION_MOCKER_CLASS3(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
@@ -180,9 +185,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke3_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke3_function__``ORIGINAL; \
+    return parent.INSTEAD(`args3_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -196,6 +200,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION4(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 `define invoke4_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3) \
+`define args4_function__``NAME``ARG0, ARG1, ARG2, ARG3 \
 `SVMOCK_MOCKER_CLASS4(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
@@ -208,6 +213,7 @@ endfunction
 
 `define SVMOCK_FUNCTION4(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 `define invoke4_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3) \
+`define args4_function__``NAME``ARG0, ARG1, ARG2, ARG3 \
 `SVMOCK_FUNCTION_MOCKER_CLASS4(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
@@ -227,9 +233,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke4_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke4_function__``ORIGINAL; \
+    return parent.INSTEAD(`args4_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -243,6 +248,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION5(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
 `define invoke5_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4) \
+`define args5_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4 \
 `SVMOCK_MOCKER_CLASS5(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
@@ -255,6 +261,7 @@ endfunction
 
 `define SVMOCK_FUNCTION5(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
 `define invoke5_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4) \
+`define args5_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4 \
 `SVMOCK_FUNCTION_MOCKER_CLASS5(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
@@ -274,9 +281,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke5_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke5_function__``ORIGINAL; \
+    return parent.INSTEAD(`args5_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -290,6 +296,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION6(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5) \
 `define invoke6_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5) \
+`define args6_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5 \
 `SVMOCK_MOCKER_CLASS6(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
@@ -302,6 +309,7 @@ endfunction
 
 `define SVMOCK_FUNCTION6(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5) \
 `define invoke6_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5) \
+`define args6_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5 \
 `SVMOCK_FUNCTION_MOCKER_CLASS6(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
@@ -321,9 +329,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke6_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke6_function__``ORIGINAL; \
+    return parent.INSTEAD(`args6_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -337,6 +344,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION7(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6) \
 `define invoke7_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6) \
+`define args7_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6 \
 `SVMOCK_MOCKER_CLASS7(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
@@ -349,6 +357,7 @@ endfunction
 
 `define SVMOCK_FUNCTION7(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6) \
 `define invoke7_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6) \
+`define args7_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6 \
 `SVMOCK_FUNCTION_MOCKER_CLASS7(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
@@ -368,9 +377,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke7_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke7_function__``ORIGINAL; \
+    return parent.INSTEAD(`args7_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -384,6 +392,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION8(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
 `define invoke8_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7) \
+`define args8_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7 \
 `SVMOCK_MOCKER_CLASS8(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
@@ -396,6 +405,7 @@ endfunction
 
 `define SVMOCK_FUNCTION8(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
 `define invoke8_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7) \
+`define args8_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7 \
 `SVMOCK_FUNCTION_MOCKER_CLASS8(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
@@ -415,9 +425,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke8_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke8_function__``ORIGINAL; \
+    return parent.INSTEAD(`args8_function__``ORIGINAL); \
   endfunction \
 endclass
 
@@ -431,6 +440,7 @@ endtask
 
 `define SVMOCK_VOIDFUNCTION9(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
 `define invoke9_function__``NAME`` virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8) \
+`define args9_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8 \
 `SVMOCK_MOCKER_CLASS9(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
@@ -443,6 +453,7 @@ endfunction
 
 `define SVMOCK_FUNCTION9(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
 `define invoke9_function__``NAME`` virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8) \
+`define args9_function__``NAME``ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8 \
 `SVMOCK_FUNCTION_MOCKER_CLASS9(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
@@ -462,9 +473,8 @@ class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
   function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
-  `invoke9_function__``ORIGINAL;
-
-`define SVMOCK_ENDFUNCTION \
+  `invoke9_function__``ORIGINAL; \
+    return parent.INSTEAD(`args9_function__``ORIGINAL); \
   endfunction \
 endclass
 
