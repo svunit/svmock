@@ -4,6 +4,7 @@
 
 `define SVMOCK(MOCK,ORIGINAL) \
 class MOCK extends ORIGINAL; \
+  `define PARENT MOCK \
   __mocker __mockers [$]; \
   function bit check(); \
     check = 1; \

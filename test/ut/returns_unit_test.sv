@@ -115,7 +115,7 @@ module returns_unit_test;
   //             misc
   //---------------------------------
   `SVTEST(parent_is_assigned)
-    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.parent == 0);
+    `FAIL_IF(ut.__functionIntArgReturnVoid.parent == null);
   `SVTEST_END
 
   `SVUNIT_TESTS_END
