@@ -50,13 +50,6 @@ def mockers(numargs):
               '  instead = possibilities[i]; \\\n' +
               'endfunction \\\n')
 
-  # returns
-  fout.write ('RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \\\n')
-  fout.write ('function void returns(RETURNS r); \\\n' +
-              '  overrideReturn = 1; \\\n' +
-              '  returnsVal = r; \\\n' +
-              'endfunction \\\n')
-
   # With
   fout.write (functionDecl('with_args',numargs) + ' \\\n')
   fout.write ('  checkWith = 1; \\\n')
@@ -78,7 +71,27 @@ def mockers(numargs):
               '  instead = null; \\\n' +
               'endfunction \\\n')
 
+  fout.write ('endclass\n\n')
+
+  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+
+  # class & new
+  fout.write ('class __``NAME``__function_mocker  extends __``NAME``__mocker; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \\\n' +
+              '  super.new(name, __mockers, parent); \\\n' +
+              'endfunction \\\n')
+
+  # returns
+  fout.write ('RETURNS returnsVal; \\\n')
+  fout.write ('function void returns(RETURNS r); \\\n' +
+              '  overrideReturn = 1; \\\n' +
+              '  returnsVal = r; \\\n' +
+              'endfunction \\\n')
+
   fout.write ('endclass\n')
+
+
 
 def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
@@ -104,14 +117,18 @@ def method_macros(numargs, fout, type="NORMAL"):
     fout.write (') \\\n')
 
   if (type == "NORMAL"):
-    fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
+    fout.write('`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
   else:
     fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,int' % numargs)
   for j in range(0,numargs):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
 
-  fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
+  if (type == "NORMAL"):
+    fout.write ('__``NAME``__function_mocker __``NAME = new("NAME", __mockers); \\\n')
+  else:
+    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
+
   if (type == "NORMAL"):
     fout.write ('virtual function RETURN NAME(')
   elif (type == "VOID"):

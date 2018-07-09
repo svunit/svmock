@@ -16,11 +16,6 @@ __``NAME``__mocker instead; \
 function void will_by_default(string i); \
   instead = possibilities[i]; \
 endfunction \
-RETURNS returnsVal; /* UNUSED FOR VOID FUNCTIONS AND TASKS */ \
-function void returns(RETURNS r); \
-  overrideReturn = 1; \
-  returnsVal = r; \
-endfunction \
 function void with_args(TYPE0 ARG0 MOD0); \
   checkWith = 1; \
   withExp_0 = ARG0; \
@@ -33,5 +28,18 @@ endfunction \
 function void clear(); \
   super.clear(); \
   instead = null; \
+endfunction \
+endclass
+
+`define SVMOCK_FUNCTION_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0) \
+`SVMOCK_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0) \
+class __``NAME``__function_mocker  extends __``NAME``__mocker; \
+function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \
+  super.new(name, __mockers, parent); \
+endfunction \
+RETURNS returnsVal; \
+function void returns(RETURNS r); \
+  overrideReturn = 1; \
+  returnsVal = r; \
 endfunction \
 endclass
