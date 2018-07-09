@@ -14,6 +14,9 @@ def allArgString(numargs, delim=' ', prefix=''):
 def functionDecl(name,numargs,type='void'):
   return 'function %s %s(%s);' % (type, name, allArgString(numargs))
 
+def taskDecl(name,numargs):
+  return 'task %s(%s);' % (name, allArgString(numargs))
+
 
 def mockers(numargs):
   fout = open('../src/__mocker' + str(numargs) + '.svh', 'w+')
@@ -24,14 +27,9 @@ def mockers(numargs):
   # class & new
   fout.write ('class __``NAME``MODIFIER``__mocker  extends __mocker; \\\n' +
               '`PARENT parent; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``MODIFIER``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent); \\\n' +
               '  super.new(name, __mockers); \\\n' +
               '  parent = _parent; \\\n' +
-              '  if (associate != null) associate.possibilities[name] = this; \\\n' +
-              'endfunction \\\n')
-
-  # NAME
-  fout.write ('virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +
               'endfunction \\\n')
 
   # with comparison properties
@@ -44,13 +42,6 @@ def mockers(numargs):
   for j in range(0,numargs):
     fout.write('  withAct_%0d = ARG%0d; \\\n' % (j,j))
   fout.write ('endfunction \\\n')
-
-  # will_by_default
-  fout.write ('__``NAME``MODIFIER``__mocker possibilities [string]; \\\n' +
-              '__``NAME``MODIFIER``__mocker instead; \\\n' +
-              'function void will_by_default(string i); \\\n' +
-              '  instead = possibilities[i]; \\\n' +
-              'endfunction \\\n')
 
   # With
   fout.write (functionDecl('with_args',numargs) + ' \\\n')
@@ -67,12 +58,6 @@ def mockers(numargs):
   fout.write ('  return check; \\\n')
   fout.write ('endfunction \\\n')
 
-  # clear
-  fout.write ('function void clear(); \\\n' +
-              '  super.clear(); \\\n' +
-              '  instead = null; \\\n' +
-              'endfunction \\\n')
-
   fout.write ('endclass\n\n')
 
   fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
@@ -81,7 +66,12 @@ def mockers(numargs):
   # class & new
   fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
               'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
-              '  super.new(name, __mockers, _parent, associate); \\\n' +
+              '  super.new(name, __mockers, _parent); \\\n' +
+              '  if (associate != null) associate.possibilities[name] = this; \\\n' +
+              'endfunction \\\n')
+
+  # NAME
+  fout.write ('virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +
               'endfunction \\\n')
 
   # returns
@@ -89,6 +79,78 @@ def mockers(numargs):
   fout.write ('function void returns(RETURNS r); \\\n' +
               '  overrideReturn = 1; \\\n' +
               '  returnsVal = r; \\\n' +
+              'endfunction \\\n')
+
+  # will_by_default
+  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker instead; \\\n' +
+              'function void will_by_default(string i); \\\n' +
+              '  instead = possibilities[i]; \\\n' +
+              'endfunction \\\n')
+
+  # clear
+  fout.write ('function void clear(); \\\n' +
+              '  super.clear(); \\\n' +
+              '  instead = null; \\\n' +
+              'endfunction \\\n')
+
+  fout.write ('endclass\n\n')
+
+  fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+
+  # class & new
+  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              '  super.new(name, __mockers, _parent); \\\n' +
+              '  if (associate != null) associate.possibilities[name] = this; \\\n' +
+              'endfunction \\\n')
+
+  # NAME
+  fout.write ('virtual ' + functionDecl('NAME',numargs) + ' \\\n' +
+              'endfunction \\\n')
+
+  # will_by_default
+  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker instead; \\\n' +
+              'function void will_by_default(string i); \\\n' +
+              '  instead = possibilities[i]; \\\n' +
+              'endfunction \\\n')
+
+  # clear
+  fout.write ('function void clear(); \\\n' +
+              '  super.clear(); \\\n' +
+              '  instead = null; \\\n' +
+              'endfunction \\\n')
+
+  fout.write ('endclass\n\n')
+
+  fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+
+  # class & new
+  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              '  super.new(name, __mockers, _parent); \\\n' +
+              '  if (associate != null) associate.possibilities[name] = this; \\\n' +
+              'endfunction \\\n')
+
+
+  # NAME
+  fout.write ('virtual ' + taskDecl('NAME',numargs) + ' \\\n' +
+              'endtask \\\n')
+
+  # will_by_default
+  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker instead; \\\n' +
+              'function void will_by_default(string i); \\\n' +
+              '  instead = possibilities[i]; \\\n' +
+              'endfunction \\\n')
+
+  # clear
+  fout.write ('function void clear(); \\\n' +
+              '  super.clear(); \\\n' +
+              '  instead = null; \\\n' +
               'endfunction \\\n')
 
   fout.write ('endclass\n')
@@ -106,38 +168,38 @@ def method_macros(numargs, fout, type="NORMAL"):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
 
-  if (type == "NORMAL" or type == "VOID"):
-    if (type == "NORMAL"):
-      fout.write ('`define invoke%0d_function__``NAME`` virtual function RETURN NAME(' % numargs)
-    elif (type == "VOID"):
-      fout.write ('`define invoke%0d_function__``NAME`` virtual function void NAME(' % numargs)
-    for j in range(0,numargs):
-      if (j == numargs-1):
-        fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
-      else:
-        fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
-    fout.write (') \\\n')
+  if (type == "NORMAL"):
+    fout.write ('`define invoke%0d_``NAME`` virtual function RETURN NAME(' % numargs)
+  elif (type == "VOID"):
+    fout.write ('`define invoke%0d_``NAME`` virtual function void NAME(' % numargs)
+  else:
+    fout.write ('`define invoke%0d_``NAME`` virtual task NAME(' % numargs)
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
+    else:
+      fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
+  fout.write (') \\\n')
 
-    fout.write ('`define args%0d_function__``NAME`` ' % numargs)
-    for j in range(0,numargs):
-      if (j == numargs-1):
-        fout.write ('ARG%0d' % j)
-      else:
-        fout.write ('ARG%0d, ' % j)
-    fout.write (' \\\n')
+  fout.write ('`define args%0d_``NAME`` ' % numargs)
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      fout.write ('ARG%0d' % j)
+    else:
+      fout.write ('ARG%0d, ' % j)
+  fout.write (' \\\n')
 
   if (type == "NORMAL"):
     fout.write('`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
+  elif (type == "VOID"):
+    fout.write('`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME' % numargs)
   else:
-    fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,void' % numargs)
+    fout.write('`SVMOCK_TASK_MOCKER_CLASS%0d(NAME' % numargs)
   for j in range(0,numargs):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
 
-  if (type == "NORMAL"):
-    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n')
-  else:
-    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n')
+  fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n')
 
   if (type == "NORMAL"):
     fout.write ('virtual function RETURN NAME(')
@@ -203,21 +265,33 @@ def method_macros(numargs, fout, type="NORMAL"):
                 '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
                 '    super.new(name, __mockers, _parent, associate); \\\n' +
                 '  endfunction \\\n' +
-                '  `invoke%0d_function__``ORIGINAL; \\\n' % numargs +
-                '    return parent.INSTEAD(`args%0d_function__``ORIGINAL); \\\n' % numargs +
+                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+                '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
                 '  endfunction \\\n' +
                 'endclass\n\n')
-  else:
-    fout.write ('`define SVMOCK_HOOK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+  elif (type == "VOID"):
+    fout.write ('`define SVMOCK_HOOK_VOID%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
                 'typedef class __``INSTEAD``__mocker; \\\n' +
                 '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
                 'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
                 '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
                 '    super.new(name, __mockers, _parent, associate); \\\n' +
                 '  endfunction \\\n' +
-                '  `invoke%0d_function__``ORIGINAL; \\\n' % numargs +
-                '    parent.INSTEAD(`args%0d_function__``ORIGINAL); \\\n' % numargs +
+                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+                '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
                 '  endfunction \\\n' +
+                'endclass\n\n')
+  else:
+    fout.write ('`define SVMOCK_HOOK_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+                'typedef class __``INSTEAD``__mocker; \\\n' +
+                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+                '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+                '    super.new(name, __mockers, _parent, associate); \\\n' +
+                '  endfunction \\\n' +
+                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+                '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
+                '  endtask \\\n' +
                 'endclass\n\n')
 
 if __name__ == "__main__":

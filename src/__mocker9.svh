@@ -1,12 +1,9 @@
 `define SVMOCK_MOCKER_CLASS9(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8,MODIFIER=) \
 class __``NAME``MODIFIER``__mocker  extends __mocker; \
 `PARENT parent; \
-function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``MODIFIER``__mocker associate = null); \
+function new(string name, ref __mocker __mockers[$], input `PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
-  if (associate != null) associate.possibilities[name] = this; \
-endfunction \
-virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7,TYPE8 ARG8 MOD8); \
 endfunction \
 TYPE0 withAct_0 MOD0, withExp_0 MOD0; \
 TYPE1 withAct_1 MOD1, withExp_1 MOD1; \
@@ -28,11 +25,6 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 
   withAct_6 = ARG6; \
   withAct_7 = ARG7; \
   withAct_8 = ARG8; \
-endfunction \
-__``NAME``MODIFIER``__mocker possibilities [string]; \
-__``NAME``MODIFIER``__mocker instead; \
-function void will_by_default(string i); \
-  instead = possibilities[i]; \
 endfunction \
 function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7,TYPE8 ARG8 MOD8); \
   checkWith = 1; \
@@ -59,21 +51,69 @@ function bit check(); \
   check &= (checkWith) ? (withExp_8 == withAct_8)  : 1; \
   return check; \
 endfunction \
-function void clear(); \
-  super.clear(); \
-  instead = null; \
-endfunction \
 endclass
 
 `define SVMOCK_FUNCTION_MOCKER_CLASS9(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
 `SVMOCK_MOCKER_CLASS9(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8,_base) \
 class __``NAME``__mocker  extends __``NAME``_base__mocker; \
 function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
-  super.new(name, __mockers, _parent, associate); \
+  super.new(name, __mockers, _parent); \
+  if (associate != null) associate.possibilities[name] = this; \
+endfunction \
+virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7,TYPE8 ARG8 MOD8); \
 endfunction \
 RETURNS returnsVal; \
 function void returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \
+endfunction \
+__``NAME``__mocker possibilities [string]; \
+__``NAME``__mocker instead; \
+function void will_by_default(string i); \
+  instead = possibilities[i]; \
+endfunction \
+function void clear(); \
+  super.clear(); \
+  instead = null; \
+endfunction \
+endclass
+
+`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS9(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
+`SVMOCK_MOCKER_CLASS9(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8,_base) \
+class __``NAME``__mocker  extends __``NAME``_base__mocker; \
+function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
+  super.new(name, __mockers, _parent); \
+  if (associate != null) associate.possibilities[name] = this; \
+endfunction \
+virtual function void NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7,TYPE8 ARG8 MOD8); \
+endfunction \
+__``NAME``__mocker possibilities [string]; \
+__``NAME``__mocker instead; \
+function void will_by_default(string i); \
+  instead = possibilities[i]; \
+endfunction \
+function void clear(); \
+  super.clear(); \
+  instead = null; \
+endfunction \
+endclass
+
+`define SVMOCK_TASK_MOCKER_CLASS9(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \
+`SVMOCK_MOCKER_CLASS9(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8,_base) \
+class __``NAME``__mocker  extends __``NAME``_base__mocker; \
+function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
+  super.new(name, __mockers, _parent); \
+  if (associate != null) associate.possibilities[name] = this; \
+endfunction \
+virtual task NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4,TYPE5 ARG5 MOD5,TYPE6 ARG6 MOD6,TYPE7 ARG7 MOD7,TYPE8 ARG8 MOD8); \
+endtask \
+__``NAME``__mocker possibilities [string]; \
+__``NAME``__mocker instead; \
+function void will_by_default(string i); \
+  instead = possibilities[i]; \
+endfunction \
+function void clear(); \
+  super.clear(); \
+  instead = null; \
 endfunction \
 endclass

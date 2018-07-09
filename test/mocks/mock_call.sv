@@ -27,10 +27,16 @@
     return "functionNoArgReturnString::option0";
   endfunction
  
-  `SVMOCK_HOOK1(functionIntArgReturnVoid, option1)
+  `SVMOCK_HOOK_VOID1(functionIntArgReturnVoid, option1)
   int wayne;
   function void option1(int x);
     wayne = x;
   endfunction
+
+  `SVMOCK_HOOK_TASK0(taskNoArg, option2)
+  int mario;
+  task option2();
+    mario = 66;
+  endtask
 
 `SVMOCK_END
