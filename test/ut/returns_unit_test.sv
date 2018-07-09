@@ -92,12 +92,19 @@ module returns_unit_test;
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 
-  `SVTEST(willByDefault)
-    `ON_CALL(ut, functionNoArgReturnString).will_by_default("call_this_instead");
+  `SVTEST(willByDefault_functionNoArgReturnString)
+    `ON_CALL(ut, functionNoArgReturnString).will_by_default("option0");
 
-    o = "functionNoArgReturnString::call_this_instead";
+    o = "functionNoArgReturnString::option0";
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
+
+// `SVTEST(willByDefault_functionIntArgReturnVoid)
+//   `ON_CALL(ut, functionIntArgReturnVoid).will_by_default("option1");
+//
+//   ut.functionIntArgReturnVoid(99);
+//   `FAIL_UNLESS();
+// `SVTEST_END
 
   `SVUNIT_TESTS_END
 

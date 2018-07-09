@@ -91,8 +91,11 @@ def method_macros(numargs, fout, type="NORMAL"):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
 
-  if (type == "NORMAL"):
-    fout.write ('`define invoke%0d_function__``NAME`` virtual function RETURN NAME(' % numargs)
+  if (type == "NORMAL" or type == "VOID"):
+    if (type == "NORMAL"):
+      fout.write ('`define invoke%0d_function__``NAME`` virtual function RETURN NAME(' % numargs)
+    elif (type == "VOID"):
+      fout.write ('`define invoke%0d_function__``NAME`` virtual function void NAME(' % numargs)
     for j in range(0,numargs):
       if (j == numargs-1):
         fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
