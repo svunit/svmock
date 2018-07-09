@@ -22,18 +22,15 @@
   `SVMOCK_TASK0(taskNoArg)
 
   // hooks
-// `SVMOCK_HOOK_FUNCTION1(functionIntArgReturnVoid, option1)
-//   $display("blat:%0d", x);
-// `SVMOCK_ENDFUNCTION
-
   `SVMOCK_HOOK_FUNCTION0(functionNoArgReturnString, option0)
   function string option0();
     return "functionNoArgReturnString::option0";
   endfunction
  
-// `SVMOCK_HOOK1(functionIntArgReturnVoid, option1)
-//   $display("blat:%0d", x);
-// `SVMOCK_ENDFUNCTION
-
+  `SVMOCK_HOOK1(functionIntArgReturnVoid, option1)
+  int wayne;
+  function void option1(int x);
+    wayne = x;
+  endfunction
 
 `SVMOCK_END

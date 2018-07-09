@@ -118,7 +118,7 @@ def method_macros(numargs, fout, type="NORMAL"):
         fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
     fout.write (') \\\n')
 
-    fout.write ('`define args%0d_function__``NAME``' % numargs)
+    fout.write ('`define args%0d_function__``NAME`` ' % numargs)
     for j in range(0,numargs):
       if (j == numargs-1):
         fout.write ('ARG%0d' % j)
@@ -205,6 +205,18 @@ def method_macros(numargs, fout, type="NORMAL"):
                 '  endfunction \\\n' +
                 '  `invoke%0d_function__``ORIGINAL; \\\n' % numargs +
                 '    return parent.INSTEAD(`args%0d_function__``ORIGINAL); \\\n' % numargs +
+                '  endfunction \\\n' +
+                'endclass\n\n')
+  else:
+    fout.write ('`define SVMOCK_HOOK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+                'typedef class __``INSTEAD``__mocker; \\\n' +
+                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+                '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+                '    super.new(name, __mockers, _parent, associate); \\\n' +
+                '  endfunction \\\n' +
+                '  `invoke%0d_function__``ORIGINAL; \\\n' % numargs +
+                '    parent.INSTEAD(`args%0d_function__``ORIGINAL); \\\n' % numargs +
                 '  endfunction \\\n' +
                 'endclass\n\n')
 
