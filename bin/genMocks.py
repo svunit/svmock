@@ -19,11 +19,11 @@ def mockers(numargs):
   fout = open('../src/__mocker' + str(numargs) + '.svh', 'w+')
 
   # macro header
-  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',')))
 
   # class & new
-  fout.write ('class __``NAME``__mocker  extends __mocker; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \\\n' +
+  fout.write ('class __``NAME``MODIFIER``__mocker  extends __mocker; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input __``NAME``MODIFIER``__mocker parent = null); \\\n' +
               '  super.new(name, __mockers); \\\n' +
               '  if (parent != null) parent.possibilities[name] = this; \\\n' +
               'endfunction \\\n')
@@ -44,8 +44,8 @@ def mockers(numargs):
   fout.write ('endfunction \\\n')
 
   # will_by_default
-  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
-              '__``NAME``__mocker instead; \\\n' +
+  fout.write ('__``NAME``MODIFIER``__mocker possibilities [string]; \\\n' +
+              '__``NAME``MODIFIER``__mocker instead; \\\n' +
               'function void will_by_default(string i); \\\n' +
               '  instead = possibilities[i]; \\\n' +
               'endfunction \\\n')
@@ -74,10 +74,10 @@ def mockers(numargs):
   fout.write ('endclass\n\n')
 
   fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
-  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
 
   # class & new
-  fout.write ('class __``NAME``__function_mocker  extends __``NAME``__mocker; \\\n' +
+  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
               'function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \\\n' +
               '  super.new(name, __mockers, parent); \\\n' +
               'endfunction \\\n')
@@ -119,13 +119,13 @@ def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
     fout.write('`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
   else:
-    fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,int' % numargs)
+    fout.write('`SVMOCK_MOCKER_CLASS%0d(NAME,void' % numargs)
   for j in range(0,numargs):
     fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
   fout.write (') \\\n')
 
   if (type == "NORMAL"):
-    fout.write ('__``NAME``__function_mocker __``NAME = new("NAME", __mockers); \\\n')
+    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
   else:
     fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
 

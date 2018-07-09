@@ -1,6 +1,6 @@
-`define SVMOCK_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0) \
-class __``NAME``__mocker  extends __mocker; \
-function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \
+`define SVMOCK_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0,MODIFIER=) \
+class __``NAME``MODIFIER``__mocker  extends __mocker; \
+function new(string name, ref __mocker __mockers[$], input __``NAME``MODIFIER``__mocker parent = null); \
   super.new(name, __mockers); \
   if (parent != null) parent.possibilities[name] = this; \
 endfunction \
@@ -11,8 +11,8 @@ function void called(TYPE0 ARG0 MOD0); \
   timesCnt += 1; \
   withAct_0 = ARG0; \
 endfunction \
-__``NAME``__mocker possibilities [string]; \
-__``NAME``__mocker instead; \
+__``NAME``MODIFIER``__mocker possibilities [string]; \
+__``NAME``MODIFIER``__mocker instead; \
 function void will_by_default(string i); \
   instead = possibilities[i]; \
 endfunction \
@@ -32,8 +32,8 @@ endfunction \
 endclass
 
 `define SVMOCK_FUNCTION_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0) \
-`SVMOCK_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0) \
-class __``NAME``__function_mocker  extends __``NAME``__mocker; \
+`SVMOCK_MOCKER_CLASS1(NAME,RETURNS,TYPE0,ARG0,MOD0,_base) \
+class __``NAME``__mocker  extends __``NAME``_base__mocker; \
 function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \
   super.new(name, __mockers, parent); \
 endfunction \
