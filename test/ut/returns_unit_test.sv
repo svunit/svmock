@@ -73,7 +73,7 @@ module returns_unit_test;
 
 
   //---------------------------------
-  //         With Discrete
+  //           returns
   //---------------------------------
 
   `SVTEST(returnsInt)
@@ -92,6 +92,11 @@ module returns_unit_test;
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 
+
+  //---------------------------------
+  //        will_by_default
+  //---------------------------------
+
   `SVTEST(willByDefault_functionNoArgReturnString)
     `ON_CALL(ut, functionNoArgReturnString).will_by_default("option0");
 
@@ -103,6 +108,14 @@ module returns_unit_test;
     `ON_CALL(ut, functionIntArgReturnVoid).will_by_default("option1");
  
     ut.functionIntArgReturnVoid(99);
+  `SVTEST_END
+
+
+  //---------------------------------
+  //             misc
+  //---------------------------------
+  `SVTEST(parent_is_assigned)
+    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.parent == 0);
   `SVTEST_END
 
   `SVUNIT_TESTS_END

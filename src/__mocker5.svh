@@ -1,8 +1,9 @@
 `define SVMOCK_MOCKER_CLASS5(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,MODIFIER=) \
 class __``NAME``MODIFIER``__mocker  extends __mocker; \
-function new(string name, ref __mocker __mockers[$], input __``NAME``MODIFIER``__mocker parent = null); \
+int parent; \
+function new(string name, ref __mocker __mockers[$], input /* PARENT */ int parent, input __``NAME``MODIFIER``__mocker associate = null); \
   super.new(name, __mockers); \
-  if (parent != null) parent.possibilities[name] = this; \
+  if (associate != null) associate.possibilities[name] = this; \
 endfunction \
 virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4); \
 endfunction \
@@ -50,8 +51,8 @@ endclass
 `define SVMOCK_FUNCTION_MOCKER_CLASS5(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
 `SVMOCK_MOCKER_CLASS5(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,_base) \
 class __``NAME``__mocker  extends __``NAME``_base__mocker; \
-function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \
-  super.new(name, __mockers, parent); \
+function new(string name, ref __mocker __mockers[$], input /* PARENT */ int parent, input __``NAME``__mocker associate = null); \
+  super.new(name, __mockers, parent, associate); \
 endfunction \
 RETURNS returnsVal; \
 function void returns(RETURNS r); \

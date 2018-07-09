@@ -23,9 +23,10 @@ def mockers(numargs):
 
   # class & new
   fout.write ('class __``NAME``MODIFIER``__mocker  extends __mocker; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input __``NAME``MODIFIER``__mocker parent = null); \\\n' +
+              'int parent; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input /* PARENT */ int parent, input __``NAME``MODIFIER``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers); \\\n' +
-              '  if (parent != null) parent.possibilities[name] = this; \\\n' +
+              '  if (associate != null) associate.possibilities[name] = this; \\\n' +
               'endfunction \\\n')
 
   # NAME
@@ -78,8 +79,8 @@ def mockers(numargs):
 
   # class & new
   fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input __``NAME``__mocker parent = null); \\\n' +
-              '  super.new(name, __mockers, parent); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input /* PARENT */ int parent, input __``NAME``__mocker associate = null); \\\n' +
+              '  super.new(name, __mockers, parent, associate); \\\n' +
               'endfunction \\\n')
 
   # returns
@@ -125,9 +126,9 @@ def method_macros(numargs, fout, type="NORMAL"):
   fout.write (') \\\n')
 
   if (type == "NORMAL"):
-    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
+    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, 0 /* PARENT */); \\\n')
   else:
-    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers); \\\n')
+    fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, 0 /* PARENT */); \\\n')
 
   if (type == "NORMAL"):
     fout.write ('virtual function RETURN NAME(')
@@ -188,10 +189,10 @@ def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
     fout.write ('`define SVMOCK_HOOK_FUNCTION%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
                 'typedef class __``INSTEAD``__mocker; \\\n' +
-                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, __``ORIGINAL); \\\n' +
+                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, 0 /* PARENT */, __``ORIGINAL); \\\n' +
                 'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-                '  function new(string name, ref __mocker __mockers[$], input __``ORIGINAL``__mocker parent = null); \\\n' +
-                '    super.new(name, __mockers, parent); \\\n' +
+                '  function new(string name, ref __mocker __mockers[$], input /* PARENT */ int parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+                '    super.new(name, __mockers, parent, associate); \\\n' +
                 '  endfunction \\\n' +
                 '  `invoke%0d_function__``ORIGINAL;\n\n' % numargs +
                 '`define SVMOCK_ENDFUNCTION \\\n' +
