@@ -28,8 +28,8 @@
     return "functionNoArgReturnString::option0";
   `SVMOCK_ENDFUNCTION
 
-// `SVMOCK_HOOK_FUNCTION1(functionIntArgReturnVoid, option1)
-//   $display("blat:%0d", x);
-// `SVMOCK_ENDFUNCTION
+  `SVMOCK_HOOK_FUNCTION1(functionIntArgReturnVoid, option1)
+    $display("blat:%0d", x);
+  `SVMOCK_ENDFUNCTION
 
 `SVMOCK_END

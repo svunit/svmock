@@ -12,7 +12,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(); \
   __``NAME.called(); \
-  super.NAME(); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(); \
+  else \
+    super.NAME(); \
 endfunction
 
 `define SVMOCK_FUNCTION0(NAME,RETURN) \
@@ -56,7 +59,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0); \
   __``NAME.called(ARG0); \
-  super.NAME(ARG0); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0); \
+  else \
+    super.NAME(ARG0); \
 endfunction
 
 `define SVMOCK_FUNCTION1(NAME,RETURN,TYPE0,ARG0,MOD0) \
@@ -100,7 +106,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0,ARG1); \
-  super.NAME(ARG0,ARG1); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1); \
+  else \
+    super.NAME(ARG0,ARG1); \
 endfunction
 
 `define SVMOCK_FUNCTION2(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
@@ -144,7 +153,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0,ARG1,ARG2); \
-  super.NAME(ARG0,ARG1,ARG2); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2); \
 endfunction
 
 `define SVMOCK_FUNCTION3(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2) \
@@ -188,7 +200,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3); \
 endfunction
 
 `define SVMOCK_FUNCTION4(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
@@ -232,7 +247,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
 endfunction
 
 `define SVMOCK_FUNCTION5(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4) \
@@ -276,7 +294,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
 endfunction
 
 `define SVMOCK_FUNCTION6(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5) \
@@ -320,7 +341,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
 endfunction
 
 `define SVMOCK_FUNCTION7(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6) \
@@ -364,7 +388,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
 endfunction
 
 `define SVMOCK_FUNCTION8(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7) \
@@ -408,7 +435,10 @@ endtask
 __``NAME``__mocker __``NAME = new("NAME", __mockers); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
 endfunction
 
 `define SVMOCK_FUNCTION9(NAME,RETURN,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,TYPE4,ARG4,MOD4,TYPE5,ARG5,MOD5,TYPE6,ARG6,MOD6,TYPE7,ARG7,MOD7,TYPE8,ARG8,MOD8) \

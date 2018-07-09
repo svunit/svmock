@@ -99,12 +99,11 @@ module returns_unit_test;
     `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 
-// `SVTEST(willByDefault_functionIntArgReturnVoid)
-//   `ON_CALL(ut, functionIntArgReturnVoid).will_by_default("option1");
-//
-//   ut.functionIntArgReturnVoid(99);
-//   `FAIL_UNLESS();
-// `SVTEST_END
+  `SVTEST(willByDefault_functionIntArgReturnVoid)
+    `ON_CALL(ut, functionIntArgReturnVoid).will_by_default("option1");
+ 
+    ut.functionIntArgReturnVoid(99);
+  `SVTEST_END
 
   `SVUNIT_TESTS_END
 

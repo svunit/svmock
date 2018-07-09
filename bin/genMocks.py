@@ -156,11 +156,22 @@ def method_macros(numargs, fout, type="NORMAL"):
         fout.write ('ARG%0d' % j)
       else:
         fout.write ('ARG%0d,' % j)
-    fout.write ('); \\\n' +
-                '  else if (__``NAME.overrideReturn) \\\n' +
+    fout.write ('); \\\n')
+    fout.write ('  else if (__``NAME.overrideReturn) \\\n' +
                 '    return __``NAME.returnsVal; \\\n' +
                 '  else \\\n' +
                 '    return super.NAME(')
+  elif (type == "VOID"):
+    fout.write ('  if (__``NAME.instead != null) \\\n' +
+                '    __``NAME.instead.NAME(')
+    for j in range(0,numargs):
+      if (j == numargs-1):
+        fout.write ('ARG%0d' % j)
+      else:
+        fout.write ('ARG%0d,' % j)
+    fout.write ('); \\\n')
+    fout.write ('  else \\\n' +
+                '    super.NAME(')
   else:
     fout.write ('  super.NAME(')
   for j in range(0,numargs):
