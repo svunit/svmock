@@ -44,52 +44,49 @@ def method_arg_names(numargs):
       ret += 'ARG%0d, ' % j
   return ret
 
-def method_macros(numargs, fout, type="NORMAL"):
-  if (type == "NORMAL"):
-    fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',')) +
-                '`define invoke%0d_``NAME`` virtual function RETURN NAME(%s) \\\n' % (numargs, method_args(numargs)) +
-                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
-                '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
-                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
-                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
-  elif (type == "VOID"):
-    fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',')) +
-                '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
-                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
-                '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
-                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
-                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
-  else:
-    fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',')) +
-                '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
-                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
-                '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
-                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
-                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
-  if (type == "NORMAL"):
-    fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    return __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
-    fout.write ('  else if (__``NAME.overrideReturn) \\\n' +
-                '    return __``NAME.returnsVal; \\\n' +
-                '  else \\\n' +
-                '    return super.NAME(%s); \\\n' % method_arg_names(numargs))
-  elif (type == "VOID"):
-    fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
-    fout.write ('  else \\\n' +
-                '    super.NAME(%s); \\\n' % method_arg_names(numargs))
-  else:
-    fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
-    fout.write ('  else \\\n' +
-                '    super.NAME(%s); \\\n' % method_arg_names(numargs))
-  if (type == "TASK"):
-    fout.write ('endtask\n\n')
-  else:
-    fout.write ('endfunction\n\n')
+def function_macro(numargs, fout):
+  fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',')) +
+              '`define invoke%0d_``NAME`` virtual function RETURN NAME(%s) \\\n' % (numargs, method_args(numargs)) +
+              '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+              '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
+              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
+              '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
+              '  if (__``NAME.instead != null) \\\n' +
+              '    return __``NAME.instead.NAME(%s); \\\n'                       % method_arg_names(numargs) +
+              '  else if (__``NAME.overrideReturn) \\\n' +
+              '    return __``NAME.returnsVal; \\\n' +
+              '  else \\\n' +
+              '    return super.NAME(%s); \\\n'                                  % method_arg_names(numargs) +
+              'endfunction\n\n')
+
+def void_function_macro(numargs, fout):
+  fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',')) +
+              '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
+              '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+              '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
+              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
+              '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
+              '  if (__``NAME.instead != null) \\\n' +
+              '    __``NAME.instead.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '  else \\\n' +
+              '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              'endfunction\n\n')
+
+def task_macro(numargs, fout):
+  fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',')) +
+              '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
+              '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+              '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
+              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
+              '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
+              '  if (__``NAME.instead != null) \\\n' +
+              '    __``NAME.instead.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '  else \\\n' +
+              '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              'endtask\n\n')
 
 
 
@@ -97,10 +94,12 @@ def map_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_FUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
               'typedef class __``INSTEAD``__mocker; \\\n' +
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
               '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
+
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
@@ -110,10 +109,12 @@ def map_void_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_VFUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
               'typedef class __``INSTEAD``__mocker; \\\n' +
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
               '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
+
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
@@ -123,10 +124,12 @@ def map_task_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
               'typedef class __``INSTEAD``__mocker; \\\n' +
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
               '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
+
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endtask \\\n' +
@@ -276,13 +279,13 @@ if __name__ == "__main__":
   for i in range(0,10):
     mockers(i)
 
-    method_macros(i, f_macros, "TASK")
+    task_macro(i, f_macros)
     map_task_macro(i, f_macros)
 
-    method_macros(i, f_macros, "VOID")
+    void_function_macro(i, f_macros)
     map_void_function_macro(i, f_macros)
 
-    method_macros(i, f_macros)
+    function_macro(i, f_macros)
     map_function_macro(i, f_macros)
 
 
