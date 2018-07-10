@@ -159,9 +159,9 @@ def mockers(numargs):
 
 def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
-    fout.write ('`define SVMOCK_FUNCTION%0d(NAME,RETURN' % numargs)
+    fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN' % numargs)
   elif (type == "VOID"):
-    fout.write ('`define SVMOCK_VOIDFUNCTION%0d(NAME' % numargs)
+    fout.write ('`define SVMOCK_VFUNC%0d(NAME' % numargs)
   else:
     fout.write ('`define SVMOCK_TASK%0d(NAME' % numargs)
   for j in range(0,numargs):

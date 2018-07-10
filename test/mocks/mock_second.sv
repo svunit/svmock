@@ -1,7 +1,7 @@
 `SVMOCK(mock_second, call)
   // void functions
-  `SVMOCK_VOIDFUNCTION1(functionIntArgReturnVoid, int, x, )
-  `SVMOCK_FUNCTION0(functionNoArgReturnString, string)
+  `SVMOCK_VFUNC1(functionIntArgReturnVoid, int, x, )
+  `SVMOCK_FUNC0(functionNoArgReturnString, string)
   `SVMOCK_TASK0(taskNoArg)
 
   // hooks
