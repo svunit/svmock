@@ -160,9 +160,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1); \
+    __``NAME.instead.NAME(ARG0, ARG1); \
   else \
-    super.NAME(ARG0,ARG1); \
+    super.NAME(ARG0, ARG1); \
 endtask
 
 `define SVMOCK_MAP_TASK2(ORIGINAL,INSTEAD) \
@@ -185,9 +185,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1); \
+    __``NAME.instead.NAME(ARG0, ARG1); \
   else \
-    super.NAME(ARG0,ARG1); \
+    super.NAME(ARG0, ARG1); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC2(ORIGINAL,INSTEAD) \
@@ -210,11 +210,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1); \
+    return __``NAME.instead.NAME(ARG0, ARG1); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1); \
+    return super.NAME(ARG0, ARG1); \
 endfunction
 
 `define SVMOCK_MAP_FUNC2(ORIGINAL,INSTEAD) \
@@ -237,9 +237,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2); \
   else \
-    super.NAME(ARG0,ARG1,ARG2); \
+    super.NAME(ARG0, ARG1, ARG2); \
 endtask
 
 `define SVMOCK_MAP_TASK3(ORIGINAL,INSTEAD) \
@@ -262,9 +262,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2); \
   else \
-    super.NAME(ARG0,ARG1,ARG2); \
+    super.NAME(ARG0, ARG1, ARG2); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC3(ORIGINAL,INSTEAD) \
@@ -287,11 +287,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2); \
+    return super.NAME(ARG0, ARG1, ARG2); \
 endfunction
 
 `define SVMOCK_MAP_FUNC3(ORIGINAL,INSTEAD) \
@@ -314,9 +314,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3); \
 endtask
 
 `define SVMOCK_MAP_TASK4(ORIGINAL,INSTEAD) \
@@ -339,9 +339,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC4(ORIGINAL,INSTEAD) \
@@ -364,11 +364,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3); \
 endfunction
 
 `define SVMOCK_MAP_FUNC4(ORIGINAL,INSTEAD) \
@@ -391,9 +391,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
 endtask
 
 `define SVMOCK_MAP_TASK5(ORIGINAL,INSTEAD) \
@@ -416,9 +416,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC5(ORIGINAL,INSTEAD) \
@@ -441,11 +441,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
 endfunction
 
 `define SVMOCK_MAP_FUNC5(ORIGINAL,INSTEAD) \
@@ -468,9 +468,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
 endtask
 
 `define SVMOCK_MAP_TASK6(ORIGINAL,INSTEAD) \
@@ -493,9 +493,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC6(ORIGINAL,INSTEAD) \
@@ -518,11 +518,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
 endfunction
 
 `define SVMOCK_MAP_FUNC6(ORIGINAL,INSTEAD) \
@@ -545,9 +545,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
 endtask
 
 `define SVMOCK_MAP_TASK7(ORIGINAL,INSTEAD) \
@@ -570,9 +570,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC7(ORIGINAL,INSTEAD) \
@@ -595,11 +595,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
 endfunction
 
 `define SVMOCK_MAP_FUNC7(ORIGINAL,INSTEAD) \
@@ -622,9 +622,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
 endtask
 
 `define SVMOCK_MAP_TASK8(ORIGINAL,INSTEAD) \
@@ -647,9 +647,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC8(ORIGINAL,INSTEAD) \
@@ -672,11 +672,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
 endfunction
 
 `define SVMOCK_MAP_FUNC8(ORIGINAL,INSTEAD) \
@@ -699,9 +699,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
 endtask
 
 `define SVMOCK_MAP_TASK9(ORIGINAL,INSTEAD) \
@@ -724,9 +724,9 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.instead != null) \
-    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   else \
-    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
 endfunction
 
 `define SVMOCK_MAP_VFUNC9(ORIGINAL,INSTEAD) \
@@ -749,11 +749,11 @@ __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.instead != null) \
-    return __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    return __``NAME.instead.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
   else \
-    return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+    return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
 endfunction
 
 `define SVMOCK_MAP_FUNC9(ORIGINAL,INSTEAD) \

@@ -51,64 +51,41 @@ def method_macros(numargs, fout, type="NORMAL"):
                 '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
                 '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
                 '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs))
+                'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
+                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
   elif (type == "VOID"):
     fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',')) +
                 '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
                 '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
                 '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
                 '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual function void NAME(%s); \\\n'                             % method_args(numargs))
+                'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
+                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
   else:
     fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',')) +
                 '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
                 '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
                 '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
                 '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
-                'virtual task NAME(%s); \\\n'                                      % method_args(numargs))
-
-  fout.write ('  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
+                'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
+                '  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
   if (type == "NORMAL"):
     fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    return __``NAME.instead.NAME(')
-    for j in range(0,numargs):
-      if (j == numargs-1):
-        fout.write ('ARG%0d' % j)
-      else:
-        fout.write ('ARG%0d,' % j)
-    fout.write ('); \\\n')
+                '    return __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
     fout.write ('  else if (__``NAME.overrideReturn) \\\n' +
                 '    return __``NAME.returnsVal; \\\n' +
                 '  else \\\n' +
-                '    return super.NAME(')
+                '    return super.NAME(%s); \\\n' % method_arg_names(numargs))
   elif (type == "VOID"):
     fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    __``NAME.instead.NAME(')
-    for j in range(0,numargs):
-      if (j == numargs-1):
-        fout.write ('ARG%0d' % j)
-      else:
-        fout.write ('ARG%0d,' % j)
-    fout.write ('); \\\n')
+                '    __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
     fout.write ('  else \\\n' +
-                '    super.NAME(')
+                '    super.NAME(%s); \\\n' % method_arg_names(numargs))
   else:
     fout.write ('  if (__``NAME.instead != null) \\\n' +
-                '    __``NAME.instead.NAME(')
-    for j in range(0,numargs):
-      if (j == numargs-1):
-        fout.write ('ARG%0d' % j)
-      else:
-        fout.write ('ARG%0d,' % j)
-    fout.write ('); \\\n')
+                '    __``NAME.instead.NAME(%s); \\\n' % method_arg_names(numargs))
     fout.write ('  else \\\n' +
-                '    super.NAME(')
-  for j in range(0,numargs):
-    if (j == numargs-1):
-      fout.write ('ARG%0d' % j)
-    else:
-      fout.write ('ARG%0d,' % j)
-  fout.write ('); \\\n')
+                '    super.NAME(%s); \\\n' % method_arg_names(numargs))
   if (type == "TASK"):
     fout.write ('endtask\n\n')
   else:
