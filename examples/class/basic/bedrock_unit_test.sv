@@ -91,6 +91,14 @@ module bedrock_unit_test;
     uut.yabba_dabba_do(betty);
   `SVTEST_END
 
+  `SVTEST(mr_slate_instead_of_dino)
+    `ON_CALL(mock_f, dino).will_by_default("mr_slate");
+
+    uut.yabba_dabba_do(betty);
+
+    `FAIL_UNLESS(mock_f.mr_slate_instead)
+  `SVTEST_END
+
 
   `SVUNIT_TESTS_END
 

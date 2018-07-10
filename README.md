@@ -32,24 +32,24 @@ To create a mock of `flintstones`, we'll use macros defined in svmock_defines.sv
 
 ```
 `SVMOCK(mock_flintstones, flintstones)
-  `SVMOCK_VOIDFUNCTION0(dino)
-  `SVMOCK_FUNCTION2(pebbles, int, int, fred, , string, wilma, [int])
-  `SVMOCK_VOIDFUNCTION1(bam_bam, int, barney, )
+  `SVMOCK_VFUNC0(dino)
+  `SVMOCK_FUNC2(pebbles, int, int, fred, , string, wilma, [int])
+  `SVMOCK_VFUNC1(bam_bam, int, barney, )
 `SVMOCK_END
 ```
 
 The `SVMOCK(mock_class, parent_class)/SVMOCK_END` macros roughly translate to class/endclass.
 
-Each function in `flintstones` is mocked with an `SVMOCK_*` function macro. Void functions use the `SVMOCK_VOIDFUNCTION<N>` macros where 'N' is the number of input arguments. The function `flintstones::dino`, for example, has no input arguments so it is mocked with `SVMOCK_VOIDFUNCTOIN0` whereas `flintstones::bam_bam` has 1 argument so it requires the `SVMOCK_VOIDFUNCTION1` macro. The first argument to the void function macros is the name of the function. Subsequent arguments are related to each input argument.
+Each function in `flintstones` is mocked with an `SVMOCK_*` function macro. Void functions use the `SVMOCK_VFUNC<N>` macros where 'N' is the number of input arguments. The function `flintstones::dino`, for example, has no input arguments so it is mocked with `SVMOCK_VFUNC0` whereas `flintstones::bam_bam` has 1 argument so it requires the `SVMOCK_VFUNC1` macro. The first argument to the void function macros is the name of the function. Subsequent arguments are related to each input argument.
 
-For functions that are non-void, the `SVMOCK_FUNCTION\<N\>` macros are used. The first argument is still the name of the function. The second argument is the return type of the function. Subsequent arguments are related to each input argument.
+For functions that are non-void, the `SVMOCK_FUNC\<N\>` macros are used. The first argument is still the name of the function. The second argument is the return type of the function. Subsequent arguments are related to each input argument.
 
 Tasks are mocked using the `SVMOCK_TASK\<N\> macors. The task macro syntax is the same as the void function macros.
 
 ```
-`SVMOCK_VOIDFUNCTION<N>(NAME,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
+`SVMOCK_VFUNC<N>(NAME,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 `SVMOCK_TASK<N>(NAME,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
-`SVMOCK_FUNCTION<N>(NAME,RETURN_TYPE,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
+`SVMOCK_FUNC<N>(NAME,RETURN_TYPE,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 ```
 
 Each function argument require a 'type', 'name' and 'aggregate data type'. The aggregate data type input is required regardless of whether or not the argument is actually an aggregate data type (because Systemverilog macros are lame and the syntax for parameterizing classes sucks a bit for aggregate data types) so for scalar data types that input would have nothing specified. For example, the `flintstones::pebbles` has 2 input arguments: `fred` and `wilma`. `fred` is a scalar data type so its arg input to the `SVMOCK_FUNCTOIN2` macro is `int, fred, ` (note the `,` after `fred` which signifies an argument with nothing specified) where type=int, name=fred, aggregate type=\<blank\>. `wilma`, on the other hand, is an aggregate data type (associative array of strings indexed by [int]) so all 3 macro inputs are used as `string, wilma, [int]`.
@@ -160,6 +160,48 @@ The mock can be used to override return values of functions. In a third test, we
     uut.yabba_dabba_do(betty);
   `SVTEST_END
 ```
+
+## Overriding A Method
+
+If simply overriding a return value isn't enough or you need to replace functionality of a method, you can override that mocked method with something entirely new. In the fourth test, the functionality of `dino()` is replaced with the functionality of `mr_slate()`. To do this, we need to map `mr_slate()` to `dino()` with an SVMOCK_MAP_FUNC in `flintstones_mock`.
+
+```
+  `SVMOCK_MAP_VFUNC0(dino, mr_slate)
+  bit mr_slate_instead;
+  function void mr_slate();
+    mr_slate_instead = 1;
+  endfunction
+```
+
+Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in specific tests using a `will_by_default` ON_CALL.
+
+```
+  `SVTEST(mr_slate_instead_of_dino)
+    `ON_CALL(mock_f, dino).will_by_default("mr_slate");
+  
+    uut.yabba_dabba_do(betty);
+  
+    `FAIL_UNLESS(mock_f.mr_slate_instead)
+  `SVTEST_END
+```
+
+Important to note that the signature of `mr_slate()` is exactly the same as the signature for `dino()` (i.e. neither function has input arguments). For example, if we were to map `pebbles()` to `rock_quarry()`, `rock_quarry()` would require the same `fred` and `wilma` input arguments.
+
+```
+  `SVMOCK_MAP_FUNC2(pebbles, rock_quarry)
+  function int rock_quarry(int fred, string wilma [int]);
+    // a replacement for pebbles
+  endfunction
+```
+
+There's a different macro available for each possible method type.
+
+```
+`SVMOCK_MAP_VFUNC<N>(OLD_FUNCTION, NEW_FUNCTION)
+`SVMOCK_MAP_TASK<N>(OLD_FUNCTION, NEW_FUNCTION)
+`SVMOCK_MAP_FUNC<N>(OLD_FUNCTION, NEW_FUNCTION)
+```
+
 
 # Future Development
 
