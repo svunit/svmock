@@ -5,18 +5,18 @@
   `SVMOCK_TASK0(taskNoArg)
 
   // hooks
-  `SVMOCK_HOOK_FUNCTION0(functionNoArgReturnString, option3)
+  `SVMOCK_MAP_FUNC0(functionNoArgReturnString, option3)
   function string option3();
     return "functionNoArgReturnString::option3";
   endfunction
  
-  `SVMOCK_HOOK_VOID1(functionIntArgReturnVoid, option4)
+  `SVMOCK_MAP_VFUNC1(functionIntArgReturnVoid, option4)
   int wayne;
   function void option4(int x);
     wayne = x;
   endfunction
 
-  `SVMOCK_HOOK_TASK0(taskNoArg, option5)
+  `SVMOCK_MAP_TASK0(taskNoArg, option5)
   int mario;
   task option5();
     mario = 66;

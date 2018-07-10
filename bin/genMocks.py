@@ -255,7 +255,7 @@ def method_macros(numargs, fout, type="NORMAL"):
     fout.write ('endfunction\n\n')
 
   if (type == "NORMAL"):
-    fout.write ('`define SVMOCK_HOOK_FUNCTION%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+    fout.write ('`define SVMOCK_MAP_FUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
                 'typedef class __``INSTEAD``__mocker; \\\n' +
                 '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
                 'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
@@ -267,7 +267,7 @@ def method_macros(numargs, fout, type="NORMAL"):
                 '  endfunction \\\n' +
                 'endclass\n\n')
   elif (type == "VOID"):
-    fout.write ('`define SVMOCK_HOOK_VOID%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+    fout.write ('`define SVMOCK_MAP_VFUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
                 'typedef class __``INSTEAD``__mocker; \\\n' +
                 '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
                 'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
@@ -279,7 +279,7 @@ def method_macros(numargs, fout, type="NORMAL"):
                 '  endfunction \\\n' +
                 'endclass\n\n')
   else:
-    fout.write ('`define SVMOCK_HOOK_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+    fout.write ('`define SVMOCK_MAP_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
                 'typedef class __``INSTEAD``__mocker; \\\n' +
                 '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
                 'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +

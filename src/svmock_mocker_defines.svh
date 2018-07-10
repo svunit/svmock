@@ -11,7 +11,7 @@ virtual task NAME(); \
     super.NAME(); \
 endtask
 
-`define SVMOCK_HOOK_TASK0(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -36,7 +36,7 @@ virtual function void NAME(); \
     super.NAME(); \
 endfunction
 
-`define SVMOCK_HOOK_VOID0(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -63,7 +63,7 @@ virtual function RETURN NAME(); \
     return super.NAME(); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION0(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -88,7 +88,7 @@ virtual task NAME(TYPE0 ARG0 MOD0); \
     super.NAME(ARG0); \
 endtask
 
-`define SVMOCK_HOOK_TASK1(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -113,7 +113,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0); \
     super.NAME(ARG0); \
 endfunction
 
-`define SVMOCK_HOOK_VOID1(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -140,7 +140,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0); \
     return super.NAME(ARG0); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION1(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -165,7 +165,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
     super.NAME(ARG0,ARG1); \
 endtask
 
-`define SVMOCK_HOOK_TASK2(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -190,7 +190,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
     super.NAME(ARG0,ARG1); \
 endfunction
 
-`define SVMOCK_HOOK_VOID2(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -217,7 +217,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
     return super.NAME(ARG0,ARG1); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION2(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -242,7 +242,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
     super.NAME(ARG0,ARG1,ARG2); \
 endtask
 
-`define SVMOCK_HOOK_TASK3(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -267,7 +267,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
     super.NAME(ARG0,ARG1,ARG2); \
 endfunction
 
-`define SVMOCK_HOOK_VOID3(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -294,7 +294,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2);
     return super.NAME(ARG0,ARG1,ARG2); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION3(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -319,7 +319,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3); \
 endtask
 
-`define SVMOCK_HOOK_TASK4(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -344,7 +344,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3); \
 endfunction
 
-`define SVMOCK_HOOK_VOID4(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -371,7 +371,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION4(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -396,7 +396,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
 endtask
 
-`define SVMOCK_HOOK_TASK5(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -421,7 +421,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
 endfunction
 
-`define SVMOCK_HOOK_VOID5(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -448,7 +448,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION5(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -473,7 +473,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
 endtask
 
-`define SVMOCK_HOOK_TASK6(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -498,7 +498,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
 endfunction
 
-`define SVMOCK_HOOK_VOID6(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -525,7 +525,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION6(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -550,7 +550,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
 endtask
 
-`define SVMOCK_HOOK_TASK7(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -575,7 +575,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
 endfunction
 
-`define SVMOCK_HOOK_VOID7(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -602,7 +602,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION7(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -627,7 +627,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
 endtask
 
-`define SVMOCK_HOOK_TASK8(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -652,7 +652,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
 endfunction
 
-`define SVMOCK_HOOK_VOID8(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -679,7 +679,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION8(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -704,7 +704,7 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
 endtask
 
-`define SVMOCK_HOOK_TASK9(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_TASK9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -729,7 +729,7 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
     super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
 endfunction
 
-`define SVMOCK_HOOK_VOID9(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_VFUNC9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
@@ -756,7 +756,7 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
 endfunction
 
-`define SVMOCK_HOOK_FUNCTION9(ORIGINAL,INSTEAD) \
+`define SVMOCK_MAP_FUNC9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
