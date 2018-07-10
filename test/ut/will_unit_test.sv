@@ -3,10 +3,10 @@
 
 import ut_pkg::*;
 
-module returns_unit_test;
+module will_unit_test;
   import svunit_pkg::svunit_testcase;
 
-  string name = "returns_ut";
+  string name = "will_ut";
   svunit_testcase svunit_ut;
 
 
@@ -73,23 +73,36 @@ module returns_unit_test;
 
 
   //---------------------------------
-  //           returns
+  //        will_by_default
   //---------------------------------
 
-  `SVTEST(returnsInt)
-    `FAIL_UNLESS(ut.functionNoArgReturnInt() == 1);
+  `SVTEST(willByDefault_functionNoArgReturnString)
+    `ON_CALL(ut, functionNoArgReturnString).will_by_default("option0");
 
-    `ON_CALL(ut, functionNoArgReturnInt).returns(5);
-    `FAIL_UNLESS(ut.functionNoArgReturnInt() == 5);
+    o = "functionNoArgReturnString::option0";
+    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
   `SVTEST_END
 
-  `SVTEST(returnsString)
-    o = "nothing";
-    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
+  `SVTEST(willByDefault_functionIntArgReturnVoid)
+    `ON_CALL(ut, functionIntArgReturnVoid).will_by_default("option1");
+ 
+    ut.functionIntArgReturnVoid(99);
+    `FAIL_UNLESS(ut.wayne == 99);
+  `SVTEST_END
 
-    `ON_CALL(ut, functionNoArgReturnString).returns("something");
-    o = "something";
-    `FAIL_UNLESS(ut.functionNoArgReturnString() == o);
+  `SVTEST(willByDefault_taskNoArg)
+    `ON_CALL(ut, taskNoArg).will_by_default("option2");
+ 
+    ut.taskNoArg();
+    `FAIL_UNLESS(ut.mario == 66);
+  `SVTEST_END
+ 
+ 
+  //---------------------------------
+  //             misc
+  //---------------------------------
+  `SVTEST(parent_is_assigned)
+    `FAIL_IF(ut.__functionIntArgReturnVoid.parent == null);
   `SVTEST_END
 
   `SVUNIT_TESTS_END

@@ -5,7 +5,10 @@
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(); \
   __``NAME.called(); \
-  super.NAME(); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(); \
+  else \
+    super.NAME(); \
 endtask
 
 `define SVMOCK_HOOK_TASK0(ORIGINAL,INSTEAD) \
@@ -79,7 +82,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0); \
   __``NAME.called(ARG0); \
-  super.NAME(ARG0); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0); \
+  else \
+    super.NAME(ARG0); \
 endtask
 
 `define SVMOCK_HOOK_TASK1(ORIGINAL,INSTEAD) \
@@ -153,7 +159,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0,ARG1); \
-  super.NAME(ARG0,ARG1); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1); \
+  else \
+    super.NAME(ARG0,ARG1); \
 endtask
 
 `define SVMOCK_HOOK_TASK2(ORIGINAL,INSTEAD) \
@@ -227,7 +236,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0,ARG1,ARG2); \
-  super.NAME(ARG0,ARG1,ARG2); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2); \
 endtask
 
 `define SVMOCK_HOOK_TASK3(ORIGINAL,INSTEAD) \
@@ -301,7 +313,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3); \
 endtask
 
 `define SVMOCK_HOOK_TASK4(ORIGINAL,INSTEAD) \
@@ -375,7 +390,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4); \
 endtask
 
 `define SVMOCK_HOOK_TASK5(ORIGINAL,INSTEAD) \
@@ -449,7 +467,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5); \
 endtask
 
 `define SVMOCK_HOOK_TASK6(ORIGINAL,INSTEAD) \
@@ -523,7 +544,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6); \
 endtask
 
 `define SVMOCK_HOOK_TASK7(ORIGINAL,INSTEAD) \
@@ -597,7 +621,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7); \
 endtask
 
 `define SVMOCK_HOOK_TASK8(ORIGINAL,INSTEAD) \
@@ -671,7 +698,10 @@ endclass
 __``NAME``__mocker __``NAME = new("NAME", __mockers, this); \
 virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 MOD3, TYPE4 ARG4 MOD4, TYPE5 ARG5 MOD5, TYPE6 ARG6 MOD6, TYPE7 ARG7 MOD7, TYPE8 ARG8 MOD8); \
   __``NAME.called(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
-  super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+  if (__``NAME.instead != null) \
+    __``NAME.instead.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
+  else \
+    super.NAME(ARG0,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8); \
 endtask
 
 `define SVMOCK_HOOK_TASK9(ORIGINAL,INSTEAD) \

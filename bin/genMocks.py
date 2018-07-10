@@ -245,7 +245,16 @@ def method_macros(numargs, fout, type="NORMAL"):
     fout.write ('  else \\\n' +
                 '    super.NAME(')
   else:
-    fout.write ('  super.NAME(')
+    fout.write ('  if (__``NAME.instead != null) \\\n' +
+                '    __``NAME.instead.NAME(')
+    for j in range(0,numargs):
+      if (j == numargs-1):
+        fout.write ('ARG%0d' % j)
+      else:
+        fout.write ('ARG%0d,' % j)
+    fout.write ('); \\\n')
+    fout.write ('  else \\\n' +
+                '    super.NAME(')
   for j in range(0,numargs):
     if (j == numargs-1):
       fout.write ('ARG%0d' % j)
