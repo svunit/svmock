@@ -22,7 +22,7 @@ endclass
 class __``NAME``__mocker  extends __``NAME``_base__mocker; \
 function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
   super.new(name, __mockers, _parent); \
-  if (associate != null) associate.possibilities[name] = this; \
+  if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual function RETURNS NAME(); \
 endfunction \
@@ -31,14 +31,14 @@ function void returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \
 endfunction \
-__``NAME``__mocker possibilities [string]; \
-__``NAME``__mocker instead; \
+__``NAME``__mocker map [string]; \
+__``NAME``__mocker override; \
 function void will_by_default(string i); \
-  instead = possibilities[i]; \
+  override = map[i]; \
 endfunction \
 function void clear(); \
   super.clear(); \
-  instead = null; \
+  override = null; \
 endfunction \
 endclass
 
@@ -47,18 +47,18 @@ endclass
 class __``NAME``__mocker  extends __``NAME``_base__mocker; \
 function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
   super.new(name, __mockers, _parent); \
-  if (associate != null) associate.possibilities[name] = this; \
+  if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual function void NAME(); \
 endfunction \
-__``NAME``__mocker possibilities [string]; \
-__``NAME``__mocker instead; \
+__``NAME``__mocker map [string]; \
+__``NAME``__mocker override; \
 function void will_by_default(string i); \
-  instead = possibilities[i]; \
+  override = map[i]; \
 endfunction \
 function void clear(); \
   super.clear(); \
-  instead = null; \
+  override = null; \
 endfunction \
 endclass
 
@@ -67,17 +67,17 @@ endclass
 class __``NAME``__mocker  extends __``NAME``_base__mocker; \
 function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \
   super.new(name, __mockers, _parent); \
-  if (associate != null) associate.possibilities[name] = this; \
+  if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual task NAME(); \
 endtask \
-__``NAME``__mocker possibilities [string]; \
-__``NAME``__mocker instead; \
+__``NAME``__mocker map [string]; \
+__``NAME``__mocker override; \
 function void will_by_default(string i); \
-  instead = possibilities[i]; \
+  override = map[i]; \
 endfunction \
 function void clear(); \
   super.clear(); \
-  instead = null; \
+  override = null; \
 endfunction \
 endclass
