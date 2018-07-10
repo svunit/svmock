@@ -26,69 +26,48 @@ def functionDecl(name,numargs,type='void'):
 def taskDecl(name,numargs):
   return 'task %s(%s);' % (name, allArgString(numargs))
 
+def method_args(numargs):
+  ret = ''
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      ret += 'TYPE%0d ARG%0d MOD%0d' % (j,j,j)
+    else:
+      ret += 'TYPE%0d ARG%0d MOD%0d, ' % (j,j,j)
+  return ret
+
+def method_arg_names(numargs):
+  ret = ''
+  for j in range(0,numargs):
+    if (j == numargs-1):
+      ret += 'ARG%0d' % j
+    else:
+      ret += 'ARG%0d, ' % j
+  return ret
+
 def method_macros(numargs, fout, type="NORMAL"):
   if (type == "NORMAL"):
-    fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN' % numargs)
+    fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',')) +
+                '`define invoke%0d_``NAME`` virtual function RETURN NAME(%s) \\\n' % (numargs, method_args(numargs)) +
+                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+                '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
+                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+                'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs))
   elif (type == "VOID"):
-    fout.write ('`define SVMOCK_VFUNC%0d(NAME' % numargs)
+    fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',')) +
+                '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
+                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+                '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
+                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+                'virtual function void NAME(%s); \\\n'                             % method_args(numargs))
   else:
-    fout.write ('`define SVMOCK_TASK%0d(NAME' % numargs)
-  for j in range(0,numargs):
-    fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
-  fout.write (') \\\n')
+    fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',')) +
+                '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
+                '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
+                '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
+                '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+                'virtual task NAME(%s); \\\n'                                      % method_args(numargs))
 
-  if (type == "NORMAL"):
-    fout.write ('`define invoke%0d_``NAME`` virtual function RETURN NAME(' % numargs)
-  elif (type == "VOID"):
-    fout.write ('`define invoke%0d_``NAME`` virtual function void NAME(' % numargs)
-  else:
-    fout.write ('`define invoke%0d_``NAME`` virtual task NAME(' % numargs)
-  for j in range(0,numargs):
-    if (j == numargs-1):
-      fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
-    else:
-      fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
-  fout.write (') \\\n')
-
-  fout.write ('`define args%0d_``NAME`` ' % numargs)
-  for j in range(0,numargs):
-    if (j == numargs-1):
-      fout.write ('ARG%0d' % j)
-    else:
-      fout.write ('ARG%0d, ' % j)
-  fout.write (' \\\n')
-
-  if (type == "NORMAL"):
-    fout.write('`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN' % numargs)
-  elif (type == "VOID"):
-    fout.write('`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME' % numargs)
-  else:
-    fout.write('`SVMOCK_TASK_MOCKER_CLASS%0d(NAME' % numargs)
-  for j in range(0,numargs):
-    fout.write (',TYPE%0d,ARG%0d,MOD%0d' % (j,j,j))
-  fout.write (') \\\n')
-
-  fout.write ('__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n')
-
-  if (type == "NORMAL"):
-    fout.write ('virtual function RETURN NAME(')
-  elif (type == "VOID"):
-    fout.write ('virtual function void NAME(')
-  else:
-    fout.write ('virtual task NAME(')
-  for j in range(0,numargs):
-    if (j == numargs-1):
-      fout.write ('TYPE%0d ARG%0d MOD%0d' % (j,j,j))
-    else:
-      fout.write ('TYPE%0d ARG%0d MOD%0d, ' % (j,j,j))
-  fout.write ('); \\\n')
-  fout.write ('  __``NAME.called(')
-  for j in range(0,numargs):
-    if (j == numargs-1):
-      fout.write ('ARG%0d' % j)
-    else:
-      fout.write ('ARG%0d,' % j)
-  fout.write ('); \\\n')
+  fout.write ('  __``NAME.called(%s); \\\n' % method_arg_names(numargs))
   if (type == "NORMAL"):
     fout.write ('  if (__``NAME.instead != null) \\\n' +
                 '    return __``NAME.instead.NAME(')
