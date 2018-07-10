@@ -60,100 +60,88 @@ def mockers(numargs):
 
   fout.write ('endclass\n\n')
 
-  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
-  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
-
   # class & new
-  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+
               'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.possibilities[name] = this; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # NAME
-  fout.write ('virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +
-              'endfunction \\\n')
+              'virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +     # NAME
+              'endfunction \\\n' +
 
-  # returns
-  fout.write ('RETURNS returnsVal; \\\n')
-  fout.write ('function void returns(RETURNS r); \\\n' +
+              'RETURNS returnsVal; \\\n' +
+              'function void returns(RETURNS r); \\\n' +                          # returns
               '  overrideReturn = 1; \\\n' +
               '  returnsVal = r; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # will_by_default
-  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker possibilities [string]; \\\n' +
               '__``NAME``__mocker instead; \\\n' +
-              'function void will_by_default(string i); \\\n' +
+              'function void will_by_default(string i); \\\n' +                   # will_by_default
               '  instead = possibilities[i]; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # clear
-  fout.write ('function void clear(); \\\n' +
+              'function void clear(); \\\n' +                                     # clear
               '  super.clear(); \\\n' +
               '  instead = null; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  fout.write ('endclass\n\n')
+              'endclass\n\n')
 
-  fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
-  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
 
-  # class & new
-  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
               'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.possibilities[name] = this; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # NAME
-  fout.write ('virtual ' + functionDecl('NAME',numargs) + ' \\\n' +
-              'endfunction \\\n')
+              'virtual ' + functionDecl('NAME',numargs) + ' \\\n' +              # NAME
+              'endfunction \\\n' +
 
-  # will_by_default
-  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker possibilities [string]; \\\n' +                # will_by_default
               '__``NAME``__mocker instead; \\\n' +
               'function void will_by_default(string i); \\\n' +
               '  instead = possibilities[i]; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # clear
-  fout.write ('function void clear(); \\\n' +
+              'function void clear(); \\\n' +                                    # clear
               '  super.clear(); \\\n' +
               '  instead = null; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  fout.write ('endclass\n\n')
+              'endclass\n\n')
 
-  fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')))
-  fout.write ('`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')))
+  fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
 
-  # class & new
-  fout.write ('class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
               'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.possibilities[name] = this; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
 
-  # NAME
-  fout.write ('virtual ' + taskDecl('NAME',numargs) + ' \\\n' +
-              'endtask \\\n')
+              'virtual ' + taskDecl('NAME',numargs) + ' \\\n' +                  # NAME
+              'endtask \\\n' +
 
-  # will_by_default
-  fout.write ('__``NAME``__mocker possibilities [string]; \\\n' +
+              '__``NAME``__mocker possibilities [string]; \\\n' +                # will_by_default
               '__``NAME``__mocker instead; \\\n' +
               'function void will_by_default(string i); \\\n' +
               '  instead = possibilities[i]; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  # clear
-  fout.write ('function void clear(); \\\n' +
+              'function void clear(); \\\n' +                                    # clear
               '  super.clear(); \\\n' +
               '  instead = null; \\\n' +
-              'endfunction \\\n')
+              'endfunction \\\n' +
 
-  fout.write ('endclass\n')
+              'endclass\n')
 
 
 
