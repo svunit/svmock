@@ -135,42 +135,46 @@ def method_macros(numargs, fout, type="NORMAL"):
   else:
     fout.write ('endfunction\n\n')
 
-  if (type == "NORMAL"):
-    fout.write ('`define SVMOCK_MAP_FUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-                'typedef class __``INSTEAD``__mocker; \\\n' +
-                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
-                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-                '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
-                '    super.new(name, __mockers, _parent, associate); \\\n' +
-                '  endfunction \\\n' +
-                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
-                '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
-                '  endfunction \\\n' +
-                'endclass\n\n')
-  elif (type == "VOID"):
-    fout.write ('`define SVMOCK_MAP_VFUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-                'typedef class __``INSTEAD``__mocker; \\\n' +
-                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
-                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-                '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
-                '    super.new(name, __mockers, _parent, associate); \\\n' +
-                '  endfunction \\\n' +
-                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
-                '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
-                '  endfunction \\\n' +
-                'endclass\n\n')
-  else:
-    fout.write ('`define SVMOCK_MAP_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-                'typedef class __``INSTEAD``__mocker; \\\n' +
-                '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
-                'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-                '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
-                '    super.new(name, __mockers, _parent, associate); \\\n' +
-                '  endfunction \\\n' +
-                '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
-                '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
-                '  endtask \\\n' +
-                'endclass\n\n')
+
+
+def map_function_macro(numargs, fout):
+  fout.write ('`define SVMOCK_MAP_FUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+              'typedef class __``INSTEAD``__mocker; \\\n' +
+              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '    super.new(name, __mockers, _parent, associate); \\\n' +
+              '  endfunction \\\n' +
+              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
+              '  endfunction \\\n' +
+              'endclass\n\n')
+
+def map_void_function_macro(numargs, fout):
+  fout.write ('`define SVMOCK_MAP_VFUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+              'typedef class __``INSTEAD``__mocker; \\\n' +
+              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '    super.new(name, __mockers, _parent, associate); \\\n' +
+              '  endfunction \\\n' +
+              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
+              '  endfunction \\\n' +
+              'endclass\n\n')
+
+def map_task_macro(numargs, fout):
+  fout.write ('`define SVMOCK_MAP_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
+              'typedef class __``INSTEAD``__mocker; \\\n' +
+              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
+              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '    super.new(name, __mockers, _parent, associate); \\\n' +
+              '  endfunction \\\n' +
+              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
+              '  endtask \\\n' +
+              'endclass\n\n')
 
 def with_comparison_properties(numargs):
   ret = ''
@@ -306,13 +310,24 @@ def task_mocker_class(numargs, fout):
 
               'endclass\n')
 
+
+################################
+##########    MAIN    ##########
+################################
+
 if __name__ == "__main__":
   f_macros = open('../src/svmock_mocker_defines.svh', 'w+')
   for i in range(0,10):
     mockers(i)
+
     method_macros(i, f_macros, "TASK")
+    map_task_macro(i, f_macros)
+
     method_macros(i, f_macros, "VOID")
+    map_void_function_macro(i, f_macros)
+
     method_macros(i, f_macros)
+    map_function_macro(i, f_macros)
 
 
 
