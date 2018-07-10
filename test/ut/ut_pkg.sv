@@ -5,4 +5,5 @@ package ut_pkg;
 
   `include "call.sv"
   `include "mock_call.sv"
+  `include "mock_second.sv"
 endpackage

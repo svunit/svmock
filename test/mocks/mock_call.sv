@@ -1,6 +1,4 @@
 `SVMOCK(mock_call, call)
-  string name = "PARENT";
-
   // void functions
   `SVMOCK_VOIDFUNCTION0(functionNoArgReturnVoid)
   `SVMOCK_VOIDFUNCTION1(functionIntArgReturnVoid, int, x, )
