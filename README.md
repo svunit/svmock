@@ -163,7 +163,7 @@ The mock can be used to override return values of functions. In a third test, we
 
 ## Overriding A Method
 
-If simply overriding a return value isn't enough or you need to replace functionality of a method, you can override that mocked method with something entirely new. In the fourth test, the functionality of `dino()` is replaced with the functionality of `mr_slate()`. To do this, we need to map `mr_slate()` to `dino()` with an SVMOCK_MAP_FUNC in `flintstones_mock`.
+If simply overriding a return value isn't enough or you need to replace functionality of a method, you can override that mocked method with something entirely new. For example, the functionality of `dino()` could replaced by calling `mr_slate()` instead. To do this, we need to map `mr_slate()` to `dino()` with an SVMOCK_MAP_FUNC in `flintstones_mock`.
 
 ```
   `SVMOCK_MAP_VFUNC0(dino, mr_slate)
@@ -173,7 +173,7 @@ If simply overriding a return value isn't enough or you need to replace function
   endfunction
 ```
 
-Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in specific tests using a `will_by_default` ON_CALL.
+Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in our 4th unit test using a `will_by_default` ON_CALL.
 
 ```
   `SVTEST(mr_slate_instead_of_dino)
@@ -185,9 +185,11 @@ Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in specif
   `SVTEST_END
 ```
 
-Important to note that the signature of `mr_slate()` is exactly the same as the signature for `dino()` (i.e. neither function has input arguments). For example, if we were to map `pebbles()` to `rock_quarry()`, `rock_quarry()` would require the same `fred` and `wilma` input arguments.
+Important to note that the signature of `mr_slate()` is exactly the same as the signature for `dino()` (i.e. neither function has input arguments). For another example, if we were to map `pebbles()` to a new function called `rock_quarry()`, `rock_quarry()` would require similar `fred` and `wilma` input arguments.
 
 ```
+  `SVMOCK_FUNC2(pebbles, int, int, fred, , string, wilma, [int])
+  ...
   `SVMOCK_MAP_FUNC2(pebbles, rock_quarry)
   function int rock_quarry(int fred, string wilma [int]);
     // a replacement for pebbles
