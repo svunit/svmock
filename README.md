@@ -163,7 +163,7 @@ The mock can be used to override return values of functions. In a third test, we
 
 ## Overriding A Method
 
-If simply overriding a return value isn't enough or you need to replace functionality of a method, you can override that mocked method with something entirely new. For example, the functionality of `dino()` could replaced by calling `mr_slate()` instead. To do this, we need to map `mr_slate()` to `dino()` with an SVMOCK_MAP_FUNC in `flintstones_mock`.
+If simply overriding a return value isn't enough or you need to replace functionality of a method, you can override that mocked method with something entirely new. For example, the functionality of `dino()` could replaced by calling `mr_slate()` instead. To do this, we need to define `mr_slate()` then map it to `dino()` with an SVMOCK_MAP_FUNC in `flintstones_mock`.
 
 ```
   `SVMOCK_MAP_VFUNC0(dino, mr_slate)
@@ -173,7 +173,7 @@ If simply overriding a return value isn't enough or you need to replace function
   endfunction
 ```
 
-Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in our 4th unit test using a `will_by_default` ON_CALL.
+Once `mr_slate()` is mapped to `dino()`, we can then override `dino()` in our 4th unit test using a `will_by_default` ON_CALL. Notice that `will_by_default` takes a string input which is the name of the newly mapped function.
 
 ```
   `SVTEST(mr_slate_instead_of_dino)
