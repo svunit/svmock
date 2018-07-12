@@ -2,12 +2,12 @@
 // MOCK CLASS MACROS
 //-------------------
 
-`define SVMOCK(MOCK,ORIGINAL=) \
-`define MOCK``_IS_CHILD_OF ORIGINAL \
-`ifdef MOCK``_IS_CHILD_OF \
-class MOCK extends ORIGINAL; \
-`else \
+`define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT) \
+`define MOCK``_``ORIGINAL \
+`ifdef MOCK``_HAS_NO_PARENT \
 class MOCK; \
+`else \
+class MOCK extends ORIGINAL; \
 `endif \
   `define PARENT MOCK \
   __mocker __mockers [$]; \
