@@ -5,23 +5,30 @@ function new(string name, ref __mocker __mockers[$], input `PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
 endfunction \
-TYPE0 withAct_0 MOD0, withExp_0 MOD0; \
-TYPE1 withAct_1 MOD1, withExp_1 MOD1; \
+`MOCKER_WITH(NAME0, TYPE0, MOD0) \
+NAME0``__with __with_0 = new(); \
+`MOCKER_WITH(NAME1, TYPE1, MOD1) \
+NAME1``__with __with_1 = new(); \
 function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
   timesCnt += 1; \
-  withAct_0 = ARG0; \
-  withAct_1 = ARG1; \
+  __with_0.act = ARG0; \
+  __with_1.act = ARG1; \
 endfunction \
 function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
   checkWith = 1; \
-  withExp_0 = ARG0; \
-  withExp_1 = ARG1; \
+  __with_0.exp = ARG0; \
+  __with_1.exp = ARG1; \
 endfunction \
 function bit check(); \
   check = super.check(); \
-  check &= (checkWith) ? (withExp_0 == withAct_0)  : 1; \
-  check &= (checkWith) ? (withExp_1 == withAct_1)  : 1; \
+  check &= (checkWith) ? __with_0.compare() : 1; \
+  check &= (checkWith) ? __with_1.compare() : 1; \
   return check; \
+endfunction \
+function void clear(); \
+  super.clear; \
+  __with_0 = new(); \
+  __with_1 = new(); \
 endfunction \
 endclass
 

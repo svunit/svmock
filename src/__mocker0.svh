@@ -15,6 +15,9 @@ function bit check(); \
   check = super.check(); \
   return check; \
 endfunction \
+function void clear(); \
+  super.clear; \
+endfunction \
 endclass
 
 `define SVMOCK_FUNCTION_MOCKER_CLASS0(NAME,RETURNS) \

@@ -208,6 +208,18 @@ module has_unit_test;
     `FAIL_IF(ut.check());
   `SVTEST_END
 
+  `SVTEST(exp_and_act_are_cleared)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+ 
+    ut.functionIntArgReturnVoid(3);
+    `FAIL_UNLESS(ut.check());
+ 
+    ut.clear();
+
+    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.exp == 0);
+    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.act == 0);
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule

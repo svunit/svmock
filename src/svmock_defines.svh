@@ -20,6 +20,14 @@ class MOCK extends ORIGINAL; \
 
 `define SVMOCK_END endclass
 
+`define MOCKER_WITH(NAME,TYPE,MOD) \
+class NAME``__with; \
+  TYPE exp MOD; \
+  TYPE act MOD; \
+  function bit compare(); \
+    return exp == act; \
+  endfunction \
+endclass
 
 //-------------
 // EXPECT CALL

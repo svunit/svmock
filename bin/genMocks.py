@@ -136,13 +136,18 @@ def base_mocker_class(numargs, fout):
 
               functionDecl('with_args',numargs) + ' \\\n' +                # with
               '  checkWith = 1; \\\n' +
-                 with_property_assignments(numargs, 'Exp') +
+                 with_property_assignments(numargs, 'exp') +
               'endfunction \\\n' +
 
               'function bit check(); \\\n' +                               # check
               '  check = super.check(); \\\n' +
                  with_property_check(numargs) +
               '  return check; \\\n' +
+              'endfunction \\\n' +
+
+              'function void clear(); \\\n' +                              # clear
+              '  super.clear; \\\n' +
+                 with_property_clear(numargs) +
               'endfunction \\\n' +
 
               'endclass\n\n')
@@ -242,19 +247,26 @@ def task_mocker_class(numargs, fout):
 def with_comparison_properties(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += 'TYPE%0d withAct_%0d MOD%0d, withExp_%0d MOD%0d; \\\n' % (j,j,j,j,j)
+    ret += '`MOCKER_WITH(NAME%0d, TYPE%0d, MOD%0d) \\\n' % (j,j,j)
+    ret += 'NAME%0d``__with __with_%0d = new(); \\\n' % (j,j)
   return ret
 
-def with_property_assignments(numargs, type='Act'):
+def with_property_assignments(numargs, type='act'):
   ret = ''
   for j in range(0,numargs):
-    ret += '  with%s_%0d = ARG%0d; \\\n' % (type,j,j)
+    ret += '  __with_%0d.%s = ARG%0d; \\\n' % (j,type,j)
   return ret
 
 def with_property_check(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '  check &= (checkWith) ? (withExp_%0d == withAct_%0d)  : 1; \\\n' % (j,j)
+    ret += '  check &= (checkWith) ? __with_%0d.compare() : 1; \\\n' % j
+  return ret
+
+def with_property_clear(numargs):
+  ret = ''
+  for j in range(0,numargs):
+    ret += '  __with_%0d = new(); \\\n' % j
   return ret
 
 def oneArgString(idx, delim=' '):
