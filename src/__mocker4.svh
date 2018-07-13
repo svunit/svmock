@@ -1,7 +1,7 @@
 `define SVMOCK_MOCKER_CLASS4(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,MODIFIER=) \
-class __``NAME``MODIFIER``__mocker  extends __mocker; \
-`MOCKTYPE parent; \
-function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent); \
+class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \
+PARENT parent; \
+function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
 endfunction \
@@ -35,8 +35,8 @@ endclass
 
 `define SVMOCK_FUNCTION_MOCKER_CLASS4(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 `SVMOCK_MOCKER_CLASS4(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,_base) \
-class __``NAME``__mocker  extends __``NAME``_base__mocker; \
-function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \
+class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
+function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
@@ -47,8 +47,8 @@ function void returns(RETURNS r); \
   overrideReturn = 1; \
   returnsVal = r; \
 endfunction \
-__``NAME``__mocker map [string]; \
-__``NAME``__mocker override; \
+__``NAME``__mocker #(PARENT) map [string]; \
+__``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \
@@ -60,15 +60,15 @@ endclass
 
 `define SVMOCK_VOID_FUNCTION_MOCKER_CLASS4(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 `SVMOCK_MOCKER_CLASS4(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,_base) \
-class __``NAME``__mocker  extends __``NAME``_base__mocker; \
-function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \
+class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
+function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual function void NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3); \
 endfunction \
-__``NAME``__mocker map [string]; \
-__``NAME``__mocker override; \
+__``NAME``__mocker #(PARENT) map [string]; \
+__``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \
@@ -80,15 +80,15 @@ endclass
 
 `define SVMOCK_TASK_MOCKER_CLASS4(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3) \
 `SVMOCK_MOCKER_CLASS4(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,TYPE2,ARG2,MOD2,TYPE3,ARG3,MOD3,_base) \
-class __``NAME``__mocker  extends __``NAME``_base__mocker; \
-function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \
+class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
+function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual task NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3); \
 endtask \
-__``NAME``__mocker map [string]; \
-__``NAME``__mocker override; \
+__``NAME``__mocker #(PARENT) map [string]; \
+__``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \

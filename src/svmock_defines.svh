@@ -10,6 +10,7 @@ class MOCK; \
 `else \
 class MOCK extends ORIGINAL; \
 `endif \
+  typedef MOCK PARENT; \
   `define MOCKTYPE MOCK \
   __mocker __mockers [$]; \
   function bit check(); \
