@@ -64,6 +64,11 @@ virtual function RETURN NAME(); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(); \
@@ -147,6 +152,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0); \
@@ -230,6 +240,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1); \
@@ -313,6 +328,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2);
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2); \
@@ -396,6 +416,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3); \
@@ -479,6 +504,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
@@ -562,6 +592,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
@@ -645,6 +680,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
@@ -728,6 +768,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
@@ -811,6 +856,11 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
 `ifdef MOCKTYPE_HAS_NO_PARENT \
+  else \
+    begin \
+      RETURN bogus; \
+      return bogus; \
+    end \
 `else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \

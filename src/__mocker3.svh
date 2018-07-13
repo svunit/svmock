@@ -37,6 +37,7 @@ function new(string name, ref __mocker __mockers[$], input PARENT _parent, input
   if (associate != null) associate.map[name] = this; \
 endfunction \
 virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2); \
+  return NAME; \
 endfunction \
 RETURNS returnsVal; \
 function void returns(RETURNS r); \

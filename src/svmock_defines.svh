@@ -11,7 +11,6 @@ class MOCK; \
 class MOCK extends ORIGINAL; \
 `endif \
   typedef MOCK PARENT; \
-  `define MOCKTYPE MOCK \
   __mocker __mockers [$]; \
   function bit check(); \
     check = 1; \
@@ -25,7 +24,9 @@ class MOCK extends ORIGINAL; \
     end \
   endfunction
 
-`define SVMOCK_END endclass
+`define SVMOCK_END \
+endclass \
+`undef MOCKTYPE_HAS_NO_PARENT
 
 
 //-------------

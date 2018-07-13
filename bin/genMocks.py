@@ -16,6 +16,11 @@ def function_macro(numargs, fout):
               '  else if (__``NAME.overrideReturn) \\\n' +
               '    return __``NAME.returnsVal; \\\n' +
               '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '  else \\\n' +
+              '    begin \\\n' +
+              '      RETURN bogus; \\\n' +
+              '      return bogus; \\\n' +
+              '    end \\\n' +
               '`else \\\n' +
               '  else \\\n' +
               '    return super.NAME(%s); \\\n'                                  % method_arg_names(numargs) +
@@ -167,6 +172,7 @@ def function_mocker_class(numargs, fout):
               'endfunction \\\n' +
 
               'virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +     # NAME
+              '  return NAME; \\\n' +     # NAME
               'endfunction \\\n' +
 
               'RETURNS returnsVal; \\\n' +

@@ -82,6 +82,21 @@ module no_parent_unit_test;
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
+  `SVTEST(func0)
+    `EXPECT_CALL(ut, func0).exactly(1);
+
+    void'(ut.func0());
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
+  `SVTEST(func1)
+    int x [$];
+    `EXPECT_CALL(ut, func1).exactly(1);
+
+    void'(ut.func1(x));
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule
