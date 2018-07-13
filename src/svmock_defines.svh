@@ -5,11 +5,12 @@
 `define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT) \
 `define MOCK``_``ORIGINAL \
 `ifdef MOCK``_HAS_NO_PARENT \
+`define MOCKTYPE_HAS_NO_PARENT \
 class MOCK; \
 `else \
 class MOCK extends ORIGINAL; \
 `endif \
-  `define PARENT MOCK \
+  `define MOCKTYPE MOCK \
   __mocker __mockers [$]; \
   function bit check(); \
     check = 1; \

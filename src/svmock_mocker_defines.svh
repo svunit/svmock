@@ -7,15 +7,18 @@ virtual task NAME(); \
   __``NAME.called(); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke0_``ORIGINAL; \
@@ -32,15 +35,18 @@ virtual function void NAME(); \
   __``NAME.called(); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke0_``ORIGINAL; \
@@ -59,15 +65,18 @@ virtual function RETURN NAME(); \
     return __``NAME.override.NAME(); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC0(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke0_``ORIGINAL; \
@@ -84,15 +93,18 @@ virtual task NAME(TYPE0 ARG0 MOD0); \
   __``NAME.called(ARG0); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke1_``ORIGINAL; \
@@ -109,15 +121,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0); \
   __``NAME.called(ARG0); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke1_``ORIGINAL; \
@@ -136,15 +151,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0); \
     return __``NAME.override.NAME(ARG0); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC1(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke1_``ORIGINAL; \
@@ -161,15 +179,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke2_``ORIGINAL; \
@@ -186,15 +207,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke2_``ORIGINAL; \
@@ -213,15 +237,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1); \
     return __``NAME.override.NAME(ARG0, ARG1); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC2(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke2_``ORIGINAL; \
@@ -238,15 +265,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke3_``ORIGINAL; \
@@ -263,15 +293,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke3_``ORIGINAL; \
@@ -290,15 +323,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2);
     return __``NAME.override.NAME(ARG0, ARG1, ARG2); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC3(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke3_``ORIGINAL; \
@@ -315,15 +351,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke4_``ORIGINAL; \
@@ -340,15 +379,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke4_``ORIGINAL; \
@@ -367,15 +409,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC4(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke4_``ORIGINAL; \
@@ -392,15 +437,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke5_``ORIGINAL; \
@@ -417,15 +465,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke5_``ORIGINAL; \
@@ -444,15 +495,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC5(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke5_``ORIGINAL; \
@@ -469,15 +523,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke6_``ORIGINAL; \
@@ -494,15 +551,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke6_``ORIGINAL; \
@@ -521,15 +581,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC6(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke6_``ORIGINAL; \
@@ -546,15 +609,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke7_``ORIGINAL; \
@@ -571,15 +637,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke7_``ORIGINAL; \
@@ -598,15 +667,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC7(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke7_``ORIGINAL; \
@@ -623,15 +695,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke8_``ORIGINAL; \
@@ -648,15 +723,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke8_``ORIGINAL; \
@@ -675,15 +753,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC8(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke8_``ORIGINAL; \
@@ -700,15 +781,18 @@ virtual task NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TYPE3 ARG3 
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
+`endif \
 endtask
 
 `define SVMOCK_MAP_TASK9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke9_``ORIGINAL; \
@@ -725,15 +809,18 @@ virtual function void NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, TY
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_VFUNC9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke9_``ORIGINAL; \
@@ -752,15 +839,18 @@ virtual function RETURN NAME(TYPE0 ARG0 MOD0, TYPE1 ARG1 MOD1, TYPE2 ARG2 MOD2, 
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   else if (__``NAME.overrideReturn) \
     return __``NAME.returnsVal; \
+`ifdef MOCKTYPE_HAS_NO_PARENT \
+`else \
   else \
     return super.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
+`endif \
 endfunction
 
 `define SVMOCK_MAP_FUNC9(ORIGINAL,INSTEAD) \
 typedef class __``INSTEAD``__mocker; \
 __``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \
 class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \
-  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \
+  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \
     super.new(name, __mockers, _parent, associate); \
   endfunction \
   `invoke9_``ORIGINAL; \

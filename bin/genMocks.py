@@ -15,8 +15,11 @@ def function_macro(numargs, fout):
               '    return __``NAME.override.NAME(%s); \\\n'                       % method_arg_names(numargs) +
               '  else if (__``NAME.overrideReturn) \\\n' +
               '    return __``NAME.returnsVal; \\\n' +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    return super.NAME(%s); \\\n'                                  % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endfunction\n\n')
 
 def void_function_macro(numargs, fout):
@@ -30,8 +33,11 @@ def void_function_macro(numargs, fout):
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
               '    __``NAME.override.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endfunction\n\n')
 
 def task_macro(numargs, fout):
@@ -45,8 +51,11 @@ def task_macro(numargs, fout):
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
               '    __``NAME.override.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endtask\n\n')
 
 
@@ -62,7 +71,7 @@ def map_function_macro(numargs, fout):
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
@@ -77,7 +86,7 @@ def map_void_function_macro(numargs, fout):
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
@@ -92,7 +101,7 @@ def map_task_macro(numargs, fout):
               '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
               'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
@@ -121,8 +130,8 @@ def base_mocker_class(numargs, fout):
   fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``MODIFIER``__mocker  extends __mocker; \\\n' +
 
-              '`PARENT parent; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent); \\\n' +
+              '`MOCKTYPE parent; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent); \\\n' +
               '  super.new(name, __mockers); \\\n' +
               '  parent = _parent; \\\n' +
               'endfunction \\\n' +
@@ -152,7 +161,7 @@ def function_mocker_class(numargs, fout):
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
@@ -184,7 +193,7 @@ def void_function_mocker_class(numargs, fout):
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
@@ -210,7 +219,7 @@ def task_mocker_class(numargs, fout):
               '`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input `MOCKTYPE _parent, input __``NAME``__mocker associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
