@@ -8,15 +8,23 @@ def function_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
-              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
               '    return __``NAME.override.NAME(%s); \\\n'                       % method_arg_names(numargs) +
               '  else if (__``NAME.overrideReturn) \\\n' +
               '    return __``NAME.returnsVal; \\\n' +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '  else \\\n' +
+              '    begin \\\n' +
+              '      RETURN bogus; \\\n' +
+              '      return bogus; \\\n' +
+              '    end \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    return super.NAME(%s); \\\n'                                  % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endfunction\n\n')
 
 def void_function_macro(numargs, fout):
@@ -25,13 +33,16 @@ def void_function_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
-              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
               '    __``NAME.override.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endfunction\n\n')
 
 def task_macro(numargs, fout):
@@ -40,13 +51,16 @@ def task_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
-              '__``NAME``__mocker __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
               '    __``NAME.override.NAME(%s); \\\n'                              % method_arg_names(numargs) +
+              '`ifdef MOCKTYPE_HAS_NO_PARENT \\\n' +
+              '`else \\\n' +
               '  else \\\n' +
               '    super.NAME(%s); \\\n'                                         % method_arg_names(numargs) +
+              '`endif \\\n' +
               'endtask\n\n')
 
 
@@ -58,48 +72,48 @@ def task_macro(numargs, fout):
 
 def map_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_FUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-              'typedef class __``INSTEAD``__mocker; \\\n' +
-              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
-              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              'class __``INSTEAD``__mocker #(type PARENT=int) extends __``ORIGINAL``__mocker #(PARENT); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``ORIGINAL``__mocker #(PARENT) associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
-              'endclass\n\n')
+              'endclass \\\n ' +
+
+              '__``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \n\n')
 
 def map_void_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_VFUNC%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-              'typedef class __``INSTEAD``__mocker; \\\n' +
-              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
-              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              'class __``INSTEAD``__mocker #(type PARENT=int) extends __``ORIGINAL``__mocker #(PARENT); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``ORIGINAL``__mocker #(PARENT) associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
-              'endclass\n\n')
+              'endclass \\\n' +
+
+              '__``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \n\n')
 
 def map_task_macro(numargs, fout):
   fout.write ('`define SVMOCK_MAP_TASK%0d(ORIGINAL,INSTEAD) \\\n' % numargs +
-              'typedef class __``INSTEAD``__mocker; \\\n' +
-              '__``INSTEAD``__mocker __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \\\n' +
 
-              'class __``INSTEAD``__mocker extends __``ORIGINAL``__mocker; \\\n' +
-              '  function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``ORIGINAL``__mocker associate = null); \\\n' +
+              'class __``INSTEAD``__mocker #(type PARENT=int) extends __``ORIGINAL``__mocker #(PARENT); \\\n' +
+              '  function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``ORIGINAL``__mocker #(PARENT) associate = null); \\\n' +
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
               '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endtask \\\n' +
-              'endclass\n\n')
+              'endclass \\\n' +
+
+              '__``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, __``ORIGINAL); \n\n')
 
 def mockers(numargs):
   fout = open('../src/__mocker' + str(numargs) + '.svh', 'w+')
@@ -119,10 +133,10 @@ def mockers(numargs):
 def base_mocker_class(numargs, fout):
   # macro header
   fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
-              'class __``NAME``MODIFIER``__mocker  extends __mocker; \\\n' +
+              'class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \\\n' +
 
-              '`PARENT parent; \\\n' +
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent); \\\n' +
+              'PARENT parent; \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input PARENT _parent); \\\n' +
               '  super.new(name, __mockers); \\\n' +
               '  parent = _parent; \\\n' +
               'endfunction \\\n' +
@@ -155,14 +169,15 @@ def base_mocker_class(numargs, fout):
 def function_mocker_class(numargs, fout):
   fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
-              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+              'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
 
               'virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +     # NAME
+              '  return NAME; \\\n' +     # NAME
               'endfunction \\\n' +
 
               'RETURNS returnsVal; \\\n' +
@@ -171,8 +186,8 @@ def function_mocker_class(numargs, fout):
               '  returnsVal = r; \\\n' +
               'endfunction \\\n' +
 
-              '__``NAME``__mocker map [string]; \\\n' +
-              '__``NAME``__mocker override; \\\n' +
+              '__``NAME``__mocker #(PARENT) map [string]; \\\n' +
+              '__``NAME``__mocker #(PARENT) override; \\\n' +
               'function void will_by_default(string i); \\\n' +                   # will_by_default
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +
@@ -187,9 +202,9 @@ def function_mocker_class(numargs, fout):
 def void_function_mocker_class(numargs, fout):
   fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
-              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+              'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
@@ -197,8 +212,8 @@ def void_function_mocker_class(numargs, fout):
               'virtual ' + functionDecl('NAME',numargs) + ' \\\n' +              # NAME
               'endfunction \\\n' +
 
-              '__``NAME``__mocker map [string]; \\\n' +                # will_by_default
-              '__``NAME``__mocker override; \\\n' +
+              '__``NAME``__mocker #(PARENT) map [string]; \\\n' +                # will_by_default
+              '__``NAME``__mocker #(PARENT) override; \\\n' +
               'function void will_by_default(string i); \\\n' +
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +
@@ -213,9 +228,9 @@ def void_function_mocker_class(numargs, fout):
 def task_mocker_class(numargs, fout):
   fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
-              'class __``NAME``__mocker  extends __``NAME``_base__mocker; \\\n' +
+              'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
-              'function new(string name, ref __mocker __mockers[$], input `PARENT _parent, input __``NAME``__mocker associate = null); \\\n' +
+              'function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \\\n' +
               '  super.new(name, __mockers, _parent); \\\n' +
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
@@ -224,8 +239,8 @@ def task_mocker_class(numargs, fout):
               'virtual ' + taskDecl('NAME',numargs) + ' \\\n' +                  # NAME
               'endtask \\\n' +
 
-              '__``NAME``__mocker map [string]; \\\n' +                # will_by_default
-              '__``NAME``__mocker override; \\\n' +
+              '__``NAME``__mocker #(PARENT) map [string]; \\\n' +                # will_by_default
+              '__``NAME``__mocker #(PARENT) override; \\\n' +
               'function void will_by_default(string i); \\\n' +
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +

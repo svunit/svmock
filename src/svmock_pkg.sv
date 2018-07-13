@@ -1,3 +1,4 @@
+`define HAS_NO_PARENT _HAS_NO_PARENT
 `include "svmock_defines.svh"
 
 package svmock_pkg;

@@ -2,9 +2,15 @@
 // MOCK CLASS MACROS
 //-------------------
 
-`define SVMOCK(MOCK,ORIGINAL) \
+`define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT) \
+`define MOCK``_``ORIGINAL \
+`ifdef MOCK``_HAS_NO_PARENT \
+`define MOCKTYPE_HAS_NO_PARENT \
+class MOCK; \
+`else \
 class MOCK extends ORIGINAL; \
-  `define PARENT MOCK \
+`endif \
+  typedef MOCK PARENT; \
   __mocker __mockers [$]; \
   function bit check(); \
     check = 1; \
@@ -18,7 +24,9 @@ class MOCK extends ORIGINAL; \
     end \
   endfunction
 
-`define SVMOCK_END endclass
+`define SVMOCK_END \
+endclass \
+`undef MOCKTYPE_HAS_NO_PARENT
 
 `define MOCKER_WITH(NAME,TYPE,MOD) \
 class NAME``__with; \
