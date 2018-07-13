@@ -97,23 +97,24 @@ module has_unit_test;
 
   `SVTEST(WithOneArg)
     `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
-
     ut.functionIntArgReturnVoid(3);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
     ut.functionIntArgReturnVoid(2);
     `FAIL_IF(ut.check());
   `SVTEST_END
 
   `SVTEST(WithTwoArgs)
     `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(3, "heck");
-
     ut.functionIntStringArgsReturnVoid(3, "heck");
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(3, "heck");
     ut.functionIntStringArgsReturnVoid(3, "whack");
     `FAIL_IF(ut.check());
 
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(3, "heck");
     ut.functionIntStringArgsReturnVoid(2, "heck");
     `FAIL_IF(ut.check());
   `SVTEST_END
@@ -122,10 +123,10 @@ module has_unit_test;
     objtype dt = new();
  
     `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).with_args(dt, 0, 27);
- 
     ut.functionObjBitLogicArgsReturnVoid(dt, 0, 27);
     `FAIL_UNLESS(ut.check());
  
+    `EXPECT_CALL(ut, functionObjBitLogicArgsReturnVoid).with_args(dt, 0, 27);
     ut.functionObjBitLogicArgsReturnVoid(null, 0, 27);
     `FAIL_IF(ut.check());
   `SVTEST_END
@@ -137,10 +138,10 @@ module has_unit_test;
 
   `SVTEST(WithAssocArg)
     `EXPECT_CALL(ut, functionAssocArgReturnVoid).with_args(assocPeter);
-
     ut.functionAssocArgReturnVoid(assocPeter);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionAssocArgReturnVoid).with_args(assocPeter);
     assocPeter["Peter"] = 21; 
     ut.functionAssocArgReturnVoid(assocPeter);
     `FAIL_IF(ut.check());
@@ -148,50 +149,54 @@ module has_unit_test;
 
   `SVTEST(WithQueueArg)
     `EXPECT_CALL(ut, functionQueueArgReturnVoid).with_args(queueHank);
- 
     ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).with_args(queueHank);
     queueHank[0] = 21; 
     ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_IF(ut.check());
 
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).with_args(queueHank);
     set_defaults();
     queueHank.push_back(99);
     ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_IF(ut.check());
 
     void'(queueHank.pop_back());
+    `EXPECT_CALL(ut, functionQueueArgReturnVoid).with_args(queueHank);
     ut.functionQueueArgReturnVoid(queueHank);
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
   `SVTEST(WithAssocQueueArg)
     `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).with_args(assocPeter, queueHank);
- 
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).with_args(assocPeter, queueHank);
     queueHank[0] = 21; 
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_IF(ut.check());
 
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).with_args(assocPeter, queueHank);
     set_defaults();
     assocPeter["Peter"] = 21; 
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_IF(ut.check());
 
     set_defaults();
+    `EXPECT_CALL(ut, functionAssocQueueArgReturnVoid).with_args(assocPeter, queueHank);
     ut.functionAssocQueueArgReturnVoid(assocPeter, queueHank);
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
   `SVTEST(WithFixedArrayArg)
     `EXPECT_CALL(ut, functionFixedArrayArgReturnVoid).with_args(fixedGlenn, 8);
- 
     ut.functionFixedArrayArgReturnVoid(fixedGlenn, 8);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionFixedArrayArgReturnVoid).with_args(fixedGlenn, 8);
     fixedGlenn[0] = "feathers"; 
     ut.functionFixedArrayArgReturnVoid(fixedGlenn, 8);
     `FAIL_IF(ut.check());
@@ -199,10 +204,10 @@ module has_unit_test;
 
   `SVTEST(WithDynamicArrayArg)
     `EXPECT_CALL(ut, functionDynamicArrayArgReturnVoid).with_args("what", dynamicFred, 44);
- 
     ut.functionDynamicArrayArgReturnVoid("what", dynamicFred, 44);
     `FAIL_UNLESS(ut.check());
 
+    `EXPECT_CALL(ut, functionDynamicArrayArgReturnVoid).with_args("what", dynamicFred, 44);
     dynamicFred[8] = new();
     ut.functionDynamicArrayArgReturnVoid("what", dynamicFred, 44);
     `FAIL_IF(ut.check());
@@ -210,7 +215,6 @@ module has_unit_test;
 
   `SVTEST(exp_and_act_are_cleared)
     `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
- 
     ut.functionIntArgReturnVoid(3);
     `FAIL_UNLESS(ut.check());
  
