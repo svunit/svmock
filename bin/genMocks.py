@@ -149,7 +149,6 @@ def base_mocker_class(numargs, fout):
               'endfunction \\\n' +
 
               functionDecl('with_args',numargs) + ' \\\n' +                # with
-              '  checkWith = 1; \\\n' +
                  with_property_assignments(numargs, 'exp') +
               'endfunction \\\n' +
 
@@ -263,25 +262,42 @@ def with_comparison_properties(numargs):
   ret = ''
   for j in range(0,numargs):
     ret += '`MOCKER_WITH(NAME%0d, TYPE%0d, MOD%0d) \\\n' % (j,j,j)
-    ret += 'NAME%0d``__with __with_%0d = new(); \\\n' % (j,j)
+    ret += 'NAME%0d``__with __with_%0d [$]; \\\n' % (j,j)
   return ret
 
 def with_property_assignments(numargs, type='act'):
   ret = ''
-  for j in range(0,numargs):
-    ret += '  __with_%0d.%s = ARG%0d; \\\n' % (j,type,j)
+  if (type == 'exp'):
+    for j in range(0,numargs):
+      ret += '  begin \\\n'
+      ret += '    NAME%0d``__with __w = new(); \\\n' % j
+      ret += '    __w.%s = ARG%0d; \\\n' % (type,j)
+      ret += '    __with_%0d.push_back(__w); \\\n' % (j)
+      ret += '  end \\\n'
+  else:
+    for j in range(0,numargs):
+      ret += '  for (int i=0; i<__with_%0d.size(); i+=1) begin \\\n' % j
+      ret += '    if (!__with_%0d[i].done) begin \\\n' % j
+      ret += '      __with_%0d[i].%s = ARG%0d; \\\n' % (j,type,j)
+      ret += '      __with_%0d[i].done = 1; \\\n' % j
+      ret += '      break; \\\n'
+      ret += '    end \\\n'
+      ret += '  end \\\n'
   return ret
 
 def with_property_check(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '  check &= (checkWith) ? __with_%0d.compare() : 1; \\\n' % j
+    ret += '  while (__with_%0d.size() > 0) begin \\\n' % j
+    ret += '    check &= __with_%0d[0].compare(); \\\n' % j
+    ret += '    __with_%0d.pop_front(); \\\n' % j
+    ret += '  end \\\n'
   return ret
 
 def with_property_clear(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '  __with_%0d = new(); \\\n' % j
+    ret += '  __with_%0d.delete(); \\\n' % j
   return ret
 
 def oneArgString(idx, delim=' '):

@@ -9,7 +9,6 @@ function void called(); \
   timesCnt += 1; \
 endfunction \
 function void with_args(); \
-  checkWith = 1; \
 endfunction \
 function bit check(); \
   check = super.check(); \

@@ -6,23 +6,35 @@ function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
   parent = _parent; \
 endfunction \
 `MOCKER_WITH(NAME0, TYPE0, MOD0) \
-NAME0``__with __with_0 = new(); \
+NAME0``__with __with_0 [$]; \
 function void called(TYPE0 ARG0 MOD0); \
   timesCnt += 1; \
-  __with_0.act = ARG0; \
+  for (int i=0; i<__with_0.size(); i+=1) begin \
+    if (!__with_0[i].done) begin \
+      __with_0[i].act = ARG0; \
+      __with_0[i].done = 1; \
+      break; \
+    end \
+  end \
 endfunction \
 function void with_args(TYPE0 ARG0 MOD0); \
-  checkWith = 1; \
-  __with_0.exp = ARG0; \
+  begin \
+    NAME0``__with __w = new(); \
+    __w.exp = ARG0; \
+    __with_0.push_back(__w); \
+  end \
 endfunction \
 function bit check(); \
   check = super.check(); \
-  check &= (checkWith) ? __with_0.compare() : 1; \
+  while (__with_0.size() > 0) begin \
+    check &= __with_0[0].compare(); \
+    __with_0.pop_front(); \
+  end \
   return check; \
 endfunction \
 function void clear(); \
   super.clear; \
-  __with_0 = new(); \
+  __with_0.delete(); \
 endfunction \
 endclass
 

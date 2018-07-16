@@ -30,6 +30,7 @@ endclass \
 
 `define MOCKER_WITH(NAME,TYPE,MOD) \
 class NAME``__with; \
+  bit done; \
   TYPE exp MOD; \
   TYPE act MOD; \
   function bit compare(); \

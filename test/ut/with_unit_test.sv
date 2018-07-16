@@ -92,6 +92,18 @@ module has_unit_test;
 
 
   //---------------------------------
+  //        Queuing Checks
+  //---------------------------------
+  `SVTEST(WithArgsAppliedOnce)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+    ut.functionIntArgReturnVoid(3);
+    `FAIL_UNLESS(ut.check());
+
+    ut.functionIntArgReturnVoid(2);
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
+  //---------------------------------
   //         With Discrete
   //---------------------------------
 
@@ -215,13 +227,10 @@ module has_unit_test;
 
   `SVTEST(exp_and_act_are_cleared)
     `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
-    ut.functionIntArgReturnVoid(3);
-    `FAIL_UNLESS(ut.check());
- 
-    ut.clear();
 
-    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.exp == 0);
-    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.act == 0);
+    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.size() == 1);
+    ut.clear();
+    `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.size() == 0);
   `SVTEST_END
 
   `SVUNIT_TESTS_END

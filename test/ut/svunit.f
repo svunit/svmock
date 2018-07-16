@@ -2,6 +2,6 @@
 +incdir+../src
 +incdir+../mocks
 
-// -parseinfo macro
+//-parseinfo macro
 
 ut_pkg.sv
