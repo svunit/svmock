@@ -290,7 +290,7 @@ def with_property_check(numargs):
   for j in range(0,numargs):
     ret += '  while (__with_%0d.size() > 0) begin \\\n' % j
     ret += '    check &= __with_%0d[0].compare(); \\\n' % j
-    ret += '    __with_%0d.pop_front(); \\\n' % j
+    ret += '    void\'(__with_%0d.pop_front()); \\\n' % j
     ret += '  end \\\n'
   return ret
 
