@@ -8,7 +8,7 @@ class call;
   function void functionNoArgReturnVoid();
   endfunction
 
-  function void functionIntArgReturnVoid(int x);
+  function void functionIntArgReturnVoid(logic[31:0] x);
   endfunction
 
   function void functionIntStringArgsReturnVoid(int x, string y);

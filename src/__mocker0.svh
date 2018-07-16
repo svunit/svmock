@@ -11,6 +11,7 @@ endfunction \
 function void with_args(); \
 endfunction \
 function bit check(); \
+  string error_signature [int]; \
   check = super.check(); \
   return check; \
 endfunction \

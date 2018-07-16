@@ -39,15 +39,40 @@ function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
   end \
 endfunction \
 function bit check(); \
+  string error_signature [int]; \
   check = super.check(); \
-  while (__with_0.size() > 0) begin \
-    check &= __with_0[0].compare(); \
-    __with_0.pop_front(); \
+  for (int i=0; i<__with_0.size(); i+=1) begin \
+    bit comp = __with_0[i].compare(); \
+    if (!comp) begin \
+      string _name = `"NAME`"; \
+      string _arg = `"ARG0`"; \
+      if (!error_signature.exists(i)) \
+        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_0[i].as_string()); \
+      else \
+        $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_0[i].as_string()); \
+    end \
+    check &= comp; \
   end \
-  while (__with_1.size() > 0) begin \
-    check &= __with_1[0].compare(); \
-    __with_1.pop_front(); \
+  for (int i=0; i<__with_0.size(); i+=1) begin \
+    if (error_signature[i] != "") $display(error_signature[i]); \
   end \
+  __with_0.delete(); \
+  for (int i=0; i<__with_1.size(); i+=1) begin \
+    bit comp = __with_1[i].compare(); \
+    if (!comp) begin \
+      string _name = `"NAME`"; \
+      string _arg = `"ARG1`"; \
+      if (!error_signature.exists(i)) \
+        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_1[i].as_string()); \
+      else \
+        $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_1[i].as_string()); \
+    end \
+    check &= comp; \
+  end \
+  for (int i=0; i<__with_1.size(); i+=1) begin \
+    if (error_signature[i] != "") $display(error_signature[i]); \
+  end \
+  __with_1.delete(); \
   return check; \
 endfunction \
 function void clear(); \

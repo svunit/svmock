@@ -1,7 +1,7 @@
 `SVMOCK(mock_call, call)
   // void functions
   `SVMOCK_VFUNC0(functionNoArgReturnVoid)
-  `SVMOCK_VFUNC1(functionIntArgReturnVoid, int, x, )
+  `SVMOCK_VFUNC1(functionIntArgReturnVoid, logic [31:0], x, )
   `SVMOCK_VFUNC2(functionIntStringArgsReturnVoid, int, x, , string, y, )
   `SVMOCK_VFUNC3(functionObjBitLogicArgsReturnVoid, objtype, x, , bit, y, , logic [31:0], z, )
 

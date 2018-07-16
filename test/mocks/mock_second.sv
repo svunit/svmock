@@ -1,6 +1,6 @@
 `SVMOCK(mock_second, call)
   // void functions
-  `SVMOCK_VFUNC1(functionIntArgReturnVoid, int, x, )
+  `SVMOCK_VFUNC1(functionIntArgReturnVoid, logic [31:0], x, )
   `SVMOCK_FUNC0(functionNoArgReturnString, string)
   `SVMOCK_TASK0(taskNoArg)
 
@@ -12,7 +12,7 @@
  
   `SVMOCK_MAP_VFUNC1(functionIntArgReturnVoid, option4)
   int wayne;
-  function void option4(int x);
+  function void option4(logic [31:0] x);
     wayne = x;
   endfunction
 

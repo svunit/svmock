@@ -4,6 +4,47 @@
 package svmock_pkg;
   typedef class __mocker;
 
+  class base__with;
+    string mybase_type;
+
+    bit is_numeric;
+    bit is_string;
+    bit is_other;
+
+    bit is_aggregate;
+
+    function bit is_alphanumeic(string _s);
+      return (
+              (_s >= "a" && _s <= "z") ||
+              (_s >= "A" && _s <= "A") ||
+              (_s == "_")
+             );
+    endfunction
+
+    function void classify(string _mytype);
+      int type_idx, aggregate_idx;
+
+      for (type_idx=0; type_idx<_mytype.len(); type_idx+=1) begin
+        if (!is_alphanumeic(_mytype.getc(type_idx))) begin
+          for (aggregate_idx = type_idx; aggregate_idx < _mytype.len(); aggregate_idx+=1) begin
+            if (_mytype.getc(aggregate_idx) == "$") break;
+          end
+          break;
+        end
+      end
+
+      mybase_type = _mytype.substr(0, type_idx-1);
+      is_string = (mybase_type == "string");
+      is_numeric = ((mybase_type == "int") ||
+                    (mybase_type == "logic") ||
+                    (mybase_type == "bit") ||
+                    (mybase_type == "wire"));
+      is_aggregate = (aggregate_idx != 0 && aggregate_idx < _mytype.len());
+
+      //$display("%s %s %0d %0d %0d %0d", _mytype, mybase_type, is_numeric, is_string, is_other, is_aggregate);
+    endfunction
+  endclass
+
   class __mocker;
     string name;
 

@@ -153,6 +153,7 @@ def base_mocker_class(numargs, fout):
               'endfunction \\\n' +
 
               'function bit check(); \\\n' +                               # check
+              '  string error_signature [int]; \\\n' +
               '  check = super.check(); \\\n' +
                  with_property_check(numargs) +
               '  return check; \\\n' +
@@ -288,10 +289,22 @@ def with_property_assignments(numargs, type='act'):
 def with_property_check(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '  while (__with_%0d.size() > 0) begin \\\n' % j
-    ret += '    check &= __with_%0d[0].compare(); \\\n' % j
-    ret += '    void\'(__with_%0d.pop_front()); \\\n' % j
+    ret += '  for (int i=0; i<__with_%0d.size(); i+=1) begin \\\n' % j
+    ret += '    bit comp = __with_%0d[i].compare(); \\\n' % j
+    ret += '    if (!comp) begin \\\n'
+    ret += '      string _name = `"NAME`"; \\\n'
+    ret += '      string _arg = `"ARG%0d`"; \\\n' % j
+    ret += '      if (!error_signature.exists(i)) \\\n'
+    ret += '        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '      else \\\n'
+    ret += '        $sformat(error_signature[i], "%s\\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '    end \\\n'
+    ret += '    check &= comp; \\\n'
     ret += '  end \\\n'
+    ret += '  for (int i=0; i<__with_%0d.size(); i+=1) begin \\\n' % j
+    ret += '    if (error_signature[i] != "") $display(error_signature[i]); \\\n'
+    ret += '  end \\\n'
+    ret += '  __with_%0d.delete(); \\\n' % j
   return ret
 
 def with_property_clear(numargs):
