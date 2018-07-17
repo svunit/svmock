@@ -4,6 +4,7 @@
 
 `define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT) \
 `define MOCK``_``ORIGINAL \
+`define MOCKTYPE MOCK``_``ORIGINAL \
 `ifdef MOCK``_HAS_NO_PARENT \
 `define MOCKTYPE_HAS_NO_PARENT \
 class MOCK; \
@@ -26,14 +27,15 @@ class MOCK extends ORIGINAL; \
 
 `define SVMOCK_END \
 endclass \
+`undef MOCKTYPE \
 `undef MOCKTYPE_HAS_NO_PARENT
 
 
-`define MOCKER_WITH(NAME,TYPE,MOD=SCALAR) \
-`define NAME``_``MOD \
-class NAME``__with extends base__with; \
+`define MOCKER_WITH(CLASS,FUNCTION,ARG,TYPE,MOD=SCALAR) \
+`define CLASS``_``FUNCTION``_``ARG``_``MOD \
+class ARG``__with extends base__with; \
   bit done; \
-`ifdef NAME``_SCALAR \
+`ifdef CLASS``_``FUNCTION``_``ARG``_SCALAR \
   TYPE exp; \
   TYPE act; \
 `else \
@@ -48,7 +50,7 @@ class NAME``__with extends base__with; \
     if (is_other) begin \
     end \
     else begin \
-`ifdef NAME``_SCALAR \
+`ifdef CLASS``_``FUNCTION``_``ARG``_SCALAR \
         if (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
         else           $sformat(as_string, "exp:%0d act:%0d", exp, act); \
 `else \
@@ -60,8 +62,8 @@ class NAME``__with extends base__with; \
     end \
   endfunction \
 endclass \
-`undef NAME``_SCALAR \
-`undef NAME``_
+`undef CLASS``_``FUNCTION``_``ARG``_SCALAR \
+`undef CLASS``_``FUNCTION``_``ARG``_
 
 //-------------
 // EXPECT CALL

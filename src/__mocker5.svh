@@ -5,16 +5,16 @@ function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
 endfunction \
-`MOCKER_WITH(NAME``ARG0, TYPE0, MOD0) \
-NAME``ARG0``__with __with_0 [$]; \
-`MOCKER_WITH(NAME``ARG1, TYPE1, MOD1) \
-NAME``ARG1``__with __with_1 [$]; \
-`MOCKER_WITH(NAME``ARG2, TYPE2, MOD2) \
-NAME``ARG2``__with __with_2 [$]; \
-`MOCKER_WITH(NAME``ARG3, TYPE3, MOD3) \
-NAME``ARG3``__with __with_3 [$]; \
-`MOCKER_WITH(NAME``ARG4, TYPE4, MOD4) \
-NAME``ARG4``__with __with_4 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG0,TYPE0,MOD0) \
+ARG0``__with __with_0 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG1,TYPE1,MOD1) \
+ARG1``__with __with_1 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG2,TYPE2,MOD2) \
+ARG2``__with __with_2 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG3,TYPE3,MOD3) \
+ARG3``__with __with_3 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG4,TYPE4,MOD4) \
+ARG4``__with __with_4 [$]; \
 function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4); \
   timesCnt += 1; \
   for (int i=0; i<__with_0.size(); i+=1) begin \
@@ -55,27 +55,27 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 
 endfunction \
 function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1,TYPE2 ARG2 MOD2,TYPE3 ARG3 MOD3,TYPE4 ARG4 MOD4); \
   begin \
-    NAME``ARG0``__with __w = new(); \
+    ARG0``__with __w = new(); \
     __w.exp = ARG0; \
     __with_0.push_back(__w); \
   end \
   begin \
-    NAME``ARG1``__with __w = new(); \
+    ARG1``__with __w = new(); \
     __w.exp = ARG1; \
     __with_1.push_back(__w); \
   end \
   begin \
-    NAME``ARG2``__with __w = new(); \
+    ARG2``__with __w = new(); \
     __w.exp = ARG2; \
     __with_2.push_back(__w); \
   end \
   begin \
-    NAME``ARG3``__with __w = new(); \
+    ARG3``__with __w = new(); \
     __w.exp = ARG3; \
     __with_3.push_back(__w); \
   end \
   begin \
-    NAME``ARG4``__with __w = new(); \
+    ARG4``__with __w = new(); \
     __w.exp = ARG4; \
     __with_4.push_back(__w); \
   end \

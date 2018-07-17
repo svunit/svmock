@@ -5,8 +5,8 @@ function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
 endfunction \
-`MOCKER_WITH(NAME``ARG0, TYPE0, MOD0) \
-NAME``ARG0``__with __with_0 [$]; \
+`MOCKER_WITH(`MOCKTYPE,NAME,ARG0,TYPE0,MOD0) \
+ARG0``__with __with_0 [$]; \
 function void called(TYPE0 ARG0 MOD0); \
   timesCnt += 1; \
   for (int i=0; i<__with_0.size(); i+=1) begin \
@@ -19,7 +19,7 @@ function void called(TYPE0 ARG0 MOD0); \
 endfunction \
 function void with_args(TYPE0 ARG0 MOD0); \
   begin \
-    NAME``ARG0``__with __w = new(); \
+    ARG0``__with __w = new(); \
     __w.exp = ARG0; \
     __with_0.push_back(__w); \
   end \

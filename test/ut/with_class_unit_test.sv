@@ -15,19 +15,19 @@ module with_class_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  `MOCKER_WITH(_int,int,)
+  `MOCKER_WITH(,,_int,int,)
   _int__with _int__with_ut;
 
-  `MOCKER_WITH(_intq,int,[$])
+  `MOCKER_WITH(,,_intq,int,[$])
   _intq__with _intq__with_ut;
 
-  `MOCKER_WITH(_logicq,logic [31:0],[$])
+  `MOCKER_WITH(,,_logicq,logic [31:0],[$])
   _logicq__with _logicq__with_ut;
 
-  `MOCKER_WITH(_bit,bit [31:0],)
+  `MOCKER_WITH(,,_bit,bit [31:0],)
   _bit__with _bit__with_ut;
 
-  `MOCKER_WITH(_objtype,objtype,)
+  `MOCKER_WITH(,,_objtype,objtype,)
   _objtype__with _objtype__with_ut;
 
 

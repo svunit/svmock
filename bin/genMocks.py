@@ -262,8 +262,8 @@ def task_mocker_class(numargs, fout):
 def with_comparison_properties(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '`MOCKER_WITH(NAME``ARG%0d, TYPE%0d, MOD%0d) \\\n' % (j,j,j)
-    ret += 'NAME``ARG%0d``__with __with_%0d [$]; \\\n' % (j,j)
+    ret += '`MOCKER_WITH(`MOCKTYPE,NAME,ARG%0d,TYPE%0d,MOD%0d) \\\n' % (j,j,j)
+    ret += 'ARG%0d``__with __with_%0d [$]; \\\n' % (j,j)
   return ret
 
 def with_property_assignments(numargs, type='act'):
@@ -271,7 +271,7 @@ def with_property_assignments(numargs, type='act'):
   if (type == 'exp'):
     for j in range(0,numargs):
       ret += '  begin \\\n'
-      ret += '    NAME``ARG%0d``__with __w = new(); \\\n' % j
+      ret += '    ARG%0d``__with __w = new(); \\\n' % j
       ret += '    __w.%s = ARG%0d; \\\n' % (type,j)
       ret += '    __with_%0d.push_back(__w); \\\n' % (j)
       ret += '  end \\\n'
