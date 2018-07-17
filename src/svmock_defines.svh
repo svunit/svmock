@@ -28,31 +28,40 @@ class MOCK extends ORIGINAL; \
 endclass \
 `undef MOCKTYPE_HAS_NO_PARENT
 
-`define MOCKER_WITH(NAME,TYPE,MOD) \
+
+`define MOCKER_WITH(NAME,TYPE,MOD=SCALAR) \
+`define NAME``_``MOD \
 class NAME``__with extends base__with; \
   bit done; \
+`ifdef NAME``_SCALAR \
+  TYPE exp; \
+  TYPE act; \
+`else \
   TYPE exp MOD; \
   TYPE act MOD; \
+`endif \
   function bit compare(); \
     return exp == act; \
   endfunction \
   function string as_string(); \
     classify($typename(exp)); \
     if (is_other) begin \
-\
     end \
     else begin \
-      if (is_aggregate) begin \
-        $sformat(as_string, "exp:<array> act:<array>"); \
-      end \
-      else begin \
-        if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
-        else if (is_numeric) $sformat(as_string, "exp:%0d act:%0d", exp, act); \
-      end \
-      return as_string; \
+`ifdef NAME``_SCALAR \
+        if (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
+        else           $sformat(as_string, "exp:%0d act:%0d", exp, act); \
+`else \
+        if (is_string) $sformat(as_string, "exp:%s act:%s", exp[0], act[0]); \
+        else           $sformat(as_string, "exp:%0d act:%0d", exp[0], act[0]); \
+`endif \
+        $display("%s", as_string); \
+        return as_string; \
     end \
   endfunction \
-endclass
+endclass \
+`undef NAME``_SCALAR \
+`undef NAME``_
 
 //-------------
 // EXPECT CALL

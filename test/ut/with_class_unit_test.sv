@@ -90,15 +90,17 @@ module with_class_unit_test;
   `SVTEST_END
 
   `SVTEST(_intq__with_as_string)
-    exp = "exp:<array> act:<array>";
-    _intq__with_ut.act = {0};
+    exp = "exp:{0} act:{1}";
+    _intq__with_ut.exp = {0};
+    _intq__with_ut.act = {1};
 
     `FAIL_UNLESS(_intq__with_ut.as_string() == exp)
   `SVTEST_END
 
   `SVTEST(_logicq__with_as_string)
-    exp = "exp:<array> act:<array>";
-    _logicq__with_ut.act = {0, 0};
+    exp = "exp:{0,1} act:{1,0}";
+    _logicq__with_ut.exp = {0, 1};
+    _logicq__with_ut.act = {1, 0};
 
     `FAIL_UNLESS(_logicq__with_ut.as_string() == exp)
   `SVTEST_END
