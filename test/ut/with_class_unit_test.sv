@@ -90,7 +90,7 @@ module with_class_unit_test;
   `SVTEST_END
 
   `SVTEST(_intq__with_as_string)
-    exp = "exp:{0} act:{1}";
+    exp = "exp[0:0]:{0} act[0:0]:{1}";
     _intq__with_ut.exp = {0};
     _intq__with_ut.act = {1};
 
@@ -98,7 +98,7 @@ module with_class_unit_test;
   `SVTEST_END
 
   `SVTEST(_logicq__with_as_string)
-    exp = "exp:{0,1} act:{1,0}";
+    exp = "exp[1:0]:{0,1} act[1:0]:{1,0}";
     _logicq__with_ut.exp = {0, 1};
     _logicq__with_ut.act = {1, 0};
 
@@ -113,7 +113,7 @@ module with_class_unit_test;
   `SVTEST_END
 
   `SVTEST(_objtype__with_as_string)
-    exp = "exp:<object> act:<object>";
+    exp = "exp:<unknown> act:<unknown>";
     _objtype__with_ut.exp = new();
 
     `FAIL_UNLESS(_objtype__with_ut.as_string() == exp)

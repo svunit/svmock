@@ -47,19 +47,30 @@ class ARG``__with extends base__with; \
   endfunction \
   function string as_string(); \
     classify($typename(exp)); \
-    if (is_other) begin \
-    end \
-    else begin \
 `ifdef CLASS``_``FUNCTION``_``ARG``_SCALAR \
-        if (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
-        else           $sformat(as_string, "exp:%0d act:%0d", exp, act); \
+    if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
+    else if (is_other)  $sformat(as_string, "exp:<unknown> act:<unknown>"); \
+    else                $sformat(as_string, "exp:%0d act:%0d", exp, act); \
 `else \
-        if (is_string) $sformat(as_string, "exp:%s act:%s", exp[0], act[0]); \
-        else           $sformat(as_string, "exp:%0d act:%0d", exp[0], act[0]); \
-`endif \
-        $display("%s", as_string); \
-        return as_string; \
+    begin \
+      string e_str; int e_size; \
+      string a_str; int a_size; \
+      foreach (exp[i]) begin \
+        e_size += 1; \
+        if (is_string) $sformat(e_str, "%s%s,", e_str, exp[i]); \
+        else           $sformat(e_str, "%s%0d,", e_str, exp[i]); \
+      end \
+      foreach (act[i]) begin \
+        a_size += 1; \
+        if (is_string) $sformat(a_str, "%s%s,", a_str, act[i]); \
+        else           $sformat(a_str, "%s%0d,", a_str, act[i]); \
+      end \
+      if (e_str != "") e_str = e_str.substr(0,e_str.len()-2); \
+      if (a_str != "") a_str = a_str.substr(0,a_str.len()-2); \
+      $sformat(as_string, "exp[%0d:0]:{%s} act[%0d:0]:{%s}", e_size-1, e_str, a_size-1, a_str); \
     end \
+`endif \
+    return as_string; \
   endfunction \
 endclass \
 `undef CLASS``_``FUNCTION``_``ARG``_SCALAR \
