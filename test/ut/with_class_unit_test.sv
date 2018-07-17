@@ -30,6 +30,9 @@ module with_class_unit_test;
   `MOCKER_WITH(,,_objtype,objtype,)
   _objtype__with _objtype__with_ut;
 
+  `MOCKER_WITH(,,_objtypeq,objtype,[$])
+  _objtypeq__with _objtypeq__with_ut;
+
 
   //===================================
   // Build
@@ -42,6 +45,7 @@ module with_class_unit_test;
     _logicq__with_ut = new();
     _bit__with_ut = new();
     _objtype__with_ut = new();
+    _objtypeq__with_ut = new();
   endfunction
 
 
@@ -117,6 +121,24 @@ module with_class_unit_test;
     _objtype__with_ut.exp = new();
 
     `FAIL_UNLESS(_objtype__with_ut.as_string() == exp)
+  `SVTEST_END
+
+  `SVTEST(_objtypeq__with_as_string)
+    objtype obj;
+
+    exp = "exp[2:0]:{<unknown>,<unknown>,<unknown>} act[1:0]:{<unknown>,<unknown>}";
+    repeat (3) _objtypeq__with_ut.exp.push_back(obj);
+    repeat (2) _objtypeq__with_ut.act.push_back(obj);
+
+    `FAIL_UNLESS(_objtypeq__with_ut.as_string() == exp)
+  `SVTEST_END
+
+  `SVTEST(_abbreviated_queues)
+    exp = "exp[11:0]:{111111,101010,9...222222,111111,0} act[6:0]:{66666666,555555...4444444,3,2,1,0}";
+    _logicq__with_ut.exp = {111111,101010,999999,888888,777777,666666,555555,444444,333333,222222,111111,0};
+    _logicq__with_ut.act = {66666666,55555555,44444444,3,2,1,0};
+
+    `FAIL_UNLESS(_logicq__with_ut.as_string() == exp)
   `SVTEST_END
 
   `SVUNIT_TESTS_END

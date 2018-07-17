@@ -57,16 +57,30 @@ class ARG``__with extends base__with; \
       string a_str; int a_size; \
       foreach (exp[i]) begin \
         e_size += 1; \
-        if (is_string) $sformat(e_str, "%s%s,", e_str, exp[i]); \
-        else           $sformat(e_str, "%s%0d,", e_str, exp[i]); \
+        if      (is_string) $sformat(e_str, "%s%s,", e_str, exp[i]); \
+        else if (is_other)  $sformat(e_str, "%s<unknown>,", e_str); \
+        else                $sformat(e_str, "%s%0d,", e_str, exp[i]); \
       end \
       foreach (act[i]) begin \
         a_size += 1; \
-        if (is_string) $sformat(a_str, "%s%s,", a_str, act[i]); \
-        else           $sformat(a_str, "%s%0d,", a_str, act[i]); \
+        if      (is_string) $sformat(a_str, "%s%s,", a_str, act[i]); \
+        else if (is_other)  $sformat(a_str, "%s<unknown>,", a_str); \
+        else                $sformat(a_str, "%s%0d,", a_str, act[i]); \
       end \
       if (e_str != "") e_str = e_str.substr(0,e_str.len()-2); \
+      if (e_str.len() > 30) begin \
+        string e_start, e_end; \
+        e_start = e_str.substr(0,14); \
+        e_end = e_str.substr(e_str.len()-15,e_str.len()-1); \
+        $sformat(e_str, "%s...%s", e_start, e_end); \
+      end \
       if (a_str != "") a_str = a_str.substr(0,a_str.len()-2); \
+      if (a_str.len() > 30) begin \
+        string a_start, a_end; \
+        a_start = a_str.substr(0,14); \
+        a_end = a_str.substr(a_str.len()-15,a_str.len()-1); \
+        $sformat(a_str, "%s...%s", a_start, a_end); \
+      end \
       $sformat(as_string, "exp[%0d:0]:{%s} act[%0d:0]:{%s}", e_size-1, e_str, a_size-1, a_str); \
     end \
 `endif \
