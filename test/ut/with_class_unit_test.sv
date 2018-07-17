@@ -27,6 +27,9 @@ module with_class_unit_test;
   `MOCKER_WITH(_bit,bit [31:0],)
   _bit__with _bit__with_ut;
 
+  `MOCKER_WITH(_objtype,objtype,)
+  _objtype__with _objtype__with_ut;
+
 
   //===================================
   // Build
@@ -38,6 +41,7 @@ module with_class_unit_test;
     _intq__with_ut = new();
     _logicq__with_ut = new();
     _bit__with_ut = new();
+    _objtype__with_ut = new();
   endfunction
 
 
@@ -86,20 +90,16 @@ module with_class_unit_test;
   `SVTEST_END
 
   `SVTEST(_intq__with_as_string)
-    exp = "exp:[1] act:[0]";
+    exp = "exp:<array> act:<array>";
     _intq__with_ut.act = {0};
-    _intq__with_ut.exp = {1};
 
-$display("%s", _intq__with_ut.as_string());
     `FAIL_UNLESS(_intq__with_ut.as_string() == exp)
   `SVTEST_END
 
   `SVTEST(_logicq__with_as_string)
-    exp = "exp:[1 9] act:[0 0]";
+    exp = "exp:<array> act:<array>";
     _logicq__with_ut.act = {0, 0};
-    _logicq__with_ut.exp = {1, 9};
 
-$display("%s", _logicq__with_ut.as_string());
     `FAIL_UNLESS(_logicq__with_ut.as_string() == exp)
   `SVTEST_END
 
@@ -108,6 +108,13 @@ $display("%s", _logicq__with_ut.as_string());
     _bit__with_ut.exp = 5;
 
     `FAIL_UNLESS(_bit__with_ut.as_string() == exp)
+  `SVTEST_END
+
+  `SVTEST(_objtype__with_as_string)
+    exp = "exp:<object> act:<object>";
+    _objtype__with_ut.exp = new();
+
+    `FAIL_UNLESS(_objtype__with_ut.as_string() == exp)
   `SVTEST_END
 
   `SVUNIT_TESTS_END

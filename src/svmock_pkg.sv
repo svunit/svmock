@@ -39,6 +39,7 @@ package svmock_pkg;
                     (mybase_type == "logic") ||
                     (mybase_type == "bit") ||
                     (mybase_type == "wire"));
+      is_other = !(is_string || is_numeric);
       is_aggregate = (aggregate_idx != 0 && aggregate_idx < _mytype.len());
 
       //$display("%s %s %0d %0d %0d %0d", _mytype, mybase_type, is_numeric, is_string, is_other, is_aggregate);

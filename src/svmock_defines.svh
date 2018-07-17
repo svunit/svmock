@@ -38,13 +38,19 @@ class NAME``__with extends base__with; \
   endfunction \
   function string as_string(); \
     classify($typename(exp)); \
-    if (is_aggregate) begin \
+    if (is_other) begin \
+\
     end \
     else begin \
-      if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
-      else if (is_numeric) $sformat(as_string, "exp:%0d act:%0d", exp, act); \
+      if (is_aggregate) begin \
+        $sformat(as_string, "exp:<array> act:<array>"); \
+      end \
+      else begin \
+        if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
+        else if (is_numeric) $sformat(as_string, "exp:%0d act:%0d", exp, act); \
+      end \
+      return as_string; \
     end \
-    return as_string; \
   endfunction \
 endclass
 
