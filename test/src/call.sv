@@ -66,4 +66,10 @@ class call;
   //-------
   virtual task taskNoArg();
   endtask
+
+  virtual task taskOneOutArg(output bit z);
+  endtask
+
+  virtual task taskTwoOutArg(output bit y, output string z);
+  endtask
 endclass

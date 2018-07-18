@@ -1,4 +1,4 @@
-`define SVMOCK_MOCKER_CLASS2(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,MODIFIER=) \
+`define SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,MODIFIER=) \
 class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \
 PARENT parent; \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
@@ -9,7 +9,7 @@ endfunction \
 ARG0``__with __with_0 [$]; \
 `MOCKER_WITH(`MOCKTYPE,NAME,ARG1,TYPE1,MOD1) \
 ARG1``__with __with_1 [$]; \
-function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
+function void called(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1); \
   timesCnt += 1; \
   for (int i=0; i<__with_0.size(); i+=1) begin \
     if (!__with_0[i].done) begin \
@@ -26,7 +26,7 @@ function void called(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
     end \
   end \
 endfunction \
-function void with_args(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
+function void with_args(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1); \
   begin \
     ARG0``__with __w = new(); \
     __w.exp = ARG0; \
@@ -77,14 +77,14 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
+`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
-virtual function RETURNS NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
+virtual function RETURNS NAME(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1); \
   return NAME; \
 endfunction \
 RETURNS returnsVal; \
@@ -103,14 +103,14 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
+`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
-virtual function void NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1); \
 endfunction \
 __``NAME``__mocker #(PARENT) map [string]; \
 __``NAME``__mocker #(PARENT) override; \
@@ -123,14 +123,14 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_TASK_MOCKER_CLASS2(NAME,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,void,TYPE0,ARG0,MOD0,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_TASK_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
+`SVMOCK_MOCKER_CLASS2(NAME,void,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
   if (associate != null) associate.map[name] = this; \
 endfunction \
-virtual task NAME(TYPE0 ARG0 MOD0,TYPE1 ARG1 MOD1); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1); \
 endtask \
 __``NAME``__mocker #(PARENT) map [string]; \
 __``NAME``__mocker #(PARENT) override; \

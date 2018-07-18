@@ -1,6 +1,6 @@
 `SVMOCK(mock_second, call)
   // void functions
-  `SVMOCK_VFUNC1(functionIntArgReturnVoid, logic [31:0], x, )
+  `SVMOCK_VFUNC1(functionIntArgReturnVoid, , logic [31:0], x, )
   `SVMOCK_FUNC0(functionNoArgReturnString, string)
   `SVMOCK_TASK0(taskNoArg)
 

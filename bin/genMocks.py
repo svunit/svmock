@@ -314,7 +314,7 @@ def with_property_clear(numargs):
   return ret
 
 def oneArgString(idx, delim=' '):
-  return 'TYPE%0d%sARG%0d%sMOD%d' % (idx,delim,idx,delim,idx)
+  return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d' % (idx,delim,idx,delim,idx,delim,idx)
 
 def allArgString(numargs, delim=' ', prefix=''):
   a = ""
@@ -336,9 +336,9 @@ def method_args(numargs):
   ret = ''
   for j in range(0,numargs):
     if (j == numargs-1):
-      ret += 'TYPE%0d ARG%0d MOD%0d' % (j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d' % (j,j,j,j)
     else:
-      ret += 'TYPE%0d ARG%0d MOD%0d, ' % (j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d, ' % (j,j,j,j)
   return ret
 
 def method_arg_names(numargs):
