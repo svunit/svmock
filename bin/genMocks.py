@@ -301,10 +301,10 @@ def with_property_check(numargs):
     ret += '    end \\\n'
     ret += '    check &= comp; \\\n'
     ret += '  end \\\n'
-    ret += '  for (int i=0; i<__with_%0d.size(); i+=1) begin \\\n' % j
-    ret += '    if (error_signature[i] != "") $display(error_signature[i]); \\\n'
-    ret += '  end \\\n'
     ret += '  __with_%0d.delete(); \\\n' % j
+
+  ret += '  foreach (error_signature[i]) $display(error_signature[i]); \\\n'
+
   return ret
 
 def with_property_clear(numargs):

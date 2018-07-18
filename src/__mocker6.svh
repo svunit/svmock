@@ -109,9 +109,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  for (int i=0; i<__with_0.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
-  end \
   __with_0.delete(); \
   for (int i=0; i<__with_1.size(); i+=1) begin \
     bit comp = __with_1[i].compare(); \
@@ -124,9 +121,6 @@ function bit check(); \
         $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_1[i].as_string()); \
     end \
     check &= comp; \
-  end \
-  for (int i=0; i<__with_1.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
   end \
   __with_1.delete(); \
   for (int i=0; i<__with_2.size(); i+=1) begin \
@@ -141,9 +135,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  for (int i=0; i<__with_2.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
-  end \
   __with_2.delete(); \
   for (int i=0; i<__with_3.size(); i+=1) begin \
     bit comp = __with_3[i].compare(); \
@@ -156,9 +147,6 @@ function bit check(); \
         $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_3[i].as_string()); \
     end \
     check &= comp; \
-  end \
-  for (int i=0; i<__with_3.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
   end \
   __with_3.delete(); \
   for (int i=0; i<__with_4.size(); i+=1) begin \
@@ -173,9 +161,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  for (int i=0; i<__with_4.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
-  end \
   __with_4.delete(); \
   for (int i=0; i<__with_5.size(); i+=1) begin \
     bit comp = __with_5[i].compare(); \
@@ -189,10 +174,8 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  for (int i=0; i<__with_5.size(); i+=1) begin \
-    if (error_signature[i] != "") $display(error_signature[i]); \
-  end \
   __with_5.delete(); \
+  foreach (error_signature[i]) $display(error_signature[i]); \
   return check; \
 endfunction \
 function void clear(); \

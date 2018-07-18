@@ -103,6 +103,38 @@ module has_unit_test;
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 
+  `SVTEST(MultipleExpectCallsOneFailure)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+
+    ut.functionIntArgReturnVoid(3);
+    ut.functionIntArgReturnVoid(2);
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(MultipleExpectCallsMultipleFailures)
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(2, "red");
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(2, "green");
+    `EXPECT_CALL(ut, functionIntStringArgsReturnVoid).with_args(3, "blue");
+
+    ut.functionIntStringArgsReturnVoid(1, "red");
+    ut.functionIntStringArgsReturnVoid(2, "green");
+    ut.functionIntStringArgsReturnVoid(4, "green");
+    `FAIL_IF(ut.check());
+  `SVTEST_END
+
+  `SVTEST(MultipleExpectCallsWithMoreActual)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(3);
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).with_args(4);
+
+    ut.functionIntArgReturnVoid(3);
+    ut.functionIntArgReturnVoid(3);
+    ut.functionIntArgReturnVoid(4);
+    ut.functionIntArgReturnVoid(1);
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
   //---------------------------------
   //         With Discrete
   //---------------------------------
