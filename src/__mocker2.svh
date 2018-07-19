@@ -1,4 +1,4 @@
-`define SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,MODIFIER=) \
+`define SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,MODIFIER=) \
 class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \
 PARENT parent; \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
@@ -77,8 +77,8 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
+`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DEF0,DIR1,TYPE1,ARG1,MOD1,DEF1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
@@ -103,8 +103,8 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
+`SVMOCK_MOCKER_CLASS2(NAME,RETURNS,DIR0,TYPE0,ARG0,MOD0,DEF0,DIR1,TYPE1,ARG1,MOD1,DEF1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \
@@ -123,8 +123,8 @@ function void clear(); \
 endfunction \
 endclass
 
-`define SVMOCK_TASK_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1) \
-`SVMOCK_MOCKER_CLASS2(NAME,void,DIR0,TYPE0,ARG0,MOD0,DIR1,TYPE1,ARG1,MOD1,_base) \
+`define SVMOCK_TASK_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
+`SVMOCK_MOCKER_CLASS2(NAME,void,DIR0,TYPE0,ARG0,MOD0,DEF0,DIR1,TYPE1,ARG1,MOD1,DEF1,_base) \
 class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \
 function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \
   super.new(name, __mockers, _parent); \

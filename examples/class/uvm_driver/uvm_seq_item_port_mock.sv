@@ -5,7 +5,10 @@
   endfunction
 
   `SVMOCK_TASK1(get_next_item, output, item, t,);
-// virtual task get_next_item(output item t);
-//   $display("RATS");
-// endtask
+  `SVMOCK_VFUNC1(item_done, input, item, rsp_arg,);
+
+  `SVMOCK_MAP_TASK1(get_next_item,_get_next_item);
+  virtual task _get_next_item(output item t);
+    #1 $display("HUH??");
+  endtask
 `SVMOCK_END

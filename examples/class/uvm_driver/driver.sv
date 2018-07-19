@@ -7,8 +7,7 @@ class driver extends uvm_driver #(item);
     forever begin
       item _item;
 
-      #1 seq_item_port.get_next_item(_item);
-      $display("BLAT");
+      seq_item_port.get_next_item(_item);
     end
   endtask
 endclass

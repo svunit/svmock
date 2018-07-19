@@ -265,6 +265,16 @@ module has_unit_test;
     `FAIL_UNLESS(ut.__functionIntArgReturnVoid.__with_0.size() == 0);
   `SVTEST_END
 
+  
+  //---------------------------------
+  //      default args
+  //---------------------------------
+  `SVTEST(OneDefault)
+    `EXPECT_CALL(ut, functionIntArgReturnInt).with_args(14);
+    ut.functionIntArgReturnInt();
+    `FAIL_UNLESS(ut.check());
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule

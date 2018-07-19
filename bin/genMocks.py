@@ -2,12 +2,27 @@
 #### MOCK FUNCTIONS MACROS #####
 ################################
 
+def defaultMacros(numargs):
+  ret = ''
+  for j in range(0,numargs):
+    ret += '`undef ARG%0d``_NODEFAULT \\\n' % (j)
+    ret += '`undef ARG%0d``_``DEF%0d \\\n' % (j,j)
+    ret += '`undef ARG%0d_DEF%0d \\\n' % (j,j)
+    ret += '`define ARG%0d``_``DEF%0d \\\n' % (j,j)
+    ret += '`ifdef ARG%0d``_NODEFAULT \\\n' % (j)
+    ret += '  `define ARG%0d_DEF%0d \\\n' % (j,j)
+    ret += '`else \\\n'
+    ret += '  `define ARG%0d_DEF%0d =DEF%0d \\\n' % (j,j,j)
+    ret += '`endif \\\n'
+  return ret
+
 def function_macro(numargs, fout):
-  fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
+              defaultMacros(numargs) +
               '`define invoke%0d_``NAME`` virtual function RETURN NAME(%s) \\\n' % (numargs, method_args(numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
-              '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
               '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
@@ -28,11 +43,12 @@ def function_macro(numargs, fout):
               'endfunction\n\n')
 
 def void_function_macro(numargs, fout):
-  fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
+              defaultMacros(numargs) +
               '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
-              '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
               '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
@@ -46,11 +62,12 @@ def void_function_macro(numargs, fout):
               'endfunction\n\n')
 
 def task_macro(numargs, fout):
-  fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
+              defaultMacros(numargs) +
               '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
-              '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
               '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
               'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
@@ -132,7 +149,7 @@ def mockers(numargs):
 
 def base_mocker_class(numargs, fout):
   # macro header
-  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               'class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \\\n' +
 
               'PARENT parent; \\\n' +
@@ -167,7 +184,7 @@ def base_mocker_class(numargs, fout):
               'endclass\n\n')
 
 def function_mocker_class(numargs, fout):
-  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
@@ -200,7 +217,7 @@ def function_mocker_class(numargs, fout):
               'endclass\n\n')
 
 def void_function_mocker_class(numargs, fout):
-  fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
@@ -226,7 +243,7 @@ def void_function_mocker_class(numargs, fout):
               'endclass\n\n')
 
 def task_mocker_class(numargs, fout):
-  fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               '`SVMOCK_MOCKER_CLASS%0d(NAME,void%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
@@ -313,15 +330,22 @@ def with_property_clear(numargs):
     ret += '  __with_%0d.delete(); \\\n' % j
   return ret
 
-def oneArgString(idx, delim=' '):
-  return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d' % (idx,delim,idx,delim,idx,delim,idx)
+def oneArgString(idx, delim=' ', default=''):
+  if default == '=NODEFAULT':
+    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%sDEF%0d%s' % (idx,delim,idx,delim,idx,delim,idx,delim,idx,default)
+  elif default == 'MACRO':
+    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%s`ARG%0d_DEF%0d' % (idx,delim,idx,delim,idx,delim,idx,delim,idx,idx)
+  elif delim == ',':
+    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%sDEF%0d' % (idx,delim,idx,delim,idx,delim,idx,delim,idx)
+  else:
+    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d' % (idx,delim,idx,delim,idx,delim,idx)
 
-def allArgString(numargs, delim=' ', prefix=''):
+def allArgString(numargs, delim=' ', prefix='', default=''):
   a = ""
   if numargs > 0:
     a += prefix
     for j in range(0,numargs):
-      a += oneArgString(j, delim)
+      a += oneArgString(j, delim, default)
       if (j < numargs-1):
         a += ','
   return a
@@ -336,9 +360,9 @@ def method_args(numargs):
   ret = ''
   for j in range(0,numargs):
     if (j == numargs-1):
-      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d' % (j,j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `ARG%0d_DEF%0d' % (j,j,j,j,j,j)
     else:
-      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d, ' % (j,j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `ARG%0d_DEF%0d, ' % (j,j,j,j,j,j)
   return ret
 
 def method_arg_names(numargs):

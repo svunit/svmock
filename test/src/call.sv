@@ -11,7 +11,7 @@ class call;
   function void functionIntArgReturnVoid(logic[31:0] x);
   endfunction
 
-  function void functionIntStringArgsReturnVoid(int x, string y);
+  function void functionIntStringArgsReturnVoid(int x = 1, string y);
   endfunction
 
   function void functionObjBitLogicArgsReturnVoid(objtype x, bit y, logic [31:0] z);
@@ -56,7 +56,7 @@ class call;
     return "nothing";
   endfunction
 
-  function int functionIntArgReturnInt(int y);
+  function int functionIntArgReturnInt(int y = 14);
     return y;
   endfunction
 

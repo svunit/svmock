@@ -21,7 +21,7 @@ module driver_unit_test;
   // running the Unit Tests on
   //===================================
   driver uut;
-  //uvm_seq_item_pull_port_mock mock_seq_item_port;
+  uvm_seq_item_pull_port_mock mock_seq_item_port;
 
   //===================================
   // Build
@@ -30,8 +30,8 @@ module driver_unit_test;
     svunit_ut = new(name);
 
     uut = new("uut");
-    //mock_seq_item_port = new("mock_seq_item_port", null);
-    //uut.seq_item_port = mock_seq_item_port;
+    mock_seq_item_port = new("mock_seq_item_port", null);
+    uut.seq_item_port = mock_seq_item_port;
 
     svunit_deactivate_uvm_component(uut);
   endfunction
@@ -43,6 +43,8 @@ module driver_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
+
+    `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
 
     svunit_activate_uvm_component(uut);
     svunit_uvm_test_start();
@@ -56,6 +58,8 @@ module driver_unit_test;
   task teardown();
     svunit_ut.teardown();
     /* Place Teardown Code Here */
+
+    `FAIL_UNLESS(mock_seq_item_port.check());
 
     svunit_uvm_test_finish();
     svunit_deactivate_uvm_component(uut);
@@ -78,7 +82,13 @@ module driver_unit_test;
   `SVUNIT_TESTS_BEGIN
 
   `SVTEST(connectivity)
-    #10;
+    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
+    #1;
+  `SVTEST_END
+
+  `SVTEST(get_req_from_seq_item_port)
+    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
+    #1;
   `SVTEST_END
 
 
