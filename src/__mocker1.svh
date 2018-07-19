@@ -5,7 +5,7 @@ function new(string name, ref __mocker __mockers[$], input PARENT _parent); \
   super.new(name, __mockers); \
   parent = _parent; \
 endfunction \
-`MOCKER_WITH(`MOCKTYPE,NAME,ARG0,TYPE0,MOD0) \
+`MOCKER_WITH(NAME,ARG0,TYPE0,MOD0) \
 ARG0``__with __with_0 [$]; \
 function void called(DIR0 TYPE0 ARG0 MOD0); \
   timesCnt += 1; \

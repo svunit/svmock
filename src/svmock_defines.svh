@@ -31,11 +31,12 @@ endclass \
 `undef MOCKTYPE_HAS_NO_PARENT
 
 
-`define MOCKER_WITH(CLASS,FUNCTION,ARG,TYPE,MOD=SCALAR) \
-`define CLASS``_``FUNCTION``_``ARG``_``MOD \
+`define MOCKER_WITH(FUNCTION,ARG,TYPE,MOD=SCALAR) \
+`undef FUNCTION``_``ARG``_SCALAR \
+`define FUNCTION``_``ARG``_``MOD \
 class ARG``__with extends base__with; \
   bit done; \
-`ifdef CLASS``_``FUNCTION``_``ARG``_SCALAR \
+`ifdef FUNCTION``_``ARG``_SCALAR \
   TYPE exp; \
   TYPE act; \
 `else \
@@ -47,7 +48,7 @@ class ARG``__with extends base__with; \
   endfunction \
   function string as_string(); \
     classify($typename(exp)); \
-`ifdef CLASS``_``FUNCTION``_``ARG``_SCALAR \
+`ifdef FUNCTION``_``ARG``_SCALAR \
     if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act); \
     else if (is_other)  $sformat(as_string, "exp:<unknown> act:<unknown>"); \
     else                $sformat(as_string, "exp:%0d act:%0d", exp, act); \
@@ -87,8 +88,8 @@ class ARG``__with extends base__with; \
     return as_string; \
   endfunction \
 endclass \
-`undef CLASS``_``FUNCTION``_``ARG``_SCALAR \
-`undef CLASS``_``FUNCTION``_``ARG``_
+`undef FUNCTION``_``ARG``_SCALAR \
+`undef FUNCTION``_``ARG``_
 
 //-------------
 // EXPECT CALL

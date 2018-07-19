@@ -279,7 +279,7 @@ def task_mocker_class(numargs, fout):
 def with_comparison_properties(numargs):
   ret = ''
   for j in range(0,numargs):
-    ret += '`MOCKER_WITH(`MOCKTYPE,NAME,ARG%0d,TYPE%0d,MOD%0d) \\\n' % (j,j,j)
+    ret += '`MOCKER_WITH(NAME,ARG%0d,TYPE%0d,MOD%0d) \\\n' % (j,j,j)
     ret += 'ARG%0d``__with __with_%0d [$]; \\\n' % (j,j)
   return ret
 
