@@ -38,6 +38,7 @@ package svmock_pkg;
       is_numeric = ((mybase_type == "int") ||
                     (mybase_type == "logic") ||
                     (mybase_type == "bit") ||
+                    (mybase_type == "reg") ||
                     (mybase_type == "wire"));
       is_other = !(is_string || is_numeric);
       is_aggregate = (aggregate_idx != 0 && aggregate_idx < _mytype.len());
