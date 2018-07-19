@@ -1,7 +1,10 @@
 `SVMOCK(mock_flintstones, flintstones)
   `SVMOCK_VFUNC0(dino)
-  `SVMOCK_FUNC2(pebbles, int, int, fred, , string, wilma, [int])
-  `SVMOCK_VFUNC1(bam_bam, int, barney, )
+
+  `SVMOCK_FUNC2(pebbles, int, /*input*/, int,    fred,  /*scalar*/, /*no default*/,
+                              /*input*/, string, wilma, [int], /*no default*/)
+
+  `SVMOCK_VFUNC1(bam_bam, /*input*/, int, barney, /*scalar*/, /*no default*/)
 
   `SVMOCK_MAP_VFUNC0(dino, mr_slate)
   bit mr_slate_instead;
