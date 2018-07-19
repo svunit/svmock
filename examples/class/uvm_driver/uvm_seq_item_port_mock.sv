@@ -4,8 +4,8 @@
     super.new (name, parent, min_size, max_size);
   endfunction
 
-  `SVMOCK_TASK1(get_next_item, output, item, t,);
-  `SVMOCK_VFUNC1(item_done, input, item, rsp_arg,);
+  `SVMOCK_VFUNC1(item_done, input, item, t,,null);
+  `SVMOCK_TASK1(get_next_item, output, item, t,,);
 
   `SVMOCK_MAP_TASK1(get_next_item,_get_next_item);
   virtual task _get_next_item(output item t);

@@ -7,12 +7,12 @@ def defaultMacros(numargs):
   for j in range(0,numargs):
     ret += '`undef ARG%0d``_NODEFAULT \\\n' % (j)
     ret += '`undef ARG%0d``_``DEF%0d \\\n' % (j,j)
-    ret += '`undef ARG%0d_DEF%0d \\\n' % (j,j)
+    ret += '`undef NAME``_``ARG%0d``_``DEF%0d \\\n' % (j,j)
     ret += '`define ARG%0d``_``DEF%0d \\\n' % (j,j)
     ret += '`ifdef ARG%0d``_NODEFAULT \\\n' % (j)
-    ret += '  `define ARG%0d_DEF%0d \\\n' % (j,j)
+    ret += '  `define NAME``_``ARG%0d``_``DEF%0d \\\n' % (j,j)
     ret += '`else \\\n'
-    ret += '  `define ARG%0d_DEF%0d =DEF%0d \\\n' % (j,j,j)
+    ret += '  `define NAME``_``ARG%0d``_``DEF%0d =DEF%0d \\\n' % (j,j,j)
     ret += '`endif \\\n'
   return ret
 
@@ -334,7 +334,7 @@ def oneArgString(idx, delim=' ', default=''):
   if default == '=NODEFAULT':
     return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%sDEF%0d%s' % (idx,delim,idx,delim,idx,delim,idx,delim,idx,default)
   elif default == 'MACRO':
-    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%s`ARG%0d_DEF%0d' % (idx,delim,idx,delim,idx,delim,idx,delim,idx,idx)
+    return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%s`NAME``_``ARG%0d``_``DEF%0d' % (idx,delim,idx,delim,idx,delim,idx,delim,idx,idx)
   elif delim == ',':
     return 'DIR%0d%sTYPE%0d%sARG%0d%sMOD%d%sDEF%0d' % (idx,delim,idx,delim,idx,delim,idx,delim,idx)
   else:
@@ -360,9 +360,9 @@ def method_args(numargs):
   ret = ''
   for j in range(0,numargs):
     if (j == numargs-1):
-      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `ARG%0d_DEF%0d' % (j,j,j,j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `NAME``_``ARG%0d``_``DEF%0d' % (j,j,j,j,j,j)
     else:
-      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `ARG%0d_DEF%0d, ' % (j,j,j,j,j,j)
+      ret += 'DIR%0d TYPE%0d ARG%0d MOD%0d `NAME``_``ARG%0d``_``DEF%0d, ' % (j,j,j,j,j,j)
   return ret
 
 def method_arg_names(numargs):

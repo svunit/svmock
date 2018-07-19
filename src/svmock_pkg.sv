@@ -13,7 +13,7 @@ package svmock_pkg;
 
     bit is_aggregate;
 
-    function bit is_alphanumeic(string _s);
+    function bit is_alphanumeic(byte _s);
       return (
               (_s >= "a" && _s <= "z") ||
               (_s >= "A" && _s <= "A") ||

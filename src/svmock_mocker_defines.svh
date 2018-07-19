@@ -89,18 +89,18 @@ endclass \
 `define SVMOCK_TASK1(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
-`define invoke1_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0) \
+`define invoke1_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0) \
 `define args1_``NAME`` ARG0 \
-`SVMOCK_TASK_MOCKER_CLASS1(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0) \
+`SVMOCK_TASK_MOCKER_CLASS1(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0); \
   __``NAME.called(ARG0); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0); \
@@ -125,18 +125,18 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC1(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
-`define invoke1_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0) \
+`define invoke1_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0) \
 `define args1_``NAME`` ARG0 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS1(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS1(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0); \
   __``NAME.called(ARG0); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0); \
@@ -161,18 +161,18 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC1(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
-`define invoke1_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0) \
+`define invoke1_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0) \
 `define args1_``NAME`` ARG0 \
-`SVMOCK_FUNCTION_MOCKER_CLASS1(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0) \
+`SVMOCK_FUNCTION_MOCKER_CLASS1(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0); \
   __``NAME.called(ARG0); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0); \
@@ -204,27 +204,27 @@ endclass \
 `define SVMOCK_TASK2(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
-`define invoke2_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1) \
+`define invoke2_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1) \
 `define args2_``NAME`` ARG0, ARG1 \
-`SVMOCK_TASK_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1) \
+`SVMOCK_TASK_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1); \
@@ -249,27 +249,27 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC2(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
-`define invoke2_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1) \
+`define invoke2_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1) \
 `define args2_``NAME`` ARG0, ARG1 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS2(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1); \
@@ -294,27 +294,27 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC2(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
-`define invoke2_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1) \
+`define invoke2_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1) \
 `define args2_``NAME`` ARG0, ARG1 \
-`SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1) \
+`SVMOCK_FUNCTION_MOCKER_CLASS2(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1); \
   __``NAME.called(ARG0, ARG1); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1); \
@@ -346,36 +346,36 @@ endclass \
 `define SVMOCK_TASK3(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
-`define invoke3_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2) \
+`define invoke3_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2) \
 `define args3_``NAME`` ARG0, ARG1, ARG2 \
-`SVMOCK_TASK_MOCKER_CLASS3(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2) \
+`SVMOCK_TASK_MOCKER_CLASS3(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2); \
@@ -400,36 +400,36 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC3(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
-`define invoke3_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2) \
+`define invoke3_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2) \
 `define args3_``NAME`` ARG0, ARG1, ARG2 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS3(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS3(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2); \
@@ -454,36 +454,36 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC3(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
-`define invoke3_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2) \
+`define invoke3_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2) \
 `define args3_``NAME`` ARG0, ARG1, ARG2 \
-`SVMOCK_FUNCTION_MOCKER_CLASS3(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2) \
+`SVMOCK_FUNCTION_MOCKER_CLASS3(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2); \
   __``NAME.called(ARG0, ARG1, ARG2); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2); \
@@ -515,45 +515,45 @@ endclass \
 `define SVMOCK_TASK4(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
-`define invoke4_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3) \
+`define invoke4_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3) \
 `define args4_``NAME`` ARG0, ARG1, ARG2, ARG3 \
-`SVMOCK_TASK_MOCKER_CLASS4(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3) \
+`SVMOCK_TASK_MOCKER_CLASS4(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
@@ -578,45 +578,45 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC4(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
-`define invoke4_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3) \
+`define invoke4_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3) \
 `define args4_``NAME`` ARG0, ARG1, ARG2, ARG3 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS4(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS4(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
@@ -641,45 +641,45 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC4(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
-`define invoke4_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3) \
+`define invoke4_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3) \
 `define args4_``NAME`` ARG0, ARG1, ARG2, ARG3 \
-`SVMOCK_FUNCTION_MOCKER_CLASS4(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3) \
+`SVMOCK_FUNCTION_MOCKER_CLASS4(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3); \
@@ -711,54 +711,54 @@ endclass \
 `define SVMOCK_TASK5(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
-`define invoke5_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4) \
+`define invoke5_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4) \
 `define args5_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4 \
-`SVMOCK_TASK_MOCKER_CLASS5(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4) \
+`SVMOCK_TASK_MOCKER_CLASS5(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
@@ -783,54 +783,54 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC5(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
-`define invoke5_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4) \
+`define invoke5_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4) \
 `define args5_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS5(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS5(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
@@ -855,54 +855,54 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC5(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
-`define invoke5_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4) \
+`define invoke5_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4) \
 `define args5_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4 \
-`SVMOCK_FUNCTION_MOCKER_CLASS5(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4) \
+`SVMOCK_FUNCTION_MOCKER_CLASS5(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4); \
@@ -934,63 +934,63 @@ endclass \
 `define SVMOCK_TASK6(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
-`define invoke6_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5) \
+`define invoke6_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5) \
 `define args6_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5 \
-`SVMOCK_TASK_MOCKER_CLASS6(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5) \
+`SVMOCK_TASK_MOCKER_CLASS6(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
@@ -1015,63 +1015,63 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC6(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
-`define invoke6_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5) \
+`define invoke6_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5) \
 `define args6_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS6(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS6(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
@@ -1096,63 +1096,63 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC6(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
-`define invoke6_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5) \
+`define invoke6_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5) \
 `define args6_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5 \
-`SVMOCK_FUNCTION_MOCKER_CLASS6(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5) \
+`SVMOCK_FUNCTION_MOCKER_CLASS6(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5); \
@@ -1184,72 +1184,72 @@ endclass \
 `define SVMOCK_TASK7(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
-`define invoke7_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6) \
+`define invoke7_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6) \
 `define args7_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6 \
-`SVMOCK_TASK_MOCKER_CLASS7(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6) \
+`SVMOCK_TASK_MOCKER_CLASS7(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
@@ -1274,72 +1274,72 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC7(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
-`define invoke7_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6) \
+`define invoke7_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6) \
 `define args7_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS7(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS7(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
@@ -1364,72 +1364,72 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC7(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
-`define invoke7_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6) \
+`define invoke7_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6) \
 `define args7_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6 \
-`SVMOCK_FUNCTION_MOCKER_CLASS7(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6) \
+`SVMOCK_FUNCTION_MOCKER_CLASS7(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6); \
@@ -1461,81 +1461,81 @@ endclass \
 `define SVMOCK_TASK8(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
-`define invoke8_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7) \
+`define invoke8_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7) \
 `define args8_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7 \
-`SVMOCK_TASK_MOCKER_CLASS8(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7) \
+`SVMOCK_TASK_MOCKER_CLASS8(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
@@ -1560,81 +1560,81 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC8(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
-`define invoke8_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7) \
+`define invoke8_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7) \
 `define args8_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS8(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS8(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
@@ -1659,81 +1659,81 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC8(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
-`define invoke8_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7) \
+`define invoke8_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7) \
 `define args8_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7 \
-`SVMOCK_FUNCTION_MOCKER_CLASS8(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7) \
+`SVMOCK_FUNCTION_MOCKER_CLASS8(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7); \
@@ -1765,90 +1765,90 @@ endclass \
 `define SVMOCK_TASK9(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT,DIR8,TYPE8,ARG8,MOD8,DEF8=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
 `undef ARG8``_NODEFAULT \
 `undef ARG8``_``DEF8 \
-`undef ARG8_DEF8 \
+`undef NAME``_``ARG8``_``DEF8 \
 `define ARG8``_``DEF8 \
 `ifdef ARG8``_NODEFAULT \
-  `define ARG8_DEF8 \
+  `define NAME``_``ARG8``_``DEF8 \
 `else \
-  `define ARG8_DEF8 =DEF8 \
+  `define NAME``_``ARG8``_``DEF8 =DEF8 \
 `endif \
-`define invoke9_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8) \
+`define invoke9_``NAME`` virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8) \
 `define args9_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8 \
-`SVMOCK_TASK_MOCKER_CLASS9(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7,DIR8,TYPE8,ARG8,MOD8,`ARG8_DEF8) \
+`SVMOCK_TASK_MOCKER_CLASS9(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7,DIR8,TYPE8,ARG8,MOD8,`NAME``_``ARG8``_``DEF8) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8); \
+virtual task NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
@@ -1873,90 +1873,90 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_VFUNC9(NAME,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT,DIR8,TYPE8,ARG8,MOD8,DEF8=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
 `undef ARG8``_NODEFAULT \
 `undef ARG8``_``DEF8 \
-`undef ARG8_DEF8 \
+`undef NAME``_``ARG8``_``DEF8 \
 `define ARG8``_``DEF8 \
 `ifdef ARG8``_NODEFAULT \
-  `define ARG8_DEF8 \
+  `define NAME``_``ARG8``_``DEF8 \
 `else \
-  `define ARG8_DEF8 =DEF8 \
+  `define NAME``_``ARG8``_``DEF8 =DEF8 \
 `endif \
-`define invoke9_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8) \
+`define invoke9_``NAME`` virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8) \
 `define args9_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8 \
-`SVMOCK_VOID_FUNCTION_MOCKER_CLASS9(NAME,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7,DIR8,TYPE8,ARG8,MOD8,`ARG8_DEF8) \
+`SVMOCK_VOID_FUNCTION_MOCKER_CLASS9(NAME,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7,DIR8,TYPE8,ARG8,MOD8,`NAME``_``ARG8``_``DEF8) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8); \
+virtual function void NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.override != null) \
     __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
@@ -1981,90 +1981,90 @@ __``INSTEAD``__mocker #(PARENT) __``INSTEAD = new(`"INSTEAD`", __mockers, this, 
 `define SVMOCK_FUNC9(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,DEF0=NODEFAULT,DIR1,TYPE1,ARG1,MOD1,DEF1=NODEFAULT,DIR2,TYPE2,ARG2,MOD2,DEF2=NODEFAULT,DIR3,TYPE3,ARG3,MOD3,DEF3=NODEFAULT,DIR4,TYPE4,ARG4,MOD4,DEF4=NODEFAULT,DIR5,TYPE5,ARG5,MOD5,DEF5=NODEFAULT,DIR6,TYPE6,ARG6,MOD6,DEF6=NODEFAULT,DIR7,TYPE7,ARG7,MOD7,DEF7=NODEFAULT,DIR8,TYPE8,ARG8,MOD8,DEF8=NODEFAULT) \
 `undef ARG0``_NODEFAULT \
 `undef ARG0``_``DEF0 \
-`undef ARG0_DEF0 \
+`undef NAME``_``ARG0``_``DEF0 \
 `define ARG0``_``DEF0 \
 `ifdef ARG0``_NODEFAULT \
-  `define ARG0_DEF0 \
+  `define NAME``_``ARG0``_``DEF0 \
 `else \
-  `define ARG0_DEF0 =DEF0 \
+  `define NAME``_``ARG0``_``DEF0 =DEF0 \
 `endif \
 `undef ARG1``_NODEFAULT \
 `undef ARG1``_``DEF1 \
-`undef ARG1_DEF1 \
+`undef NAME``_``ARG1``_``DEF1 \
 `define ARG1``_``DEF1 \
 `ifdef ARG1``_NODEFAULT \
-  `define ARG1_DEF1 \
+  `define NAME``_``ARG1``_``DEF1 \
 `else \
-  `define ARG1_DEF1 =DEF1 \
+  `define NAME``_``ARG1``_``DEF1 =DEF1 \
 `endif \
 `undef ARG2``_NODEFAULT \
 `undef ARG2``_``DEF2 \
-`undef ARG2_DEF2 \
+`undef NAME``_``ARG2``_``DEF2 \
 `define ARG2``_``DEF2 \
 `ifdef ARG2``_NODEFAULT \
-  `define ARG2_DEF2 \
+  `define NAME``_``ARG2``_``DEF2 \
 `else \
-  `define ARG2_DEF2 =DEF2 \
+  `define NAME``_``ARG2``_``DEF2 =DEF2 \
 `endif \
 `undef ARG3``_NODEFAULT \
 `undef ARG3``_``DEF3 \
-`undef ARG3_DEF3 \
+`undef NAME``_``ARG3``_``DEF3 \
 `define ARG3``_``DEF3 \
 `ifdef ARG3``_NODEFAULT \
-  `define ARG3_DEF3 \
+  `define NAME``_``ARG3``_``DEF3 \
 `else \
-  `define ARG3_DEF3 =DEF3 \
+  `define NAME``_``ARG3``_``DEF3 =DEF3 \
 `endif \
 `undef ARG4``_NODEFAULT \
 `undef ARG4``_``DEF4 \
-`undef ARG4_DEF4 \
+`undef NAME``_``ARG4``_``DEF4 \
 `define ARG4``_``DEF4 \
 `ifdef ARG4``_NODEFAULT \
-  `define ARG4_DEF4 \
+  `define NAME``_``ARG4``_``DEF4 \
 `else \
-  `define ARG4_DEF4 =DEF4 \
+  `define NAME``_``ARG4``_``DEF4 =DEF4 \
 `endif \
 `undef ARG5``_NODEFAULT \
 `undef ARG5``_``DEF5 \
-`undef ARG5_DEF5 \
+`undef NAME``_``ARG5``_``DEF5 \
 `define ARG5``_``DEF5 \
 `ifdef ARG5``_NODEFAULT \
-  `define ARG5_DEF5 \
+  `define NAME``_``ARG5``_``DEF5 \
 `else \
-  `define ARG5_DEF5 =DEF5 \
+  `define NAME``_``ARG5``_``DEF5 =DEF5 \
 `endif \
 `undef ARG6``_NODEFAULT \
 `undef ARG6``_``DEF6 \
-`undef ARG6_DEF6 \
+`undef NAME``_``ARG6``_``DEF6 \
 `define ARG6``_``DEF6 \
 `ifdef ARG6``_NODEFAULT \
-  `define ARG6_DEF6 \
+  `define NAME``_``ARG6``_``DEF6 \
 `else \
-  `define ARG6_DEF6 =DEF6 \
+  `define NAME``_``ARG6``_``DEF6 =DEF6 \
 `endif \
 `undef ARG7``_NODEFAULT \
 `undef ARG7``_``DEF7 \
-`undef ARG7_DEF7 \
+`undef NAME``_``ARG7``_``DEF7 \
 `define ARG7``_``DEF7 \
 `ifdef ARG7``_NODEFAULT \
-  `define ARG7_DEF7 \
+  `define NAME``_``ARG7``_``DEF7 \
 `else \
-  `define ARG7_DEF7 =DEF7 \
+  `define NAME``_``ARG7``_``DEF7 =DEF7 \
 `endif \
 `undef ARG8``_NODEFAULT \
 `undef ARG8``_``DEF8 \
-`undef ARG8_DEF8 \
+`undef NAME``_``ARG8``_``DEF8 \
 `define ARG8``_``DEF8 \
 `ifdef ARG8``_NODEFAULT \
-  `define ARG8_DEF8 \
+  `define NAME``_``ARG8``_``DEF8 \
 `else \
-  `define ARG8_DEF8 =DEF8 \
+  `define NAME``_``ARG8``_``DEF8 =DEF8 \
 `endif \
-`define invoke9_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8) \
+`define invoke9_``NAME`` virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8) \
 `define args9_``NAME`` ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8 \
-`SVMOCK_FUNCTION_MOCKER_CLASS9(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`ARG0_DEF0,DIR1,TYPE1,ARG1,MOD1,`ARG1_DEF1,DIR2,TYPE2,ARG2,MOD2,`ARG2_DEF2,DIR3,TYPE3,ARG3,MOD3,`ARG3_DEF3,DIR4,TYPE4,ARG4,MOD4,`ARG4_DEF4,DIR5,TYPE5,ARG5,MOD5,`ARG5_DEF5,DIR6,TYPE6,ARG6,MOD6,`ARG6_DEF6,DIR7,TYPE7,ARG7,MOD7,`ARG7_DEF7,DIR8,TYPE8,ARG8,MOD8,`ARG8_DEF8) \
+`SVMOCK_FUNCTION_MOCKER_CLASS9(NAME,RETURN,DIR0,TYPE0,ARG0,MOD0,`NAME``_``ARG0``_``DEF0,DIR1,TYPE1,ARG1,MOD1,`NAME``_``ARG1``_``DEF1,DIR2,TYPE2,ARG2,MOD2,`NAME``_``ARG2``_``DEF2,DIR3,TYPE3,ARG3,MOD3,`NAME``_``ARG3``_``DEF3,DIR4,TYPE4,ARG4,MOD4,`NAME``_``ARG4``_``DEF4,DIR5,TYPE5,ARG5,MOD5,`NAME``_``ARG5``_``DEF5,DIR6,TYPE6,ARG6,MOD6,`NAME``_``ARG6``_``DEF6,DIR7,TYPE7,ARG7,MOD7,`NAME``_``ARG7``_``DEF7,DIR8,TYPE8,ARG8,MOD8,`NAME``_``ARG8``_``DEF8) \
 __``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \
-virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `ARG0_DEF0, DIR1 TYPE1 ARG1 MOD1 `ARG1_DEF1, DIR2 TYPE2 ARG2 MOD2 `ARG2_DEF2, DIR3 TYPE3 ARG3 MOD3 `ARG3_DEF3, DIR4 TYPE4 ARG4 MOD4 `ARG4_DEF4, DIR5 TYPE5 ARG5 MOD5 `ARG5_DEF5, DIR6 TYPE6 ARG6 MOD6 `ARG6_DEF6, DIR7 TYPE7 ARG7 MOD7 `ARG7_DEF7, DIR8 TYPE8 ARG8 MOD8 `ARG8_DEF8); \
+virtual function RETURN NAME(DIR0 TYPE0 ARG0 MOD0 `NAME``_``ARG0``_``DEF0, DIR1 TYPE1 ARG1 MOD1 `NAME``_``ARG1``_``DEF1, DIR2 TYPE2 ARG2 MOD2 `NAME``_``ARG2``_``DEF2, DIR3 TYPE3 ARG3 MOD3 `NAME``_``ARG3``_``DEF3, DIR4 TYPE4 ARG4 MOD4 `NAME``_``ARG4``_``DEF4, DIR5 TYPE5 ARG5 MOD5 `NAME``_``ARG5``_``DEF5, DIR6 TYPE6 ARG6 MOD6 `NAME``_``ARG6``_``DEF6, DIR7 TYPE7 ARG7 MOD7 `NAME``_``ARG7``_``DEF7, DIR8 TYPE8 ARG8 MOD8 `NAME``_``ARG8``_``DEF8); \
   __``NAME.called(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
   if (__``NAME.override != null) \
     return __``NAME.override.NAME(ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8); \
