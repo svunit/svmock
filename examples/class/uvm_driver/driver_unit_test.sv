@@ -1,5 +1,6 @@
 `include "uvm_macros.svh"
 import uvm_pkg::*;
+`include "clk_and_reset.svh"
 
 `include "svmock_defines.svh"
 `include "svunit_defines.svh"
@@ -20,8 +21,12 @@ module driver_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
+  `CLK_RESET_FIXTURE(5, 11)
+
   driver uut;
   uvm_seq_item_pull_port_mock mock_seq_item_port;
+
+  apb_if _if(.clk(clk), .rst_n(rst_n));
 
   //===================================
   // Build
@@ -32,6 +37,8 @@ module driver_unit_test;
     uut = new("uut");
     mock_seq_item_port = new("mock_seq_item_port", null);
     uut.seq_item_port = mock_seq_item_port;
+
+    uvm_config_db#(virtual apb_if.master)::set(null, "uut", "vif", _if);
 
     svunit_deactivate_uvm_component(uut);
   endfunction
@@ -48,6 +55,8 @@ module driver_unit_test;
 
     svunit_activate_uvm_component(uut);
     svunit_uvm_test_start();
+
+    reset();
   endtask
 
 
@@ -80,6 +89,10 @@ module driver_unit_test;
   //   `SVTEST_END
   //===================================
   `SVUNIT_TESTS_BEGIN
+
+  `SVTEST(vif_connected)
+    `FAIL_IF(uut.vif == null);
+  `SVTEST_END
 
   `SVTEST(connectivity)
     `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
