@@ -37,7 +37,7 @@ To create a mock of `flintstones`, we'll use macros defined in svmock_defines.sv
   `SVMOCK_FUNC2(pebbles, int, /*input*/, int,    fred,  /*scalar*/, /*no-default*/,
                               /*input*/, string, wilma, [int],      /*no-default*/)
 
-  `SVMOCK_VFUNC1(bam_bam, int, /*input*/, barney, /*scalar*/, /*no-default*/)
+  `SVMOCK_VFUNC1(bam_bam, /*input*/, int, barney, /*scalar*/, /*no-default*/)
 `SVMOCK_END
 ```
 
@@ -67,8 +67,8 @@ All inputs are required for each function/task argument (to maintain the order o
 
 | Direction |   Type  |  Name | Aggregate type |     Default    |
 |-----------|---------|-------|----------------|----------------|
-| /*input*/ | int     | fred  |   /*scalar*/   | /*no-default*/ |
-| /*input*/ | string  | wilma |   [int]        | /*no-default*/ |
+| /\*input*/ | int     | fred  |   /\*scalar*/   | /\*no-default*/ |
+| /\*input*/ | string  | wilma |   [int]        | /\*no-default*/ |
 
 ## Connecting The Mock
 
