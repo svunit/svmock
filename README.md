@@ -33,8 +33,11 @@ To create a mock of `flintstones`, we'll use macros defined in svmock_defines.sv
 ```
 `SVMOCK(mock_flintstones, flintstones)
   `SVMOCK_VFUNC0(dino)
-  `SVMOCK_FUNC2(pebbles, int, int, fred, , string, wilma, [int])
-  `SVMOCK_VFUNC1(bam_bam, int, barney, )
+
+  `SVMOCK_FUNC2(pebbles, int, /*input*/, int,    fred,  /*scalar*/, /*no-default*/,
+                              /*input*/, string, wilma, [int],      /*no-default*/)
+
+  `SVMOCK_VFUNC1(bam_bam, int, /*input*/, barney, /*scalar*/, /*no-default*/)
 `SVMOCK_END
 ```
 
@@ -52,12 +55,20 @@ Tasks are mocked using the `SVMOCK_TASK\<N\> macors. The task macro syntax is th
 `SVMOCK_FUNC<N>(NAME,RETURN_TYPE,<ARG0 INPUT>,<ARG1 INPUT>,...<ARGN INPUT>)
 ```
 
-Each function argument require a 'type', 'name' and 'aggregate data type'. The aggregate data type input is required regardless of whether or not the argument is actually an aggregate data type (because Systemverilog macros are lame and the syntax for parameterizing classes sucks a bit for aggregate data types) so for scalar data types that input would have nothing specified. For example, the `flintstones::pebbles` has 2 input arguments: `fred` and `wilma`. `fred` is a scalar data type so its arg input to the `SVMOCK_FUNCTOIN2` macro is `int, fred, ` (note the `,` after `fred` which signifies an argument with nothing specified) where type=int, name=fred, aggregate type=\<blank\>. `wilma`, on the other hand, is an aggregate data type (associative array of strings indexed by [int]) so all 3 macro inputs are used as `string, wilma, [int]`.
+The <ARG INPUT> has inputs to cover all possible ways to declare a function/task argument. The syntax is:
 
-|  Function Arguments | Type   | Name  | Aggregate type |
-|---------------------|--------|-------|----------------|
-| int fred            | int    | fred  |                |
-| string wilma [int]  | string | wilma | [int]          |
+```
+|          Direction       | Type | Name |     Aggregate type    |     Default     |
+|--------------------------|------|------|-----------------------|-----------------|
+| [input|ref|output|inout] | type | name | [aggregate data type] | [default value] |
+```
+
+All inputs are required for each function/task argument (to maintain the order of the macro inputs). However, direction, aggregate type and default can take an empty string input in cases where they aren't necessary. To make it easier to maintain argument order, it's recommended to use comments for unnecessary inputs. For example, the arguments to pebbles are broken into macro arguments as...
+
+| Direction |   Type  |  Name | Aggregate type |     Default    |
+|-----------|---------|-------|----------------|----------------|
+| /*input*/ | int     | fred  |   /*scalar*/   | /*no-default*/ |
+| /*input*/ | string  | wilma |   [int]        | /*no-default*/ |
 
 ## Connecting The Mock
 
