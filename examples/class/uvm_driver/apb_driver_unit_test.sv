@@ -5,15 +5,15 @@ import uvm_pkg::*;
 `include "svmock_defines.svh"
 `include "svunit_defines.svh"
 
-import driver_pkg::*;
+import apb_pkg::*;
 import svmock_pkg::*;
 `include "uvm_seq_item_port_mock.sv"
 
-module driver_unit_test;
+module apb_driver_unit_test;
   import svunit_pkg::svunit_testcase;
   import svunit_uvm_mock_pkg::*;
 
-  string name = "driver_ut";
+  string name = "apb_driver_ut";
   svunit_testcase svunit_ut;
 
 
@@ -23,7 +23,7 @@ module driver_unit_test;
   //===================================
   `CLK_RESET_FIXTURE(5, 11)
 
-  driver uut;
+  apb_driver uut;
   uvm_seq_item_pull_port_mock mock_seq_item_port;
 
   apb_if _if(.clk(clk), .rst_n(rst_n));

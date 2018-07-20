@@ -19,7 +19,7 @@
 //
 //###############################################################
 
-class driver extends uvm_driver #(item);
+class apb_driver extends uvm_driver #(apb_item);
   virtual apb_if.master vif;
 
   function new (string name, uvm_component parent = null);
@@ -34,9 +34,7 @@ class driver extends uvm_driver #(item);
 
   task main_phase(uvm_phase phase);
     forever begin
-      item _item;
-
-      seq_item_port.get_next_item(_item);
+      seq_item_port.get_next_item(req);
     end
   endtask
 endclass

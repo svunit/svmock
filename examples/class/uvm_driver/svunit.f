@@ -1,5 +1,5 @@
 apb_if.sv
-driver_pkg.sv
+apb_pkg.sv
 
 #-parseinfo macro
 
