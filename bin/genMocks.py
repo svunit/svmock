@@ -173,6 +173,7 @@ def base_mocker_class(numargs, fout):
               '  string error_signature [int]; \\\n' +
               '  check = super.check(); \\\n' +
                  with_property_check(numargs) +
+              '  clear(); \\\n' +
               '  return check; \\\n' +
               'endfunction \\\n' +
 
@@ -318,7 +319,6 @@ def with_property_check(numargs):
     ret += '    end \\\n'
     ret += '    check &= comp; \\\n'
     ret += '  end \\\n'
-    ret += '  __with_%0d.delete(); \\\n' % j
 
   ret += '  foreach (error_signature[i]) $display(error_signature[i]); \\\n'
 

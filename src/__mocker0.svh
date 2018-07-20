@@ -14,6 +14,7 @@ function bit check(); \
   string error_signature [int]; \
   check = super.check(); \
   foreach (error_signature[i]) $display(error_signature[i]); \
+  clear(); \
   return check; \
 endfunction \
 function void clear(); \

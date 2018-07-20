@@ -151,7 +151,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_0.delete(); \
   for (int i=0; i<__with_1.size(); i+=1) begin \
     bit comp = __with_1[i].compare(); \
     if (!comp) begin \
@@ -164,7 +163,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_1.delete(); \
   for (int i=0; i<__with_2.size(); i+=1) begin \
     bit comp = __with_2[i].compare(); \
     if (!comp) begin \
@@ -177,7 +175,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_2.delete(); \
   for (int i=0; i<__with_3.size(); i+=1) begin \
     bit comp = __with_3[i].compare(); \
     if (!comp) begin \
@@ -190,7 +187,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_3.delete(); \
   for (int i=0; i<__with_4.size(); i+=1) begin \
     bit comp = __with_4[i].compare(); \
     if (!comp) begin \
@@ -203,7 +199,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_4.delete(); \
   for (int i=0; i<__with_5.size(); i+=1) begin \
     bit comp = __with_5[i].compare(); \
     if (!comp) begin \
@@ -216,7 +211,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_5.delete(); \
   for (int i=0; i<__with_6.size(); i+=1) begin \
     bit comp = __with_6[i].compare(); \
     if (!comp) begin \
@@ -229,7 +223,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_6.delete(); \
   for (int i=0; i<__with_7.size(); i+=1) begin \
     bit comp = __with_7[i].compare(); \
     if (!comp) begin \
@@ -242,7 +235,6 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_7.delete(); \
   for (int i=0; i<__with_8.size(); i+=1) begin \
     bit comp = __with_8[i].compare(); \
     if (!comp) begin \
@@ -255,8 +247,8 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_8.delete(); \
   foreach (error_signature[i]) $display(error_signature[i]); \
+  clear(); \
   return check; \
 endfunction \
 function void clear(); \

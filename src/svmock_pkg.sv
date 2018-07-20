@@ -92,7 +92,6 @@ package svmock_pkg;
 
     virtual function bit check();
       check = 1;
-
       check &= (timesExactlyExp >= 0) ? (timesCnt == timesExactlyExp) : 1;
       check &= (timesAtLeastExp >= 0) ? (timesCnt >= timesAtLeastExp) : 1;
       check &= (timesAtMostExp  >= 0) ? (timesCnt <= timesAtMostExp)  : 1;

@@ -35,6 +35,8 @@ class apb_driver extends uvm_driver #(apb_item);
   task main_phase(uvm_phase phase);
     forever begin
       seq_item_port.get_next_item(req);
+
+      seq_item_port.item_done();
     end
   endtask
 endclass

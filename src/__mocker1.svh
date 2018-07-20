@@ -39,8 +39,8 @@ function bit check(); \
     end \
     check &= comp; \
   end \
-  __with_0.delete(); \
   foreach (error_signature[i]) $display(error_signature[i]); \
+  clear(); \
   return check; \
 endfunction \
 function void clear(); \

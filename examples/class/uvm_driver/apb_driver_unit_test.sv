@@ -25,6 +25,7 @@ module apb_driver_unit_test;
 
   apb_driver uut;
   uvm_seq_item_pull_port_mock mock_seq_item_port;
+  apb_item _item;
 
   apb_if _if(.clk(clk), .rst_n(rst_n));
 
@@ -52,6 +53,9 @@ module apb_driver_unit_test;
     /* Place Setup Code Here */
 
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
+    `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
+
+    _item = new();
 
     svunit_activate_uvm_component(uut);
     svunit_uvm_test_start();
@@ -94,13 +98,18 @@ module apb_driver_unit_test;
     `FAIL_IF(uut.vif == null);
   `SVTEST_END
 
-  `SVTEST(connectivity)
-    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
-    #1;
+  `SVTEST(get_next_item_is_req)
+    mock_seq_item_port.item_mb.put(_item);
+
+    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(2);
+
+    #1 `FAIL_UNLESS(uut.req == _item);
   `SVTEST_END
 
-  `SVTEST(get_req_from_seq_item_port)
-    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
+  `SVTEST(seq_item_port_item_done)
+    mock_seq_item_port.item_mb.put(_item);
+
+    `EXPECT_CALL(mock_seq_item_port, item_done).at_least(1);
     #1;
   `SVTEST_END
 

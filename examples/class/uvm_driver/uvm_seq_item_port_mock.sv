@@ -8,7 +8,12 @@
   `SVMOCK_TASK1(get_next_item, output, apb_item, t,,)
 
   `SVMOCK_MAP_TASK1(get_next_item,_get_next_item)
+  mailbox #(apb_item) item_mb = new();
   virtual task _get_next_item(output apb_item t);
-    #1;
+    item_mb.get(t);
   endtask
+
+  `SVMOCK_MAP_VFUNC1(item_done,_item_done);
+  virtual function void _item_done(input apb_item t = null);
+  endfunction
 `SVMOCK_END
