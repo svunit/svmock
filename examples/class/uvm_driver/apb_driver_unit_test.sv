@@ -58,7 +58,7 @@ module apb_driver_unit_test;
 
     rsp = null;
     _item = new();
-    _item.randomize();
+    void'(_item.randomize());
 
     svunit_activate_uvm_component(uut);
     svunit_uvm_test_start();
@@ -266,7 +266,7 @@ module apb_driver_unit_test;
   endfunction
 
   function void put_item();
-    mock_seq_item_port.item_mb.put(_item);
+    void'(mock_seq_item_port.item_mb.try_put(_item));
   endfunction
 
   function void set_pready(bit ready = 1);
@@ -292,13 +292,13 @@ module apb_driver_unit_test;
   endtask
 
   task fuse(int length);
-    bit fuse = 1;
+    automatic bit _fuse = 1;
     fork
       begin
         fork
           begin
             repeat (length) @(posedge clk);
-            `FAIL_IF(fuse);
+            `FAIL_IF(_fuse);
           end
           begin
             @(stop_fuse);

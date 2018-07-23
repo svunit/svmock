@@ -29,46 +29,49 @@ class apb_driver extends uvm_driver #(apb_item);
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     
-    uvm_config_db#(virtual apb_if.master)::get(this, "", "vif", vif);
+    void'(uvm_config_db#(virtual apb_if.master)::get(this, "", "vif", vif));
   endfunction
 
-  task reset_phase(uvm_phase phase);
-    vif.master.reset();
-  endtask
-
-  task main_phase(uvm_phase phase);
-    while (vif.rst_n === 0) @(negedge vif.master.clk);
-
+  task run_phase(uvm_phase phase);
     forever begin
-      seq_item_port.get_next_item(req);
+      vif.reset();
+      while (vif.rst_n === 0) @(negedge vif.clk);
 
-      seq_item_port.item_done();
+      fork
+        forever begin
+          seq_item_port.get_next_item(req);
+          seq_item_port.item_done();
 
-      // setup phase
-      @(negedge vif.master.clk);
-      vif.master.psel <= 1;
-      vif.master.paddr <= req.addr;
-      vif.master.pwrite <= req.write;
-      if (req.write) vif.master.pwdata <= req.data;
-      else           vif.master.pwdata <= 0;
-
-
-      // enable phase
-      @(negedge vif.master.clk);
-      vif.master.penable <= 1;
+          // setup phase
+          @(negedge vif.clk);
+          vif.psel <= 1;
+          vif.paddr <= req.addr;
+          vif.pwrite <= req.write;
+          if (req.write) vif.pwdata <= req.data;
+          else           vif.pwdata <= 0;
 
 
-      // end of transaction on pready
-      @(negedge vif.master.clk);
-      while (vif.master.pready === 0) @(negedge vif.master.clk);
-      if (req.write === 0) begin
-        apb_item rsp;
+          // enable phase
+          @(negedge vif.clk);
+          vif.penable <= 1;
 
-        $cast(rsp, req.clone());
-        rsp.data = vif.master.prdata;
-        seq_item_port.put_response(rsp);
-      end 
-      vif.master.reset();
+
+          // end of transaction on pready
+          @(negedge vif.clk);
+          while (vif.pready === 0) @(negedge vif.clk);
+          if (req.write === 0) begin
+            apb_item rsp;
+
+            $cast(rsp, req.clone());
+            rsp.data = vif.prdata;
+            seq_item_port.put_response(rsp);
+          end 
+          vif.reset();
+        end
+      join_none
+
+      @(negedge vif.rst_n);
+      disable fork;
     end
   endtask
 endclass
