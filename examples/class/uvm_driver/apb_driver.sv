@@ -32,11 +32,40 @@ class apb_driver extends uvm_driver #(apb_item);
     uvm_config_db#(virtual apb_if.master)::get(this, "", "vif", vif);
   endfunction
 
+  task reset_phase(uvm_phase phase);
+    vif.master.reset();
+  endtask
+
   task main_phase(uvm_phase phase);
+    while (vif.rst_n === 0) @(negedge vif.master.clk);
+
     forever begin
       seq_item_port.get_next_item(req);
 
       seq_item_port.item_done();
+
+      // setup phase
+      @(negedge vif.master.clk);
+      vif.master.psel <= 1;
+      vif.master.paddr <= req.addr;
+      vif.master.pwrite <= req.write;
+      if (req.write) vif.master.pwdata <= req.data;
+      else           vif.master.pwdata <= 0;
+
+
+      // enable phase
+      @(negedge vif.master.clk);
+      vif.master.penable <= 1;
+
+
+      // end of transaction on pready
+      @(negedge vif.master.clk);
+      while (vif.master.pready === 0) @(negedge vif.master.clk);
+      if (req.write === 0) begin
+        apb_item rsp;
+        seq_item_port.put_response(rsp);
+      end 
+      vif.master.reset();
     end
   endtask
 endclass

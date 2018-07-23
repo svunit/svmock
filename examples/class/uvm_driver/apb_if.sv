@@ -21,7 +21,7 @@
 
 interface apb_if
 #(
-  addrWidth = 8,
+  addrWidth = 64,
   dataWidth = 32
 )
 (
@@ -33,16 +33,32 @@ logic [addrWidth-1:0] paddr;
 logic                 pwrite;
 logic                 psel;
 logic                 penable;
+logic                 pready;
 logic [dataWidth-1:0] pwdata;
 logic [dataWidth-1:0] prdata;
 
 modport master (
+  import reset,
+
+  input  clk,
+  input  rst_n,
+
   output paddr,
   output pwrite,
   output psel,
   output penable,
+  output pready,
   output pwdata,
   input  prdata
 );
+
+task reset();
+  paddr <= 0;
+  pwrite <= 0;
+  psel <= 0;
+  penable <= 0;
+  pready <= 0;
+  pwdata <= 0;
+endtask
 
 endinterface

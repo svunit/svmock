@@ -4,8 +4,11 @@
     super.new (name, parent, min_size, max_size);
   endfunction
 
-  `SVMOCK_VFUNC1(item_done, input, apb_item, t,,null)
-  `SVMOCK_TASK1(get_next_item, output, apb_item, t,,)
+  `SVMOCK_VFUNC1(item_done, input, apb_item, t, /*scalara*/, null)
+
+  `SVMOCK_TASK1(get_next_item, output, apb_item, t, /*scalar*/, /*no-default*/)
+
+  `SVMOCK_VFUNC1(put_response, input, apb_item, t, /*scalar*/, /*no-default*/);
 
   `SVMOCK_MAP_TASK1(get_next_item,_get_next_item)
   mailbox #(apb_item) item_mb = new();
@@ -13,7 +16,13 @@
     item_mb.get(t);
   endtask
 
-  `SVMOCK_MAP_VFUNC1(item_done,_item_done);
+  `SVMOCK_MAP_VFUNC1(item_done,_item_done)
   virtual function void _item_done(input apb_item t = null);
+  endfunction
+
+  `SVMOCK_MAP_VFUNC1(put_response,_put_response)
+  mailbox #(apb_item) rsp_mb = new();
+  virtual function void _put_response(input apb_item t);
+    rsp_mb.put(t);
   endfunction
 `SVMOCK_END

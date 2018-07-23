@@ -54,12 +54,15 @@ module apb_driver_unit_test;
 
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
+    `ON_CALL(mock_seq_item_port, put_response).will_by_default("_put_response");
 
     _item = new();
+    _item.randomize();
 
     svunit_activate_uvm_component(uut);
     svunit_uvm_test_start();
 
+    _if.pready = 0;
     reset();
   endtask
 
@@ -99,21 +102,207 @@ module apb_driver_unit_test;
   `SVTEST_END
 
   `SVTEST(get_next_item_is_req)
-    mock_seq_item_port.item_mb.put(_item);
+    put_item();
 
-    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(2);
+    `EXPECT_CALL(mock_seq_item_port, get_next_item).at_least(1);
 
     #1 `FAIL_UNLESS(uut.req == _item);
   `SVTEST_END
 
   `SVTEST(seq_item_port_item_done)
-    mock_seq_item_port.item_mb.put(_item);
+    put_item();
 
     `EXPECT_CALL(mock_seq_item_port, item_done).at_least(1);
-    #1;
+
+    step(10);
   `SVTEST_END
 
 
+  //--------
+  // WRITES
+  //--------
+
+  `SVTEST(write_setup)
+    put_write();
+
+    fuse(5);
+
+    wait_for_psel();
+    check_write_cycle();
+  `SVTEST_END
+
+  `SVTEST(write_enable)
+    put_write();
+
+    fuse(5);
+
+    wait_for_psel();
+    check_write_cycle();
+
+    step();
+    check_write_cycle(.enable(1));
+  `SVTEST_END
+
+  `SVTEST(write_enable_hold_for_wait_states)
+    put_write();
+
+    fuse(20);
+
+    wait_for_psel();
+    check_write_cycle();
+
+    repeat(5) begin
+      step();
+      check_write_cycle(.enable(1));
+    end
+  `SVTEST_END
+
+  `SVTEST(end_of_write_without_wait_states)
+    put_write();
+
+    fuse(20);
+
+    wait_for_penable();
+    set_pready();
+
+    step();
+    check_idle_cycle();
+  `SVTEST_END
+
+  `SVTEST(end_of_write_with_wait_states)
+    put_write();
+
+    fuse(20);
+
+    wait_for_penable();
+
+    repeat (10) step();
+    set_pready();
+
+    step();
+    check_idle_cycle();
+  `SVTEST_END
+
+
+  //--------
+  // READS
+  //--------
+
+  `SVTEST(read_setup)
+    put_read();
+
+    fuse(5);
+
+    wait_for_psel();
+    check_read_cycle();
+  `SVTEST_END
+
+  `SVTEST(read_enable)
+    put_read();
+
+    fuse(5);
+
+    wait_for_psel();
+    check_read_cycle();
+
+    step();
+    check_read_cycle(.enable(1));
+  `SVTEST_END
+
+  `SVTEST(end_of_read)
+    `EXPECT_CALL(mock_seq_item_port, put_response).exactly(1);
+    put_read();
+
+    fuse(20);
+
+    wait_for_penable();
+    set_pready();
+
+    step();
+    check_idle_cycle();
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
+
+
+  //---------
+  //---------
+  // helpers
+  //---------
+  //---------
+
+  task check_idle_cycle();
+    nextSamplePoint();
+
+    `FAIL_UNLESS(_if.psel === 0);
+    `FAIL_UNLESS(_if.pwrite === 0);
+    `FAIL_UNLESS(_if.penable === 0);
+    `FAIL_UNLESS(_if.paddr === 0);
+    `FAIL_UNLESS(_if.pwdata === 0);
+  endtask
+
+  task check_write_cycle(bit enable = 0);
+    nextSamplePoint();
+
+    `FAIL_UNLESS(_if.pwrite === 1);
+    `FAIL_UNLESS(_if.penable === enable);
+    `FAIL_UNLESS(_item.addr === _if.paddr);
+    `FAIL_UNLESS(_item.data === _if.pwdata);
+  endtask
+
+  task check_read_cycle(bit enable = 0);
+    nextSamplePoint();
+
+    `FAIL_UNLESS(_if.pwrite === 0);
+    `FAIL_UNLESS(_if.penable === enable);
+    `FAIL_UNLESS(_if.paddr === _item.addr);
+    `FAIL_UNLESS(_if.pwdata === 0);
+  endtask
+
+  function void put_read();
+    _item.write = 0;
+    put_item();
+  endfunction
+
+  function void put_write();
+    _item.write = 1;
+    put_item();
+  endfunction
+
+  function void put_item();
+    mock_seq_item_port.item_mb.put(_item);
+  endfunction
+
+  function void set_pready();
+    _if.pready <= 1;
+  endfunction
+
+  task wait_for_psel();
+    step();
+    nextSamplePoint();
+    while (_if.psel !== 1) begin
+      step();
+      nextSamplePoint();
+    end
+  endtask
+
+  task wait_for_penable();
+    step();
+    nextSamplePoint();
+    while (_if.penable !== 1) begin
+      step();
+      nextSamplePoint();
+    end
+  endtask
+
+  task fuse(int length);
+    bit fuse = 1;
+    fork
+      begin
+        repeat (length) @(posedge clk);
+        `FAIL_IF(fuse);
+      end
+    join_none
+  endtask
 
 endmodule
