@@ -25,7 +25,7 @@ module apb_driver_unit_test;
 
   apb_driver uut;
   uvm_seq_item_pull_port_mock mock_seq_item_port;
-  apb_item _item;
+  apb_item _item, rsp;
 
   apb_if _if(.clk(clk), .rst_n(rst_n));
 
@@ -56,6 +56,7 @@ module apb_driver_unit_test;
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
     `ON_CALL(mock_seq_item_port, put_response).will_by_default("_put_response");
 
+    rsp = null;
     _item = new();
     _item.randomize();
 
@@ -63,7 +64,10 @@ module apb_driver_unit_test;
     svunit_uvm_test_start();
 
     _if.pready = 0;
+    _if.prdata = 0;
     reset();
+
+    fuse(200);
   endtask
 
 
@@ -71,14 +75,19 @@ module apb_driver_unit_test;
   // Here we deconstruct anything we 
   // need after running the Unit Tests
   //===================================
+  event stop_fuse;
   task teardown();
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
     `FAIL_UNLESS(mock_seq_item_port.check());
 
+    ->stop_fuse;
+
     svunit_uvm_test_finish();
     svunit_deactivate_uvm_component(uut);
+
+    mock_seq_item_port.flush();
   endtask
 
 
@@ -125,16 +134,12 @@ module apb_driver_unit_test;
   `SVTEST(write_setup)
     put_write();
 
-    fuse(5);
-
     wait_for_psel();
     check_write_cycle();
   `SVTEST_END
 
   `SVTEST(write_enable)
     put_write();
-
-    fuse(5);
 
     wait_for_psel();
     check_write_cycle();
@@ -146,8 +151,6 @@ module apb_driver_unit_test;
   `SVTEST(write_enable_hold_for_wait_states)
     put_write();
 
-    fuse(20);
-
     wait_for_psel();
     check_write_cycle();
 
@@ -157,30 +160,12 @@ module apb_driver_unit_test;
     end
   `SVTEST_END
 
-  `SVTEST(end_of_write_without_wait_states)
-    put_write();
-
-    fuse(20);
-
-    wait_for_penable();
-    set_pready();
-
-    step();
-    check_idle_cycle();
+  `SVTEST(write_without_wait_states)
+    do_xaction(.write(1), .waits(0));
   `SVTEST_END
 
-  `SVTEST(end_of_write_with_wait_states)
-    put_write();
-
-    fuse(20);
-
-    wait_for_penable();
-
-    repeat (10) step();
-    set_pready();
-
-    step();
-    check_idle_cycle();
+  `SVTEST(write_with_wait_states)
+    do_xaction(.write(1), .waits(20));
   `SVTEST_END
 
 
@@ -188,38 +173,23 @@ module apb_driver_unit_test;
   // READS
   //--------
 
-  `SVTEST(read_setup)
-    put_read();
-
-    fuse(5);
-
-    wait_for_psel();
-    check_read_cycle();
+  `SVTEST(read_without_wait_states)
+    do_xaction(.write(0), .waits(0));
   `SVTEST_END
 
-  `SVTEST(read_enable)
-    put_read();
-
-    fuse(5);
-
-    wait_for_psel();
-    check_read_cycle();
-
-    step();
-    check_read_cycle(.enable(1));
+  `SVTEST(read_with_wait_states)
+    do_xaction(.write(0), .waits(20));
   `SVTEST_END
 
-  `SVTEST(end_of_read)
+
+  `SVTEST(put_read_response)
     `EXPECT_CALL(mock_seq_item_port, put_response).exactly(1);
-    put_read();
 
-    fuse(20);
+    do_xaction(.write(0), .waits(20), .rdata('h33));
+    mock_seq_item_port.rsp_mb.get(rsp);
 
-    wait_for_penable();
-    set_pready();
-
-    step();
-    check_idle_cycle();
+    _item.data = 'h33;
+    `FAIL_UNLESS(_item.compare(rsp));
   `SVTEST_END
 
   `SVUNIT_TESTS_END
@@ -230,6 +200,32 @@ module apb_driver_unit_test;
   // helpers
   //---------
   //---------
+
+  task do_xaction(bit write = 1, int waits = 0, bit[31:0] rdata = 0);
+    if (write) put_write();
+    else       put_read();
+
+    wait_for_psel();
+    if (write) check_write_cycle(.enable(0));
+    else       check_read_cycle(.enable(0));
+
+    step();
+    if (write) check_write_cycle(.enable(1));
+    else       check_read_cycle(.enable(1));
+
+    repeat (waits) begin
+      step();
+      if (write) check_write_cycle(.enable(1));
+      else       check_read_cycle(.enable(1));
+    end
+    set_pready();
+    if (!write) _if.prdata = rdata;
+
+    step();
+    check_idle_cycle();
+    set_pready(0);
+    _if.prdata = 0;
+  endtask
 
   task check_idle_cycle();
     nextSamplePoint();
@@ -273,7 +269,7 @@ module apb_driver_unit_test;
     mock_seq_item_port.item_mb.put(_item);
   endfunction
 
-  function void set_pready();
+  function void set_pready(bit ready = 1);
     _if.pready <= 1;
   endfunction
 
@@ -299,8 +295,16 @@ module apb_driver_unit_test;
     bit fuse = 1;
     fork
       begin
-        repeat (length) @(posedge clk);
-        `FAIL_IF(fuse);
+        fork
+          begin
+            repeat (length) @(posedge clk);
+            `FAIL_IF(fuse);
+          end
+          begin
+            @(stop_fuse);
+          end
+        join_any
+        disable fork;
       end
     join_none
   endtask

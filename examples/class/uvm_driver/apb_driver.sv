@@ -63,6 +63,9 @@ class apb_driver extends uvm_driver #(apb_item);
       while (vif.master.pready === 0) @(negedge vif.master.clk);
       if (req.write === 0) begin
         apb_item rsp;
+
+        $cast(rsp, req.clone());
+        rsp.data = vif.master.prdata;
         seq_item_port.put_response(rsp);
       end 
       vif.master.reset();

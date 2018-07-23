@@ -95,7 +95,7 @@ function bit check(); \
   clear(); \
   return check; \
 endfunction \
-function void clear(); \
+virtual function void clear(); \
   super.clear; \
   __with_0.delete(); \
   __with_1.delete(); \
@@ -123,7 +123,7 @@ __``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \
-function void clear(); \
+virtual function void clear(); \
   super.clear(); \
   override = null; \
 endfunction \
@@ -143,7 +143,7 @@ __``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \
-function void clear(); \
+virtual function void clear(); \
   super.clear(); \
   override = null; \
 endfunction \
@@ -163,7 +163,7 @@ __``NAME``__mocker #(PARENT) override; \
 function void will_by_default(string i); \
   override = map[i]; \
 endfunction \
-function void clear(); \
+virtual function void clear(); \
   super.clear(); \
   override = null; \
 endfunction \

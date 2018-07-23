@@ -177,7 +177,7 @@ def base_mocker_class(numargs, fout):
               '  return check; \\\n' +
               'endfunction \\\n' +
 
-              'function void clear(); \\\n' +                              # clear
+              'virtual function void clear(); \\\n' +                              # clear
               '  super.clear; \\\n' +
                  with_property_clear(numargs) +
               'endfunction \\\n' +
@@ -210,7 +210,7 @@ def function_mocker_class(numargs, fout):
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +
 
-              'function void clear(); \\\n' +                                     # clear
+              'virtual function void clear(); \\\n' +                                     # clear
               '  super.clear(); \\\n' +
               '  override = null; \\\n' +
               'endfunction \\\n' +
@@ -236,7 +236,7 @@ def void_function_mocker_class(numargs, fout):
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +
 
-              'function void clear(); \\\n' +                                    # clear
+              'virtual function void clear(); \\\n' +                                    # clear
               '  super.clear(); \\\n' +
               '  override = null; \\\n' +
               'endfunction \\\n' +
@@ -263,7 +263,7 @@ def task_mocker_class(numargs, fout):
               '  override = map[i]; \\\n' +
               'endfunction \\\n' +
 
-              'function void clear(); \\\n' +                                    # clear
+              'virtual function void clear(); \\\n' +                                    # clear
               '  super.clear(); \\\n' +
               '  override = null; \\\n' +
               'endfunction \\\n' +

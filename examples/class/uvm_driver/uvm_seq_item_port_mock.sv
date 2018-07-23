@@ -25,4 +25,11 @@
   virtual function void _put_response(input apb_item t);
     rsp_mb.put(t);
   endfunction
+
+  function void flush();
+    apb_item dumped;
+
+    while (rsp_mb.try_get(dumped) > 0);
+    while (item_mb.try_get(dumped) > 0);
+  endfunction
 `SVMOCK_END
