@@ -271,7 +271,7 @@ module has_unit_test;
   //---------------------------------
   `SVTEST(OneDefault)
     `EXPECT_CALL(ut, functionIntArgReturnInt).with_args(14);
-    ut.functionIntArgReturnInt();
+    void'(ut.functionIntArgReturnInt());
     `FAIL_UNLESS(ut.check());
   `SVTEST_END
 

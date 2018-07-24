@@ -19,7 +19,7 @@ def defaultMacros(numargs):
 def function_macro(numargs, fout):
   fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
-              '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs,'RETURNS')) +
+              '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs,'RETURN')) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
@@ -149,7 +149,7 @@ def mockers(numargs):
 
 def base_mocker_class(numargs, fout):
   # macro header
-  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
+  fout.write ('`define SVMOCK_MOCKER_CLASS%0d(NAME,RETURN%s,MODIFIER=) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               'class __``NAME``MODIFIER``__mocker #(type PARENT=int) extends __mocker; \\\n' +
 
               'PARENT parent; \\\n' +
@@ -185,8 +185,8 @@ def base_mocker_class(numargs, fout):
               'endclass\n\n')
 
 def function_mocker_class(numargs, fout):
-  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURNS%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
-              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+  fout.write ('`define SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
+              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURN%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
               'function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \\\n' +
@@ -194,12 +194,12 @@ def function_mocker_class(numargs, fout):
               '  if (associate != null) associate.map[name] = this; \\\n' +
               'endfunction \\\n' +
 
-              'virtual ' + functionDecl('NAME',numargs,'RETURNS') + ' \\\n' +     # NAME
+              'virtual ' + functionDecl('NAME',numargs,'RETURN') + ' \\\n' +     # NAME
               '  return NAME; \\\n' +     # NAME
               'endfunction \\\n' +
 
-              'RETURNS returnsVal; \\\n' +
-              'function void returns(RETURNS r); \\\n' +                          # returns
+              'RETURN returnsVal; \\\n' +
+              'function void returns(RETURN r); \\\n' +                          # returns
               '  overrideReturn = 1; \\\n' +
               '  returnsVal = r; \\\n' +
               'endfunction \\\n' +
@@ -219,7 +219,7 @@ def function_mocker_class(numargs, fout):
 
 def void_function_mocker_class(numargs, fout):
   fout.write ('`define SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n' % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
-              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURNS%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
+              '`SVMOCK_MOCKER_CLASS%0d(NAME,RETURN%s,_base) \\\n' % (numargs, allArgString(numargs, ',', ',')) +
               'class __``NAME``__mocker #(type PARENT=int) extends __``NAME``_base__mocker #(PARENT); \\\n' +
 
               'function new(string name, ref __mocker __mockers[$], input PARENT _parent, input __``NAME``__mocker #(PARENT) associate = null); \\\n' +
