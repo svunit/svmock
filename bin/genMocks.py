@@ -19,7 +19,7 @@ def defaultMacros(numargs):
 def function_macro(numargs, fout):
   fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
-              '`define invoke%0d_``NAME`` virtual function RETURN NAME(%s) \\\n' % (numargs, method_args(numargs)) +
+              '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs,'RETURNS')) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
@@ -45,7 +45,7 @@ def function_macro(numargs, fout):
 def void_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
-              '`define invoke%0d_``NAME`` virtual function void NAME(%s) \\\n'   % (numargs, method_args(numargs)) +
+              '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
@@ -64,7 +64,7 @@ def void_function_macro(numargs, fout):
 def task_macro(numargs, fout):
   fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
-              '`define invoke%0d_``NAME`` virtual task NAME(%s) \\\n'            % (numargs, method_args(numargs)) +
+              '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, taskDecl('NAME',numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
@@ -95,7 +95,7 @@ def map_function_macro(numargs, fout):
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
-              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '  `invoke%0d_``ORIGINAL \\\n' % numargs +
               '    return parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
               'endclass \\\n ' +
@@ -110,7 +110,7 @@ def map_void_function_macro(numargs, fout):
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
-              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '  `invoke%0d_``ORIGINAL \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endfunction \\\n' +
               'endclass \\\n' +
@@ -125,7 +125,7 @@ def map_task_macro(numargs, fout):
               '    super.new(name, __mockers, _parent, associate); \\\n' +
               '  endfunction \\\n' +
 
-              '  `invoke%0d_``ORIGINAL; \\\n' % numargs +
+              '  `invoke%0d_``ORIGINAL \\\n' % numargs +
               '    parent.INSTEAD(`args%0d_``ORIGINAL); \\\n' % numargs +
               '  endtask \\\n' +
               'endclass \\\n' +
