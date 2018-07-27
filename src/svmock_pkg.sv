@@ -92,9 +92,17 @@ package svmock_pkg;
 
     virtual function bit check();
       check = 1;
-      check &= (timesExactlyExp >= 0) ? (timesCnt == timesExactlyExp) : 1;
-      check &= (timesAtLeastExp >= 0) ? (timesCnt >= timesAtLeastExp) : 1;
-      check &= (timesAtMostExp  >= 0) ? (timesCnt <= timesAtMostExp)  : 1;
+      if ((timesExactlyExp >= 0) && (timesCnt != timesExactlyExp)) begin
+        //$sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_0[i].as_string()); \
+        //if      (is_string) $sformat(as_string, "exp:%s act:%s", exp, act);
+        check = 0;
+      end
+      if ((timesAtLeastExp >= 0) && (timesCnt < timesAtLeastExp)) begin
+        check = 0;
+      end
+      if ((timesAtMostExp  >= 0) && (timesCnt > timesAtMostExp)) begin
+        check = 0;
+      end
 
       return check;
     endfunction

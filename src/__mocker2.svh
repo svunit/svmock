@@ -46,8 +46,11 @@ function bit check(); \
     if (!comp) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG0`"; \
-      if (!error_signature.exists(i)) \
-        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_0[i].as_string()); \
+      if (!error_signature.exists(i)) begin \
+        string es; \
+        $sformat(es, "EXPECT_CALL[%0d] %s::%s miscompare: (%s)", i, _name, _arg, __with_0[i].as_string()); \
+        error_signature[i] = es; \
+      end \
       else \
         $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_0[i].as_string()); \
     end \
@@ -58,8 +61,11 @@ function bit check(); \
     if (!comp) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG1`"; \
-      if (!error_signature.exists(i)) \
-        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_1[i].as_string()); \
+      if (!error_signature.exists(i)) begin \
+        string es; \
+        $sformat(es, "EXPECT_CALL[%0d] %s::%s miscompare: (%s)", i, _name, _arg, __with_1[i].as_string()); \
+        error_signature[i] = es; \
+      end \
       else \
         $sformat(error_signature[i], "%s\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_1[i].as_string()); \
     end \

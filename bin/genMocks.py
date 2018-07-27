@@ -312,8 +312,11 @@ def with_property_check(numargs):
     ret += '    if (!comp) begin \\\n'
     ret += '      string _name = `"NAME`"; \\\n'
     ret += '      string _arg = `"ARG%0d`"; \\\n' % j
-    ret += '      if (!error_signature.exists(i)) \\\n'
-    ret += '        $sformat(error_signature[i], "%sEXPECT_CALL[%0d] %s::%s miscompare: (%s)", error_signature[i], i, _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '      if (!error_signature.exists(i)) begin \\\n'
+    ret += '        string es; \\\n'
+    ret += '        $sformat(es, "EXPECT_CALL[%0d] %s::%s miscompare: (%s)", i, _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '        error_signature[i] = es; \\\n'
+    ret += '      end \\\n'
     ret += '      else \\\n'
     ret += '        $sformat(error_signature[i], "%s\\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
     ret += '    end \\\n'
