@@ -23,7 +23,7 @@ def function_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_FUNCTION_MOCKER_CLASS%0d(NAME,RETURN%s) \\\n'             % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
-              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new(`"NAME`", __mockers, this); \\\n' +
               'virtual function RETURN NAME(%s); \\\n'                           % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
@@ -49,7 +49,7 @@ def void_function_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_VOID_FUNCTION_MOCKER_CLASS%0d(NAME%s) \\\n'               % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
-              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new(`"NAME`", __mockers, this); \\\n' +
               'virtual function void NAME(%s); \\\n'                             % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
@@ -68,7 +68,7 @@ def task_macro(numargs, fout):
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
               '`SVMOCK_TASK_MOCKER_CLASS%0d(NAME%s) \\\n'                        % (numargs, allArgString(numargs, ',', ',', 'MACRO')) +
-              '__``NAME``__mocker #(PARENT) __``NAME = new("NAME", __mockers, this); \\\n' +
+              '__``NAME``__mocker #(PARENT) __``NAME = new(`"NAME`", __mockers, this); \\\n' +
               'virtual task NAME(%s); \\\n'                                      % method_args(numargs) +
               '  __``NAME.called(%s); \\\n'                                      % method_arg_names(numargs) +
               '  if (__``NAME.override != null) \\\n' +
@@ -314,11 +314,11 @@ def with_property_check(numargs):
     ret += '      string _arg = `"ARG%0d`"; \\\n' % j
     ret += '      if (!error_signature.exists(i)) begin \\\n'
     ret += '        string es; \\\n'
-    ret += '        $sformat(es, "EXPECT_CALL[%0d] %s::%s miscompare: (%s)", i, _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '        $sformat(es, "EXPECT_CALL::with_args[%0d].miscompare %s::%s: (%s)", i, _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
     ret += '        error_signature[i] = es; \\\n'
     ret += '      end \\\n'
     ret += '      else \\\n'
-    ret += '        $sformat(error_signature[i], "%s\\n               %s::%s miscompare: (%s)", error_signature[i], _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
+    ret += '        $sformat(error_signature[i], "%s\\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
     ret += '    end \\\n'
     ret += '    check &= comp; \\\n'
     ret += '  end \\\n'
