@@ -7,7 +7,7 @@ import uvm_pkg::*;
 import apb_pkg::*;
 import svmock_pkg::*;
 
-`include "apb_sequence_mock.sv"
+`include "uvm-mock/uvm_sequence_mock.svh"
 
 module apb_sequence_unit_test;
   import svunit_pkg::svunit_testcase;
@@ -20,6 +20,8 @@ module apb_sequence_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
+  `SVMOCK_UVM_SEQUENCE(apb_sequence)
+
   apb_sequence_mock uut;
   apb_item req;
 

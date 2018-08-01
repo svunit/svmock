@@ -7,7 +7,7 @@ import uvm_pkg::*;
 
 import apb_pkg::*;
 import svmock_pkg::*;
-`include "uvm_seq_item_port_mock.sv"
+`include "uvm-mock/uvm_seq_item_port_mock.sv"
 
 module apb_driver_unit_test;
   import svunit_pkg::svunit_testcase;
