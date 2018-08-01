@@ -21,6 +21,7 @@ module apb_sequence_unit_test;
   // running the Unit Tests on
   //===================================
   apb_sequence_mock uut;
+  apb_item req;
 
 
   //===================================
@@ -41,7 +42,6 @@ module apb_sequence_unit_test;
     /* Place Setup Code Here */
     `ON_CALL(uut, start).will_by_default("_start");
 
-    uut.act_queue.delete();
     uut.randomize();
   endtask
 
@@ -76,7 +76,7 @@ module apb_sequence_unit_test;
   `SVTEST(start)
     `EXPECT_CALL(uut, start_item).exactly(uut.num_transactions);
     `EXPECT_CALL(uut, start_item).at_most(10);
-    `EXPECT_CALL(uut, start_item).at_least(1);
+    `EXPECT_CALL(uut, start_item).at_least(7);
 
     `EXPECT_CALL(uut, finish_item).exactly(uut.num_transactions);
 
@@ -86,10 +86,12 @@ module apb_sequence_unit_test;
   `SVTEST(req_constraints)
     uut.start(uut.sqr);
 
-    foreach (uut.act_queue[i]) begin
-      `FAIL_UNLESS(uut.act_queue[i].addr < uut.max_addr)
-      if (uut.act_queue[i].write) begin
-        `FAIL_UNLESS(uut.act_queue[i].data[0] === 1)
+    repeat (uut.num_transactions) begin
+      uut.get_response(req);
+
+      `FAIL_UNLESS(req.addr < uut.max_addr)
+      if (req.write) begin
+        `FAIL_UNLESS(req.data[0] === 1)
       end
     end
   `SVTEST_END

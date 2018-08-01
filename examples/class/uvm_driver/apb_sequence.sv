@@ -11,7 +11,7 @@ class apb_sequence extends uvm_sequence#(apb_item);
 
   rand int num_transactions;
   constraint c_num_transactions {
-    num_transactions > 0;
+    num_transactions > 6;
     num_transactions <= 10;
   }
 
