@@ -19,6 +19,8 @@ def defaultMacros(numargs):
 def function_macro(numargs, fout):
   fout.write ('`define SVMOCK_FUNC%0d(NAME,RETURN%s) \\\n'                       % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
+              '`undef invoke%0d_``NAME \\\n'                                     % numargs +
+              '`undef args%0d_``NAME \\\n'                                       % numargs +
               '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs,'RETURN')) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
@@ -45,6 +47,8 @@ def function_macro(numargs, fout):
 def void_function_macro(numargs, fout):
   fout.write ('`define SVMOCK_VFUNC%0d(NAME%s) \\\n'                             % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
+              '`undef invoke%0d_``NAME \\\n'                                     % numargs +
+              '`undef args%0d_``NAME \\\n'                                       % numargs +
               '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, functionDecl('NAME',numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 
@@ -64,6 +68,8 @@ def void_function_macro(numargs, fout):
 def task_macro(numargs, fout):
   fout.write ('`define SVMOCK_TASK%0d(NAME%s) \\\n'                              % (numargs, allArgString(numargs, ',', ',', '=NODEFAULT')) +
               defaultMacros(numargs) +
+              '`undef invoke%0d_``NAME \\\n'                                     % numargs +
+              '`undef args%0d_``NAME \\\n'                                       % numargs +
               '`define invoke%0d_``NAME`` virtual %s \\\n'                       % (numargs, taskDecl('NAME',numargs)) +
               '`define args%0d_``NAME`` %s \\\n'                                 % (numargs, method_arg_names(numargs)) +
 

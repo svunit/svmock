@@ -1,3 +1,4 @@
+`ifndef SVMOCK_UVM_SEQUENCE
 `define SVMOCK_UVM_SEQUENCE(SEQUENCE_TYPE) \
 `SVMOCK(SEQUENCE_TYPE``_mock,SEQUENCE_TYPE) \
  \
@@ -13,17 +14,15 @@
     set_response_queue_depth(-1); \
   endfunction \
  \
-  `SVMOCK_TASK3(start_item, /*input*/, uvm_sequence_item,  item,         /*scalar*/, /*no-default*/, \
-                            /*input*/, int,                set_priority, /*scalar*/, minus1, \
-                            /*input*/, uvm_sequencer_base, sequencer,    /*scalar*/, null) \
+  `SVMOCK_TASK3(start_item,,uvm_sequence_item,item,,,,int,set_priority,,minus1,,uvm_sequencer_base,sequencer,,null) \
  \
-  `SVMOCK_TASK2(finish_item, /*input*/, uvm_sequence_item,  item,         /*scalar*/, /*no-default*/, \
-                             /*input*/, int,                set_priority, /*scalar*/, minus1) \
+  `SVMOCK_TASK2(finish_item,, uvm_sequence_item,  item,,, \
+                            , int,                set_priority,,minus1) \
  \
-  `SVMOCK_TASK4(start, /*input*/, uvm_sequencer_base, sequencer, /*scalar*/, /*no-default*/, \
-                       /*input*/, uvm_sequence_base,  parent_sequence, /*scalar*/, null, \
-                       /*input*/, int,                this_priority, /*scalar*/, minus1, \
-                       /*input*/, bit,                call_pre_post, /*scalar*/, minus1) \
+  `SVMOCK_TASK4(start,, uvm_sequencer_base, sequencer,,, \
+                      , uvm_sequence_base,  parent_sequence,,null, \
+                      , int,                this_priority,,minus1, \
+                      , bit,                call_pre_post,,minus1) \
  \
   `SVMOCK_MAP_TASK4(start,_start) \
   virtual task _start (uvm_sequencer_base sequencer, \
@@ -46,4 +45,5 @@
     disable fork; \
   endtask \
  \
-`SVMOCK_END \
+`SVMOCK_END
+`endif

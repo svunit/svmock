@@ -44,7 +44,7 @@ module apb_sequence_unit_test;
     /* Place Setup Code Here */
     `ON_CALL(uut, start).will_by_default("_start");
 
-    uut.randomize();
+    void'(uut.randomize());
   endtask
 
 
@@ -75,18 +75,18 @@ module apb_sequence_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
-  `SVTEST(start)
+  `SVTEST(start_and_finish)
     `EXPECT_CALL(uut, start_item).exactly(uut.num_transactions);
     `EXPECT_CALL(uut, start_item).at_most(10);
     `EXPECT_CALL(uut, start_item).at_least(7);
 
     `EXPECT_CALL(uut, finish_item).exactly(uut.num_transactions);
 
-    uut.start(uut.sqr);
+    uut.start(null);
   `SVTEST_END
 
   `SVTEST(req_constraints)
-    uut.start(uut.sqr);
+    uut.start(null);
 
     repeat (uut.num_transactions) begin
       uut.get_response(req);
