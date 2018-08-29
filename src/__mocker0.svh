@@ -10,12 +10,12 @@ function void called(); \
 endfunction \
 function void with_args(); \
 endfunction \
-function bit check(); \
+function bit verify(); \
   string error_signature [int]; \
-  check = super.check(); \
+  verify = super.verify(); \
   foreach (error_signature[i]) $display(error_signature[i]); \
   clear(); \
-  return check; \
+  return verify; \
 endfunction \
 virtual function void clear(); \
   super.clear; \

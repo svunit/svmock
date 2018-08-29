@@ -88,65 +88,65 @@ module times_unit_test;
   `SVTEST(functionTimesExactly)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).exactly(2);
     ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).exactly(2);
     repeat (2) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).exactly(2);
     repeat (3) ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVTEST(functionTimesAtLeast)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_least(2);
     ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_least(2);
     repeat (2) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_least(2);
     repeat (3) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVTEST(functionTimesAtMost)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_most(2);
     ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_most(2);
     repeat (2) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).at_most(2);
     repeat (3) ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVTEST(functionTimesBetween)
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
     ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
     repeat (2) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
     repeat (3) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
     repeat (4) ut.functionNoArgReturnVoid();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, functionNoArgReturnVoid).between(2, 4);
     repeat (5) ut.functionNoArgReturnVoid();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
 
@@ -157,65 +157,65 @@ module times_unit_test;
   `SVTEST(taskTimesExactly)
     `EXPECT_CALL(ut, taskNoArg).exactly(2);
     ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).exactly(2);
     repeat (2) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).exactly(2);
     repeat (3) ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVTEST(taskTimesAtLeast)
     `EXPECT_CALL(ut, taskNoArg).at_least(2);
     ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).at_least(2);
     repeat (2) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).at_least(2);
     repeat (3) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVTEST(taskTimesAtMost)
     `EXPECT_CALL(ut, taskNoArg).at_most(2);
     ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).at_most(2);
     repeat (2) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).at_most(2);
     repeat (3) ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVTEST(taskTimesBetween)
     `EXPECT_CALL(ut, taskNoArg).between(2, 4);
     ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).between(2, 4);
     repeat (2) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).between(2, 4);
     repeat (3) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).between(2, 4);
     repeat (4) ut.taskNoArg();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
 
     `EXPECT_CALL(ut, taskNoArg).between(2, 4);
     repeat (5) ut.taskNoArg();
-    `FAIL_IF(ut.check());
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVUNIT_TESTS_END

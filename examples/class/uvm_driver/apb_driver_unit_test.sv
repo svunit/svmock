@@ -80,7 +80,7 @@ module apb_driver_unit_test;
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
-    `FAIL_UNLESS(mock_seq_item_port.check());
+    `FAIL_UNLESS(mock_seq_item_port.verify());
 
     ->stop_fuse;
 

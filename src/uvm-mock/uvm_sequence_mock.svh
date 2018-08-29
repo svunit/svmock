@@ -5,10 +5,10 @@
 class SEQUENCE_TYPE``_mock #(type T=int) extends SEQUENCE_TYPE; \
   typedef SEQUENCE_TYPE``_mock #(T) PARENT; \
   __mocker __mockers [$]; \
-  function bit check(); \
-    check = 1; \
+  function bit verify(); \
+    verify = 1; \
     foreach (__mockers[i]) begin \
-      check &= __mockers[i].check(); \
+      verify &= __mockers[i].verify(); \
     end \
   endfunction \
   function void clear(); \

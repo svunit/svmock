@@ -56,7 +56,7 @@ module apb_sequence_unit_test;
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
-    `FAIL_UNLESS(uut.check())
+    `FAIL_UNLESS(uut.verify())
   endtask
 
 

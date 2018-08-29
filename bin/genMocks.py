@@ -175,12 +175,12 @@ def base_mocker_class(numargs, fout):
                  with_property_assignments(numargs, 'exp') +
               'endfunction \\\n' +
 
-              'function bit check(); \\\n' +                               # check
+              'function bit verify(); \\\n' +                               # verify
               '  string error_signature [int]; \\\n' +
-              '  check = super.check(); \\\n' +
+              '  verify = super.verify(); \\\n' +
                  with_property_check(numargs) +
               '  clear(); \\\n' +
-              '  return check; \\\n' +
+              '  return verify; \\\n' +
               'endfunction \\\n' +
 
               'virtual function void clear(); \\\n' +                              # clear
@@ -326,7 +326,7 @@ def with_property_check(numargs):
     ret += '      else \\\n'
     ret += '        $sformat(error_signature[i], "%s\\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_' + str(j) + '[i].as_string()); \\\n'
     ret += '    end \\\n'
-    ret += '    check &= comp; \\\n'
+    ret += '    verify &= comp; \\\n'
     ret += '  end \\\n'
 
   ret += '  foreach (error_signature[i]) $display(error_signature[i]); \\\n'

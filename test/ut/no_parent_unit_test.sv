@@ -72,21 +72,21 @@ module no_parent_unit_test;
     `EXPECT_CALL(ut, vfunc0).exactly(1);
 
     ut.vfunc0();
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVTEST(vfunc1)
     `EXPECT_CALL(ut, vfunc1).exactly(1);
 
     ut.vfunc1(1);
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVTEST(func0)
     `EXPECT_CALL(ut, func0).exactly(1);
 
     void'(ut.func0());
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVTEST(func1)
@@ -94,7 +94,7 @@ module no_parent_unit_test;
     `EXPECT_CALL(ut, func1).exactly(1);
 
     void'(ut.func1(x));
-    `FAIL_UNLESS(ut.check());
+    `FAIL_UNLESS(ut.verify());
   `SVTEST_END
 
   `SVUNIT_TESTS_END

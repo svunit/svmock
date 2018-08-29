@@ -108,9 +108,9 @@ function void with_args(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1,DIR2 TYPE2 ARG
     __with_6.push_back(__w); \
   end \
 endfunction \
-function bit check(); \
+function bit verify(); \
   string error_signature [int]; \
-  check = super.check(); \
+  verify = super.verify(); \
   for (int i=0; i<__with_0.size(); i+=1) begin \
     bit comp = __with_0[i].compare(); \
     if (!comp) begin \
@@ -124,7 +124,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_0[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_1.size(); i+=1) begin \
     bit comp = __with_1[i].compare(); \
@@ -139,7 +139,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_1[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_2.size(); i+=1) begin \
     bit comp = __with_2[i].compare(); \
@@ -154,7 +154,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_2[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_3.size(); i+=1) begin \
     bit comp = __with_3[i].compare(); \
@@ -169,7 +169,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_3[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_4.size(); i+=1) begin \
     bit comp = __with_4[i].compare(); \
@@ -184,7 +184,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_4[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_5.size(); i+=1) begin \
     bit comp = __with_5[i].compare(); \
@@ -199,7 +199,7 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_5[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   for (int i=0; i<__with_6.size(); i+=1) begin \
     bit comp = __with_6[i].compare(); \
@@ -214,11 +214,11 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_6[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   foreach (error_signature[i]) $display(error_signature[i]); \
   clear(); \
-  return check; \
+  return verify; \
 endfunction \
 virtual function void clear(); \
   super.clear; \

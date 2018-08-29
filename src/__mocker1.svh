@@ -24,9 +24,9 @@ function void with_args(DIR0 TYPE0 ARG0 MOD0); \
     __with_0.push_back(__w); \
   end \
 endfunction \
-function bit check(); \
+function bit verify(); \
   string error_signature [int]; \
-  check = super.check(); \
+  verify = super.verify(); \
   for (int i=0; i<__with_0.size(); i+=1) begin \
     bit comp = __with_0[i].compare(); \
     if (!comp) begin \
@@ -40,11 +40,11 @@ function bit check(); \
       else \
         $sformat(error_signature[i], "%s\n                                     %s::%s: (%s)", error_signature[i], _name, _arg, __with_0[i].as_string()); \
     end \
-    check &= comp; \
+    verify &= comp; \
   end \
   foreach (error_signature[i]) $display(error_signature[i]); \
   clear(); \
-  return check; \
+  return verify; \
 endfunction \
 virtual function void clear(); \
   super.clear; \

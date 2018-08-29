@@ -90,26 +90,26 @@ package svmock_pkg;
     // checking
     //----------
 
-    virtual function bit check();
+    virtual function bit verify();
       string error_signature;
 
-      check = 1;
+      verify = 1;
       if ((timesExactlyExp >= 0) && (timesCnt != timesExactlyExp)) begin
         $sformat(error_signature, "%sEXPECT_CALL::exactly.miscompare %s: (exactly:%0d act:%0d)", error_signature, name, timesExactlyExp, timesCnt);
-        check = 0;
+        verify = 0;
       end
       if ((timesAtLeastExp >= 0) && (timesCnt < timesAtLeastExp)) begin
         $sformat(error_signature, "%sEXPECT_CALL::at_least.miscompare %s: (at_least:%0d act:%0d)", error_signature, name, timesAtLeastExp, timesCnt);
-        check = 0;
+        verify = 0;
       end
       if ((timesAtMostExp  >= 0) && (timesCnt > timesAtMostExp)) begin
         $sformat(error_signature, "%sEXPECT_CALL::at_most.miscompare %s: (at_most:%0d act:%0d)", error_signature, name, timesAtMostExp, timesCnt);
-        check = 0;
+        verify = 0;
       end
 
-      if (!check) $display("%s", error_signature);
+      if (!verify) $display("%s", error_signature);
 
-      return check;
+      return verify;
     endfunction
 
     //-------------

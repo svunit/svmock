@@ -14,10 +14,10 @@ class uvm_seq_item_pull_port_mock #(type T=int) extends item_pull_port_t;
   typedef uvm_seq_item_pull_port_mock #(T) PARENT;
   __mocker __mockers [$];
 
-  function bit check();
-    check = 1;
+  function bit verify();
+    verify = 1;
     foreach (__mockers[i]) begin
-      check &= __mockers[i].check();
+      verify &= __mockers[i].verify();
     end
   endfunction
 
