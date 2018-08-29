@@ -24,7 +24,7 @@ module apb_driver_unit_test;
   `CLK_RESET_FIXTURE(5, 11)
 
   apb_driver uut;
-  uvm_seq_item_pull_port_mock mock_seq_item_port;
+  uvm_seq_item_pull_port_mock #(apb_item) mock_seq_item_port;
   apb_item _item, rsp;
 
   apb_if _if(.clk(clk), .rst_n(rst_n));
