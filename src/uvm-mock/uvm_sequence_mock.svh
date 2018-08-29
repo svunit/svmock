@@ -1,12 +1,27 @@
 `ifndef SVMOCK_UVM_SEQUENCE
 `define SVMOCK_UVM_SEQUENCE(SEQUENCE_TYPE) \
-`SVMOCK(SEQUENCE_TYPE``_mock,SEQUENCE_TYPE) \
+`define SEQUENCE_TYPE``_mock_``SEQUENCE_TYPE \
+`define MOCKTYPE SEQUENCE_TYPE``_mock_``SEQUENCE_TYPE \
+class SEQUENCE_TYPE``_mock #(type T=int) extends SEQUENCE_TYPE; \
+  typedef SEQUENCE_TYPE``_mock #(T) PARENT; \
+  __mocker __mockers [$]; \
+  function bit check(); \
+    check = 1; \
+    foreach (__mockers[i]) begin \
+      check &= __mockers[i].check(); \
+    end \
+  endfunction \
+  function void clear(); \
+    foreach (__mockers[i]) begin \
+      __mockers[i].clear(); \
+    end \
+  endfunction \
  \
-  `uvm_object_utils(SEQUENCE_TYPE``_mock) \
+  `uvm_object_utils(SEQUENCE_TYPE``_mock#(T)) \
  \
   const int signed minus1 = -1; \
  \
-  uvm_sequencer #(apb_item) sqr; \
+  uvm_sequencer #(T) sqr; \
   function new(string name = `"SEQUENCE_TYPE`"); \
     super.new(name); \
  \
@@ -33,7 +48,7 @@
  \
     fork \
       forever begin \
-        apb_item _item; \
+        T _item; \
  \
         sqr.get_next_item(_item); \
         sqr.item_done(_item); \

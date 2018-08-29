@@ -22,7 +22,7 @@ module apb_sequence_unit_test;
   //===================================
   `SVMOCK_UVM_SEQUENCE(apb_sequence)
 
-  apb_sequence_mock uut;
+  apb_sequence_mock #(apb_item) uut;
   apb_item req;
 
 
