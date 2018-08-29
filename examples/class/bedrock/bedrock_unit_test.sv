@@ -51,7 +51,7 @@ module bedrock_unit_test;
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
-    `FAIL_UNLESS(mock_f.check());
+    `FAIL_UNLESS(mock_f.verify());
   endtask
 
 

@@ -117,7 +117,7 @@ It's also required that the reseting and checking of the mock be invoked inside 
     svunit_ut.teardown();
     /* Place Teardown Code Here */
 
-    `FAIL_UNLESS(mock_f.check());
+    `FAIL_UNLESS(mock_f.verify());
   endtask
 ```
 
@@ -217,7 +217,7 @@ There's a different macro available for each possible method type.
 
 # Initialization and Checking
 
-To ensure the mock state is reset for each test, the `clear()` function for the mock should be called in the `setup()` method of the unit test template. Similarly, for the checking to be invoked it's necessary to call the `check()` function in the mock. `check()` will return 1 (true) when expectations are met, 0 (false) otherwise). It's recommended you can call `check()` in the teardown method so it's automatically invoked at the end of each test.
+To ensure the mock state is reset for each test, the `clear()` function for the mock should be called in the `setup()` method of the unit test template. Similarly, for the checking to be invoked it's necessary to call the `verify()` function in the mock. `verify()` will return 1 (true) when expectations are met, 0 (false) otherwise). It's recommended you can call `verify()` in the teardown method so it's automatically invoked at the end of each test.
 
 # Future Development
 
