@@ -171,6 +171,10 @@ def base_mocker_class(numargs, fout):
                  with_property_assignments(numargs) +
               'endfunction \\\n' +
 
+              matchDecl(numargs) + ' \\\n' +                # match
+              '  checkMatch = 1; \\\n' + 
+              'endfunction \\\n' +
+
               functionDecl('with_args',numargs) + ' \\\n' +                # with
                  with_property_assignments(numargs, 'exp') +
               'endfunction \\\n' +
@@ -179,6 +183,7 @@ def base_mocker_class(numargs, fout):
               '  string error_signature [int]; \\\n' +
               '  verify = super.verify(); \\\n' +
                  with_property_check(numargs) +
+              '  if (checkMatch) verify = 0; \\\n' +
               '  clear(); \\\n' +
               '  return verify; \\\n' +
               'endfunction \\\n' +
@@ -361,6 +366,17 @@ def allArgString(numargs, delim=' ', prefix='', default=''):
 
 def functionDecl(name,numargs,type='void'):
   return 'function %s %s(%s);' % (type, name, allArgString(numargs))
+
+def matchDecl(numargs,type='void'):
+  matchDecl = 'function void match_args('
+  if numargs > 0:
+    for j in range(0,numargs):
+      matchDecl += 'svmock_matcher ARG%0d' % j
+      if (j < numargs-1):
+        matchDecl += ', '
+  matchDecl += ');'
+
+  return matchDecl
 
 def taskDecl(name,numargs):
   return 'task %s(%s);' % (name, allArgString(numargs))

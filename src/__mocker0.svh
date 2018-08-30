@@ -8,12 +8,16 @@ endfunction \
 function void called(); \
   timesCnt += 1; \
 endfunction \
+function void match_args(); \
+  checkMatch = 1; \
+endfunction \
 function void with_args(); \
 endfunction \
 function bit verify(); \
   string error_signature [int]; \
   verify = super.verify(); \
   foreach (error_signature[i]) $display(error_signature[i]); \
+  if (checkMatch) verify = 0; \
   clear(); \
   return verify; \
 endfunction \

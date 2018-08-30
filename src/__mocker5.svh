@@ -53,6 +53,9 @@ function void called(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1,DIR2 TYPE2 ARG2 M
     end \
   end \
 endfunction \
+function void match_args(svmock_matcher ARG0, svmock_matcher ARG1, svmock_matcher ARG2, svmock_matcher ARG3, svmock_matcher ARG4); \
+  checkMatch = 1; \
+endfunction \
 function void with_args(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1,DIR2 TYPE2 ARG2 MOD2,DIR3 TYPE3 ARG3 MOD3,DIR4 TYPE4 ARG4 MOD4); \
   begin \
     ARG0``__with __w = new(); \
@@ -159,6 +162,7 @@ function bit verify(); \
     verify &= comp; \
   end \
   foreach (error_signature[i]) $display(error_signature[i]); \
+  if (checkMatch) verify = 0; \
   clear(); \
   return verify; \
 endfunction \

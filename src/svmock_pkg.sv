@@ -3,6 +3,13 @@
 
 package svmock_pkg;
   typedef class __mocker;
+  typedef class svmock_matcher;
+
+  function svmock_matcher int_eq(int eq);
+  endfunction
+
+  class svmock_matcher;
+  endclass
 
   class base__with;
     string mybase_type;
@@ -56,6 +63,7 @@ package svmock_pkg;
     int signed timesAtMostExp = -1;
 
     bit checkWith = 0;
+    bit checkMatch = 0;
     bit overrideReturn = 0;
 
     function new(string name, ref __mocker __mockers[$]);
@@ -124,6 +132,7 @@ package svmock_pkg;
       overrideReturn = 0;
 
       checkWith = 0;
+      checkMatch = 0;
     endfunction
   endclass
 
