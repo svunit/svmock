@@ -17,6 +17,6 @@ ver="v0.$1"
 echo "SVMock $ver" > VERSION.txt
 git add VERSION.txt
 git commit -m "for $ver"
-git tag -a $ver -m "$ver"
+git tag -a svmock-$ver -m "$ver"
 git push --tags
 git push
