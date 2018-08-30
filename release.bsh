@@ -1,0 +1,22 @@
+#!/bin/bash
+
+###########################################################
+#  Use this to release a new version of svmock to github  #
+#                                                         #
+#  eg. release.bsh 5                                      #
+#       - release version 0.5 of svmock                   #
+###########################################################
+
+if [ "$1" == "" ]; then
+  echo "Error: No release specified"
+  exit 1
+fi
+
+ver="v0.$1"
+
+echo "SVMock $ver" > VERSION.txt
+git add VERSION.txt
+git commit -m "for $ver"
+git tag -a $ver -m "$ver"
+git push --tags
+git push
