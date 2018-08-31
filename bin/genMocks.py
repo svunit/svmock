@@ -164,15 +164,17 @@ def base_mocker_class(numargs, fout):
               '  parent = _parent; \\\n' +
               'endfunction \\\n' +
 
-              with_comparison_properties(numargs) +
+              comparison_properties(numargs) +
 
               functionDecl('called',numargs) + ' \\\n' +                   # called
               '  timesCnt += 1; \\\n' +
                  with_property_assignments(numargs) +
+                 match_property_assignments(numargs) +
               'endfunction \\\n' +
 
               matchDecl(numargs) + ' \\\n' +                # match
               '  checkMatch = 1; \\\n' + 
+                 match_property_assignments(numargs, 'exp') +
               'endfunction \\\n' +
 
               functionDecl('with_args',numargs) + ' \\\n' +                # with
@@ -182,7 +184,7 @@ def base_mocker_class(numargs, fout):
               'function bit verify(); \\\n' +                               # verify
               '  string error_signature [int]; \\\n' +
               '  verify = super.verify(); \\\n' +
-                 with_property_check(numargs) +
+                 comparison_check(numargs) +
               '  if (checkMatch) verify = 0; \\\n' +
               '  clear(); \\\n' +
               '  return verify; \\\n' +
@@ -190,7 +192,7 @@ def base_mocker_class(numargs, fout):
 
               'virtual function void clear(); \\\n' +                              # clear
               '  super.clear; \\\n' +
-                 with_property_clear(numargs) +
+                 comparison_clear(numargs) +
               'endfunction \\\n' +
 
               'endclass\n\n')
@@ -288,7 +290,7 @@ def task_mocker_class(numargs, fout):
 ###### HELPER FUNCTIONS ########
 ################################
 
-def with_comparison_properties(numargs):
+def comparison_properties(numargs):
   ret = ''
   for j in range(0,numargs):
     ret += '`MOCKER_WITH(NAME,ARG%0d,TYPE%0d,MOD%0d) \\\n' % (j,j,j)
@@ -313,14 +315,29 @@ def with_property_assignments(numargs, type='act'):
       ret += '      break; \\\n'
       ret += '    end \\\n'
       ret += '  end \\\n'
+
   return ret
 
-def with_property_check(numargs):
+def match_property_assignments(numargs, type='act'):
+  ret = ''
+  if (type == 'exp'):
+    for j in range(0,numargs):
+      ret += '  begin \\\n'
+      ret += '    ARG%0d``__with __w = new(); \\\n' % j
+      ret += '    __w.matcher = ARG%0d; \\\n' % j
+      ret += '    __with_%0d.push_back(__w); \\\n' % (j)
+      ret += '  end \\\n'
+  else:
+    pass
+
+  return ret
+
+def comparison_check(numargs):
   ret = ''
   for j in range(0,numargs):
     ret += '  for (int i=0; i<__with_%0d.size(); i+=1) begin \\\n' % j
     ret += '    bit comp = __with_%0d[i].compare(); \\\n' % j
-    ret += '    if (!comp) begin \\\n'
+    ret += '    if (!comp && __with_%0d[i].matcher == null) begin \\\n' % j
     ret += '      string _name = `"NAME`"; \\\n'
     ret += '      string _arg = `"ARG%0d`"; \\\n' % j
     ret += '      if (!error_signature.exists(i)) begin \\\n'
@@ -338,7 +355,7 @@ def with_property_check(numargs):
 
   return ret
 
-def with_property_clear(numargs):
+def comparison_clear(numargs):
   ret = ''
   for j in range(0,numargs):
     ret += '  __with_%0d.delete(); \\\n' % j

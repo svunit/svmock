@@ -95,10 +95,16 @@ module match_unit_test;
   //---------------------------------
   //          eq matches
   //---------------------------------
-  `SVTEST(WithArgsAppliedOnce)
+  `SVTEST(MatchArgsEqPass)
     `EXPECT_CALL(ut, functionIntArgReturnVoid).match_args(int_eq(3));
     ut.functionIntArgReturnVoid(3);
     `FAIL_UNLESS(ut.verify());
+  `SVTEST_END
+
+  `SVTEST(MatchArgsEqFail)
+    `EXPECT_CALL(ut, functionIntArgReturnVoid).match_args(int_eq(2));
+    ut.functionIntArgReturnVoid(3);
+    `FAIL_IF(ut.verify());
   `SVTEST_END
 
   `SVUNIT_TESTS_END

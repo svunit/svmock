@@ -73,6 +73,41 @@ function void called(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1,DIR2 TYPE2 ARG2 M
 endfunction \
 function void match_args(svmock_matcher ARG0, svmock_matcher ARG1, svmock_matcher ARG2, svmock_matcher ARG3, svmock_matcher ARG4, svmock_matcher ARG5, svmock_matcher ARG6); \
   checkMatch = 1; \
+  begin \
+    ARG0``__with __w = new(); \
+    __w.matcher = ARG0; \
+    __with_0.push_back(__w); \
+  end \
+  begin \
+    ARG1``__with __w = new(); \
+    __w.matcher = ARG1; \
+    __with_1.push_back(__w); \
+  end \
+  begin \
+    ARG2``__with __w = new(); \
+    __w.matcher = ARG2; \
+    __with_2.push_back(__w); \
+  end \
+  begin \
+    ARG3``__with __w = new(); \
+    __w.matcher = ARG3; \
+    __with_3.push_back(__w); \
+  end \
+  begin \
+    ARG4``__with __w = new(); \
+    __w.matcher = ARG4; \
+    __with_4.push_back(__w); \
+  end \
+  begin \
+    ARG5``__with __w = new(); \
+    __w.matcher = ARG5; \
+    __with_5.push_back(__w); \
+  end \
+  begin \
+    ARG6``__with __w = new(); \
+    __w.matcher = ARG6; \
+    __with_6.push_back(__w); \
+  end \
 endfunction \
 function void with_args(DIR0 TYPE0 ARG0 MOD0,DIR1 TYPE1 ARG1 MOD1,DIR2 TYPE2 ARG2 MOD2,DIR3 TYPE3 ARG3 MOD3,DIR4 TYPE4 ARG4 MOD4,DIR5 TYPE5 ARG5 MOD5,DIR6 TYPE6 ARG6 MOD6); \
   begin \
@@ -116,7 +151,7 @@ function bit verify(); \
   verify = super.verify(); \
   for (int i=0; i<__with_0.size(); i+=1) begin \
     bit comp = __with_0[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_0[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG0`"; \
       if (!error_signature.exists(i)) begin \
@@ -131,7 +166,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_1.size(); i+=1) begin \
     bit comp = __with_1[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_1[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG1`"; \
       if (!error_signature.exists(i)) begin \
@@ -146,7 +181,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_2.size(); i+=1) begin \
     bit comp = __with_2[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_2[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG2`"; \
       if (!error_signature.exists(i)) begin \
@@ -161,7 +196,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_3.size(); i+=1) begin \
     bit comp = __with_3[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_3[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG3`"; \
       if (!error_signature.exists(i)) begin \
@@ -176,7 +211,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_4.size(); i+=1) begin \
     bit comp = __with_4[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_4[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG4`"; \
       if (!error_signature.exists(i)) begin \
@@ -191,7 +226,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_5.size(); i+=1) begin \
     bit comp = __with_5[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_5[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG5`"; \
       if (!error_signature.exists(i)) begin \
@@ -206,7 +241,7 @@ function bit verify(); \
   end \
   for (int i=0; i<__with_6.size(); i+=1) begin \
     bit comp = __with_6[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_6[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG6`"; \
       if (!error_signature.exists(i)) begin \

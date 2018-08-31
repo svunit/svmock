@@ -19,6 +19,12 @@ function void called(DIR0 TYPE0 ARG0 MOD0); \
 endfunction \
 function void match_args(svmock_matcher ARG0); \
   checkMatch = 1; \
+  begin \
+    ARG0``__with __w = new(); \
+    __w.matcher = ARG0; \
+if (__w.matcher == null) $display("WHACK"); \
+    __with_0.push_back(__w); \
+  end \
 endfunction \
 function void with_args(DIR0 TYPE0 ARG0 MOD0); \
   begin \
@@ -32,7 +38,7 @@ function bit verify(); \
   verify = super.verify(); \
   for (int i=0; i<__with_0.size(); i+=1) begin \
     bit comp = __with_0[i].compare(); \
-    if (!comp) begin \
+    if (!comp && __with_0[i].matcher == null) begin \
       string _name = `"NAME`"; \
       string _arg = `"ARG0`"; \
       if (!error_signature.exists(i)) begin \

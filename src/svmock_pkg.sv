@@ -4,11 +4,53 @@
 package svmock_pkg;
   typedef class __mocker;
   typedef class svmock_matcher;
+  typedef class svmock_int_matcher;
 
-  function svmock_matcher int_eq(int eq);
+
+  function bit is_svmock_int_matcher(svmock_matcher _matcher);
+    svmock_int_matcher int_matcher;
+    if ($cast(int_matcher, _matcher)) return 1;
+    else return 0;
+  endfunction
+
+  function svmock_matcher int_eq(int val);
+    svmock_int_matcher _m = new();
+    _m.eq(val);
+    return _m;
   endfunction
 
   class svmock_matcher;
+    virtual function bit compare();
+      return 0;
+    endfunction
+  endclass
+
+  class svmock_int_matcher extends svmock_matcher;
+    enum int {
+               NONE,
+               EQ
+             } select;
+
+    bit [127:0] act;
+    bit [127:0] exp;
+
+    function new();
+      super.new();
+      select = NONE;
+    endfunction
+
+    function eq(int val);
+      select = EQ;
+      exp = val;
+    endfunction
+
+    function bit compare();
+$display("RETURNING %0d (%0d v. %0d)", act == exp, act, exp);
+      case (select)
+        EQ: return act == exp;
+        NONE: return 1;
+      endcase
+    endfunction
   endclass
 
   class base__with;
