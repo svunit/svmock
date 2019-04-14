@@ -1,0 +1,9 @@
+# SVUnit framwork files
+.__testsuite.sv
+.testrunner.sv
+.svunit.f
+run.log
+
+# Xcelium temp files
+xcelium.d
+run.history
