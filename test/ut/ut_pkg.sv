@@ -8,4 +8,5 @@ package ut_pkg;
   `include "mock_call.sv"
   `include "mock_second_no_parent.sv"
   `include "mock_second.sv"
+  `include "mock_interface_class.sv"
 endpackage
