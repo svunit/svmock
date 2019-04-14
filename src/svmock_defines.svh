@@ -2,14 +2,18 @@
 // MOCK CLASS MACROS
 //-------------------
 
-`define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT) \
+`define SVMOCK(MOCK,ORIGINAL=HAS_NO_PARENT,RELATION=extends) \
 `define MOCK``_``ORIGINAL \
+`define MOCK``_``RELATION \
 `define MOCKTYPE MOCK``_``ORIGINAL \
+`ifdef MOCK``_implements \
+`define MOCKTYPE_HAS_NO_PARENT \
+`endif \
 `ifdef MOCK``_HAS_NO_PARENT \
 `define MOCKTYPE_HAS_NO_PARENT \
 class MOCK; \
 `else \
-class MOCK extends ORIGINAL; \
+class MOCK RELATION ORIGINAL; \
 `endif \
   typedef MOCK PARENT; \
   __mocker __mockers [$]; \
